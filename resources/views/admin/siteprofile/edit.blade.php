@@ -9,7 +9,7 @@
         </div>
         <div class="portlet-body">
             <!-- BEGIN FORM-->
-            <form action="#" id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+            <form action="#" id="form_sample_1" class="form-horizontal" method="post" novalidate="novalidate">
                 <div class="form-body">
                     <div class="alert alert-danger display-hide">
                         <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
