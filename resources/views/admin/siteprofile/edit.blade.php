@@ -53,54 +53,78 @@
                             <input type="text" name="mobileno" data-required="1" class="form-control"  placeholder="Enter Mobile Number"> 
                         </div>
                         <div class="col-md-3">
-	                        <label class="control-label">Email
+	                        <label class="control-label">Lane Line Number One
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
-	                       	 <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
+	                       	 <input type="text" name="phoneone" data-required="1" class="form-control"  placeholder="Enter Lane Line Number One"> 
 	                    </div>
 	                     <div class="col-md-3">
-	                        <label class="control-label">Email
+	                        <label class="control-label">Lane Line Number Two
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
-	                       	 <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
+	                       	 <input type="text" name="phonetwo" data-required="1" class="form-control"  placeholder="Enter Lane Line Number Two"> 
 	                    </div>
 	                    <div class="col-md-3">
-	                        <label class="control-label">Name
+	                        <label class="control-label">Copyright Text
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
-                            <input type="text" name="name" data-required="1" class="form-control" placeholder="Enter"> 
+                            <input type="text" name="copytext" data-required="1" class="form-control" placeholder="Enter Copyright Text"> 
                         </div>
                         <div class="col-md-3">
-	                        <label class="control-label">Name
+	                        <label class="control-label">Facebook Link
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
-                            <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
+                            <input type="text" name="facebook" data-required="1" class="form-control"  placeholder="Enter Facebook Link"> 
                         </div>
                         <div class="col-md-3">
-	                        <label class="control-label">Email
+	                        <label class="control-label">Twitter Link
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
-	                       	 <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
+	                       	 <input type="text" name="twitter" data-required="1" class="form-control"  placeholder="Enter Twitter Link"> 
 	                    </div>
 	                     <div class="col-md-3">
-	                        <label class="control-label">Email
+	                        <label class="control-label">Youtube Link
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
-	                       	 <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
+	                       	 <input type="text" name="youtube" data-required="1" class="form-control"  placeholder="Enter Youtube Link"> 
 	                    </div>
 	                    <div class="col-md-3">
-	                        <label class="control-label">Name
+	                        <label class="control-label">Linkedin Link
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
-                            <input type="text" name="name" data-required="1" class="form-control" placeholder="Enter"> 
+                            <input type="text" name="linkedin" data-required="1" class="form-control" placeholder="Enter Linkedin Link"> 
                         </div>
                         <div class="col-md-3">
-	                        <label class="control-label">Name
+	                        <label class="control-label">Instagram Link
+	                            <span class="required" aria-required="true"> * </span>
+	                        </label>
+                            <input type="text" name="Link" data-required="1" class="form-control"  placeholder="Enter Instagram Link"> 
+                        </div>
+                        <div class="col-md-3">
+	                        <label class="control-label">Site Owner Name
+	                            <span class="required" aria-required="true"> * </span>
+	                        </label>
+	                       	 <input type="text" name="owner" data-required="1" class="form-control"  placeholder="Enter Site Owner Name"> 
+	                    </div>
+	                    <div class="col-md-3">
+	                        <label class="control-label">Meta Title Seo
+	                            <span class="required" aria-required="true"> * </span>
+	                        </label>
+	                       	 <input type="text" name="metatitle" data-required="1" class="form-control"  placeholder="Enter Meta Title Seo"> 
+	                    </div>
+	                    <div class="col-md-3">
+	                        <label class="control-label">Meta Title Description
+	                            <span class="required" aria-required="true"> * </span>
+	                        </label>
+                            <input type="text" name="metadescription" data-required="1" class="form-control" placeholder="Enter Meta Title Description"> 
+                        </div>
+                        <div class="col-md-3">
+	                        <label class="control-label">Site Logo
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
                             <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
                         </div>
-                        <div class="col-md-3">
+                        <!-- <div class="col-md-3">
 	                        <label class="control-label">Email
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
@@ -111,31 +135,7 @@
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
 	                       	 <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
-	                    </div>
-	                    <div class="col-md-3">
-	                        <label class="control-label">Name
-	                            <span class="required" aria-required="true"> * </span>
-	                        </label>
-                            <input type="text" name="name" data-required="1" class="form-control" placeholder="Enter"> 
-                        </div>
-                        <div class="col-md-3">
-	                        <label class="control-label">Name
-	                            <span class="required" aria-required="true"> * </span>
-	                        </label>
-                            <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
-                        </div>
-                        <div class="col-md-3">
-	                        <label class="control-label">Email
-	                            <span class="required" aria-required="true"> * </span>
-	                        </label>
-	                       	 <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
-	                    </div>
-	                    <div class="col-md-3">
-	                        <label class="control-label">Email
-	                            <span class="required" aria-required="true"> * </span>
-	                        </label>
-	                       	 <input type="text" name="name" data-required="1" class="form-control"  placeholder="Enter"> 
-	                    </div>
+	                    </div> -->
                     </div>
                 </div>
                 <div class="form-actions">
