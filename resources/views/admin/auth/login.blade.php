@@ -8,7 +8,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>FACT NEPAL | LOGIN</title>
+        <title>FACT NEPAL | SECURE LOGIN </title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Preview page of Metronic Admin Theme #1 for " name="description" />
@@ -37,7 +37,6 @@
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
    <body class=" login">
-        <!-- BEGIN LOGO -->
         <div class="logo" style="text-align: center;">
         <h3 style="text-transform: uppercase; font-weight: 600;">
             <a href="javascript:void(0);" style="color:#fff; text-decoration: none;">
@@ -45,7 +44,6 @@
             </a>
             </h3>
         </div>
-        <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
@@ -100,13 +98,10 @@
                         <a href="javascript:;" id="forget-password"> {{ __('Forgot Your Password?') }} </a> @endif to reset your password. </p>
                 </div>
             </form>
-            <!-- END LOGIN FORM -->
-           
-            <!-- END REGISTRATION FORM -->
         </div>
         <!-- END LOGIN -->
         <!-- BEGIN COPYRIGHT -->
-        <div class="copyright"> 2014 &copy; Metronic - Admin Dashboard Template. </div>
+        <div class="copyright"> {{ date('Y')}} &copy; Naxa pvt ltd. </div>
         <!-- END COPYRIGHT -->
         <!--[if lt IE 9]>
             <script src="{{ asset('admin-panel/assets/plugins/respond.min.js') }}"></script>
