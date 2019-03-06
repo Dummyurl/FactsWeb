@@ -99,7 +99,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item {!! request()->is('admin/siteprofile/edit') ?'active open':'' !!}">
-                        <a href="{{ route('siteprofile.edit')}}" class="nav-link ">
+                        <a href="{{ route('admin.siteprofile.edit')}}" class="nav-link ">
                             <span class="title">Site Profile Update</span>
                         </a>
                     </li>
