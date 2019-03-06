@@ -10,17 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Route::view('/{path?}', 'app');
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
+});
+Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], function (){
+
+    Route::get('admin/dashboard',   		['as' =>'admin.dashboard',   	    'uses'=>'Admin\DashboardController@index']);
+    Route::get('admin/siteprofile', 		['as' =>'admin.siteprofile', 	    'uses'=>'Admin\SiteProfileController@index']);
+
+    Route::get('admin/siteprofile/edit',	    ['as'=>'siteprofile.edit',		'uses' =>'Admin\SiteProfileController@edit']);
+    Route::post('admin/siteprofile/update',		['as'=>'siteprofile.update',	'uses' =>'Admin\SiteProfileController@update']);
+
 });
 
 
-Route::get('admin/dashboard',   		['as' =>'admin.dashboard',   	    'uses'=>'Admin\DashboardController@index']);
-Route::get('admin/siteprofile', 		['as' =>'admin.siteprofile', 	    'uses'=>'Admin\SiteProfileController@index']);
-
-Route::get('admin/siteprofile/edit',	    ['as'=>'siteprofile.edit',		'uses' =>'Admin\SiteProfileController@edit']);
-Route::post('admin/siteprofile/update',		['as'=>'siteprofile.update',	'uses' =>'Admin\SiteProfileController@update']);
 // Route::post('admin/update/{id}',			['as'=>'category.update',		'uses' =>'Admin\CategoryController@update']);
 // Route::get('admin/update', 				['as' =>'admin.siteprofile',    'uses'=>'Admin\SiteProfileController@index']);
 
