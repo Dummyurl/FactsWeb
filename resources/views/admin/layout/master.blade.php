@@ -6,6 +6,7 @@
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
     @include('admin.includes.head')
+    @yield('css')
     <!-- END HEAD -->
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <div class="page-wrapper">
@@ -451,15 +452,17 @@
         <script src="{{ asset('admin-panel/assets/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
         
         <!-- END PAGE LEVEL assets/PLUGINS -->
+        @yield('js')
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="{{ asset('admin-panel/assets/jsglobal/app.min.js') }}" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
+        
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="{{ asset('admin-panel/assets/pages/scripts/dashboard.min.js') }}" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="{{ asset('admin-panel/assets/layouts/layout/scripts/layout.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('admin-panel/assets/layouts/layout/scripts/demo.min.js') }}" type="text/javascript"></script>
+       <!--  <script src="{{ asset('admin-panel/assets/layouts/layout/scripts/demo.min.js') }}" type="text/javascript"></script> -->
         <script src="{{ asset('admin-panel/assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('admin-panel/assets/layouts/global/scripts/quick-nav.min.js') }}" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->

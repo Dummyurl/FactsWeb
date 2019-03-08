@@ -10,28 +10,49 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::view('/{path?}', 'app');
+
 Route::get('/', function () {
     return view('app');
 });
-Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], function (){
-
-    Route::get('admin/dashboard',   		['as' =>'admin.dashboard',   	    'uses'=>'Admin\DashboardController@index']);
-    Route::get('admin/siteprofile', 		['as' =>'admin.siteprofile', 	    'uses'=>'Admin\SiteProfileController@index']);
-
-    Route::get('admin/siteprofile/edit',	    ['as'=>'siteprofile.edit',		'uses' =>'Admin\SiteProfileController@edit']);
-    Route::post('admin/siteprofile/update',		['as'=>'siteprofile.update',	'uses' =>'Admin\SiteProfileController@update']);
-
-});
-
 
 // Route::post('admin/update/{id}',			['as'=>'category.update',		'uses' =>'Admin\CategoryController@update']);
 // Route::get('admin/update', 				['as' =>'admin.siteprofile',    'uses'=>'Admin\SiteProfileController@index']);
 
 
+Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], function (){
+	Route::get('dashboard',   				['as' =>'dashboard',   	    			'uses'=>'Admin\DashboardController@index']);
+	Route::get('siteprofile', 				['as' =>'siteprofile', 	    			'uses'=>'Admin\SiteProfileController@index']);
+
+	Route::get('siteprofile/edit',	    	['as'=>'siteprofile.edit',				'uses' =>'Admin\SiteProfileController@edit']);
+	Route::post('siteprofile/update',		['as'=>'siteprofile.update',			'uses' =>'Admin\SiteProfileController@update']);
+	// Route::post('admin/update/{id}',		['as'=>'category.update',				'uses' =>'Admin\CategoryController@update']);
+	// Route::get('admin/update', 			['as' =>'admin.siteprofile',    		'uses'=>'Admin\SiteProfileController@index']);
+
+	Route::get('slider',					['as'=>'slider',						'uses' =>'Admin\SliderController@index']);
+	Route::get('slider/add',				['as'=>'slider.add',					'uses' =>'Admin\SliderController@add']);
+	Route::post('slider/store',				['as'=>'slider.store',					'uses' =>'Admin\SliderController@store']);
+	// Route::get('slider/edit/{id}',			['as'=>'slider.edit',				'uses' =>'Admin\SliderController@edit']);
+	// Route::post('slider/update/{id}',		['as'=>'slider.update',				'uses' =>'Admin\SliderController@update']);
+	// Route::get('slider/delete/{id}',		['as'=>'slider.delete',					'uses' =>'Admin\SliderController@delete']);
+
+	Route::get('facts',						['as'=>'facts',						'uses' =>'Admin\FactsController@index']);
+	Route::get('facts/add',				    ['as'=>'facts.add',			    	'uses' =>'Admin\FactsController@add']);
+	Route::post('facts/store',				['as'=>'facts.store',				'uses' =>'Admin\FactsController@store']);
+	Route::get('facts/edit/{id}',			['as'=>'facts.edit',				'uses' =>'Admin\FactsController@edit']);
+	Route::get('facts/delete/{id}',		    ['as'=>'facts.delete',				'uses' =>'Admin\FactsController@delete']);
+	Route::post('facts/update/{id}',		['as'=>'facts.update',				'uses' =>'Admin\FactsController@update']);
 
 
+	Route::get('factscategory',				['as'=>'factscategory',				'uses' =>'Admin\FactsController@addcat']);
+	// Route::get('factscategory/add',		['as'=>'facts.add',					'uses' =>'Admin\FactsController@add']);
+	Route::post('facts/storecat',			['as'=>'facts.storecat',			'uses' =>'Admin\FactsController@storecat']);
+	Route::get('facts/catlist',					['as'=>'facts.catlist',		    'uses' =>'Admin\FactsController@catlist']);
+	Route::get('sliderfacts/deletecat/{id}',	['as'=>'facts.deletecat',		'uses' =>'Admin\FactsController@deletecat']);
 
+});	
+
+
+Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 
 
 
