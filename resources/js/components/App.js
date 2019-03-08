@@ -5,8 +5,9 @@
     import Facts from './Facts';
     import Header from './Header'
     import LoaderBar from './LoaderBar';
-    import Slider from './Slider';
+    // import Slider from './Slider';
     import Slides from './Slides'
+    import PollData from './Polloftheday';
 
     class App extends Component {
         constructor(props){
@@ -21,6 +22,7 @@
             <div>
               <Header />
               <Slides />
+              <PollData />
                 <Facts />
                 
                 {/* <Slider /> */}
