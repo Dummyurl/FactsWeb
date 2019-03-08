@@ -31,12 +31,28 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::get('slider',					['as'=>'slider',						'uses' =>'Admin\SliderController@index']);
 	Route::get('slider/add',				['as'=>'slider.add',					'uses' =>'Admin\SliderController@add']);
 	Route::post('slider/store',				['as'=>'slider.store',					'uses' =>'Admin\SliderController@store']);
-	// Route::get('slider/edit/{id}',			['as'=>'slider.edit',					'uses' =>'Admin\SliderController@edit']);
-	// Route::post('slider/update/{id}',		['as'=>'slider.update',					'uses' =>'Admin\SliderController@update']);
+	// Route::get('slider/edit/{id}',			['as'=>'slider.edit',				'uses' =>'Admin\SliderController@edit']);
+	// Route::post('slider/update/{id}',		['as'=>'slider.update',				'uses' =>'Admin\SliderController@update']);
 	// Route::get('slider/delete/{id}',		['as'=>'slider.delete',					'uses' =>'Admin\SliderController@delete']);
+
+	Route::get('facts',						['as'=>'facts',						'uses' =>'Admin\FactsController@index']);
+	Route::get('facts/add',				    ['as'=>'facts.add',			    	'uses' =>'Admin\FactsController@add']);
+	Route::post('facts/store',				['as'=>'facts.store',				'uses' =>'Admin\FactsController@store']);
+	Route::get('facts/edit/{id}',			['as'=>'facts.edit',				'uses' =>'Admin\FactsController@edit']);
+	Route::get('facts/delete/{id}',		    ['as'=>'facts.delete',				'uses' =>'Admin\FactsController@delete']);
+	Route::post('facts/update/{id}',		['as'=>'facts.update',				'uses' =>'Admin\FactsController@update']);
+
+
+	Route::get('factscategory',				['as'=>'factscategory',				'uses' =>'Admin\FactsController@addcat']);
+	// Route::get('factscategory/add',		['as'=>'facts.add',					'uses' =>'Admin\FactsController@add']);
+	Route::post('facts/storecat',			['as'=>'facts.storecat',			'uses' =>'Admin\FactsController@storecat']);
+	Route::get('facts/catlist',					['as'=>'facts.catlist',		    'uses' =>'Admin\FactsController@catlist']);
+	Route::get('sliderfacts/deletecat/{id}',	['as'=>'facts.deletecat',		'uses' =>'Admin\FactsController@deletecat']);
+
 });	
 
 
+Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 
 
 

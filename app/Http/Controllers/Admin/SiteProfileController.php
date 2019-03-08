@@ -36,8 +36,11 @@ class SiteProfileController extends Controller
             'logo' => isset($image_name)?$image_name:$data['row']->logo
         ]);
         //dd($request->request->all());
-        //SiteProfile::create($request->request->all());
-        $data['row']->update($request->request->all());
+        if($data['row']) {
+            $data['row']->update($request->request->all());
+        }else{
+            SiteProfile::create($request->request->all());
+        }
         $request->session()->flash('success_message', 'Site Profile Update Succcessfully');
         return redirect()->route('admin.siteprofile.edit');
     }
