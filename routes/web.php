@@ -49,10 +49,18 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::get('facts/catlist',					['as'=>'facts.catlist',		    'uses' =>'Admin\FactsController@catlist']);
 	Route::get('sliderfacts/deletecat/{id}',	['as'=>'facts.deletecat',		'uses' =>'Admin\FactsController@deletecat']);
 
+	Route::get('publicpolllist',			['as'=>'publicpolllist',			'uses' =>'Admin\PublicPollController@index']);
+	Route::get('publicpoll/add',			['as'=>'publicpoll.add',			'uses' =>'Admin\PublicPollController@add']);
+	Route::get('publicpoll/store',			['as'=>'publicpoll.store',			'uses' =>'Admin\PublicPollController@store']);
+
 });	
 
 
-Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
+	Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
+	Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
+	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
+
+	
 
 
 
