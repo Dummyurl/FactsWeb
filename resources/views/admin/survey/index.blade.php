@@ -16,7 +16,7 @@
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption font-dark">
-          <a href="{{ route('admin.publicpoll.add') }}">
+          <a href="{{ route('admin.survey.add') }}">
             <button id="sample_editable_1_new" class="btn sbold green"> Add New
                 <i class="fa fa-plus"></i>
             </button>
@@ -60,13 +60,13 @@
 	                        </button>
 	                        <ul class="dropdown-menu" role="menu">
 	                            <li>
-	                                <a onclick="return confirm('Are you sure to Edit Fact Category?');" href="{{ route('admin.publicpoll.editpoll',['id' => $row->id]) }}">
+	                                <a onclick="return confirm('Are you sure to Edit Fact Category?');" href="{{ route('admin.survey.editsurvey',['id' => $row->id]) }}">
 	                                    <i class="icon-docs"></i> Edit </a>
 	                            </li>
-	                            <li>
-	                                <a onclick="return confirm('Are you sure to Delete Fact?');" href="{{ route('admin.publicpoll.delete',['id' => $row->id]) }}">
+	                           <!--  <li>
+	                                <a onclick="return confirm('Are you sure to Delete Fact?');" href="{{ route('admin.survey.delete',['id' => $row->id]) }}">
 	                                    <i class="icon-tag"></i> Delete </a>
-	                            </li>
+	                            </li> -->
 	                        </ul>
 	                    </div>
 	                </td>

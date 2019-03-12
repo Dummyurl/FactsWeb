@@ -4,7 +4,7 @@
         <div class="portlet-title">
             <div class="caption">
                 <i class="icon-settings font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">PUBLIC POLL</span>
+                <span class="caption-subject font-red sbold uppercase">SURVEY</span>
             </div>
         </div>
         <div class="portlet-body">
@@ -19,10 +19,9 @@
         	.error {
 			    color: red;
 			}
-            
         </style>
             <!-- BEGIN FORM-->
-            <form action="{{ route('admin.publicpoll.storepublicpoll')}}" method="post" class="form-horizontal">
+            <form action="{{ route('admin.survey.update',$data['row']->id)}}" method="post" class="form-horizontal">
             @csrf
                 <div class="form-body">
                     <div class="form-group">
@@ -31,7 +30,7 @@
 	                            <span class="required" aria-required="true"> * </span>
 	                        </label>
                             <input type="text" name="question" data-required="1" class="form-control" placeholder="Enter Question" value="{{ !empty($data['row']->question)?$data['row']['question']:'' }}"> 
-                            @if($errors->has('question'))
+                            @if($errors->has('title'))
                                 <span class="help-block ">
                                     <strong class="error">{{ $errors->first('question') }}</strong>
                                 </span>
@@ -44,12 +43,13 @@
                         <div class="col-md-3">
                             <label class="control-label">Do You Want To Publish This Poll Today ?</label>
                             <div class="mt-checkbox-inline mt-radio-list" data-error-container="#form_2_membership_error">
+                                @php $statusactive = $data['row']->status @endphp
                                 <label class="mt-radio">
-                                    <input type="radio" name="status" value="1"> Yes
+                                    <input type="radio" name="status" value="1" @if($statusactive == '1')checked @endif> Yes
                                     <span></span>
                                 </label>
                                 <label class="mt-radio">
-                                    <input type="radio" name="status" value="0"> No
+                                    <input type="radio" name="status" value="0" @if($statusactive == 0)checked @endif > No
                                     <span></span>
                                 </label>
                             </div>
@@ -57,12 +57,11 @@
                         </div>
                         <div class="col-sm-3">
                             <label>Question Type</label>
-                            <select class="form-control optionType" id="optionType" name="question_type" >
-                              <option selected="selected" value="">---Select Question Type---</option>
-                                <option value="checkbox">Checkbox</option>
-                                <option value="radio">Radio</option>
-                                <option value="star_rating">Star Rating</option>
-                                <option value="dropdown">Dropdown</option>
+                            <select class="form-control optionType" id="optionType" name="question_type" readonly>
+                                <option value="">---Select Question Type---</option>
+                                @foreach($data['optionstype'] as $key=> $typ)
+                                    <option value="{{ $typ }}" @if($data['row']->question_type === $typ) selected='selected' @endif>{{ $typ }}</option>
+                                @endforeach
                             </select>
                             @if($errors->has('question_type'))
                                 <span class="help-block error">
@@ -72,34 +71,44 @@
                         </div>
                     </div>
                     <div class="addOptionRow"></div>
-                    <div class="form-group" id="radioOptionNew" style="display: none">
-                        <div class="col-md-3">
-                            <label>Question Type Radio</label>
-                            <div class="mt-radio-list" data-error-container="#form_2_membership_error">
-                                <label class="mt-radio">
-                                    <input type="radio">To Add New Option radio button 
-                                    <span></span> 
-                                </label>
+                    @if($data['row']->question_type == 'radio')
+                    @foreach($data['qnoptions'] as $key=> $qn)
+                        <div class="form-group" id="radioOptionNew">
+                            <div class="col-md-3">
+                                <label>Question Type Radio</label>
+                                <div class="mt-radio-list" data-error-container="#form_2_membership_error">
+                                    <label class="mt-radio">
+                                        <input type="radio">To Add New Option radio button 
+                                        <input type="hidden" name="qnidradio[]" value="{{ !empty($qn->id)?$qn->id:'' }}">
+                                        <span></span> 
+                                    </label>
+                                </div>
                             </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Please Enter Otption 
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <input type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption " value="{{ !empty($qn->question)?$qn->question:'' }}"> 
+                            </div>
+                            @if($key+1 == 1)
+                            <div class="col-md-3">
+                                <br><button  class="btn btn-info" id="addOptionsMore" type="button">+</button>
+                                <label class="control-label">Click Plus Option To Add Another option</label>
+                            </div>
+                            @endif
                         </div>
-                        <div class="col-md-6">
-                            <label class="control-label">Please Enter Otption 
-                                <span class="required" aria-required="true"> * </span>
-                            </label>
-                            <input type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption " > 
-                        </div>
-                        <div class="col-md-3">
-                            <br><button  class="btn btn-info" id="addOptionsMore" type="button">+</button>
-                            <label class="control-label">Click Plus Option To Add Another option</label>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endif
                     <div class="addCheckOptionRow"></div>
-                    <div class="form-group" id="checkOptionsNew" style="display: none">
+                    @if($data['row']->question_type == 'checkbox')
+                    @foreach($data['qnoptions'] as $key=> $qn)
+                    <div class="form-group" id="checkOptionsNew" >
                         <div class="col-md-3">
                             <label>Question Type Check Box</label>
                             <div class="mt-checkbox-list">
                                 <label class="mt-checkbox mt-checkbox-outline">
                                     <input type="checkbox"> To Add New  Checkbox
+                                    <input type="hidden" name="qnid[]" value="{{ !empty($qn->id)?$qn->id:'' }}">
                                     <span></span>
                                 </label>
                             </div>
@@ -108,19 +117,26 @@
                             <label class="control-label">Please Enter Otption 
                                 <span class="required" aria-required="true"> * </span>
                             </label>
-                            <input type="text" name="checkboxoption[]" class="form-control" placeholder="Enter Please Enter Otption"> 
+                            <input type="text" name="checkboxoption[]" class="form-control" placeholder="Enter Please Enter Otption"  value="{{ !empty($qn->question)?$qn->question:'' }}"> 
                         </div>
+                        @if($key+1 == 1)
                         <div class="col-md-3">
                             <br><button  class="btn btn-info" id="addCheckOption" type="button">+</button>
                             <label class="control-label">Click Plus Option To Add Another option</label>
                         </div>
+                        @endif
                     </div>
-                    <div class="addDropdownOptionRow"></div>
-                    <div class="form-group" id="dropDownNew" style="display: none">
+                    @endforeach
+                @endif
+                <div class="addDropdownOptionRow"></div>
+                @if($data['row']->question_type == 'dropdown')
+                    @foreach($data['qnoptions'] as $key=> $qn)
+                    <div class="form-group" id="dropDownNew">
                         <div class="col-md-3">
                             <label>Question Type Dropdown</label>
                             <div class="mt-checkbox-list">
                                 <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="hidden" name="qnidrop[]" value="{{ !empty($qn->id)?$qn->id:'' }}">
                                     <select class="form-control">
                                         <option>Select</option>
                                     </select>
@@ -131,21 +147,28 @@
                             <label class="control-label">Please Enter Dropdown Otption 
                                 <span class="required" aria-required="true"> * </span>
                             </label>
-                            <input type="text" name="dropdownoption[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"> 
+                            <input type="text" name="dropdownoption[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"value="{{ !empty($qn->question)?$qn->question:'' }}"> 
                         </div>
+                        @if($key+1 == 1)
                         <div class="col-md-3">
                             <br><button  class="btn btn-info" id="addDropdownOption" type="button">+</button>
                             <label class="control-label">Click Plus Option To Add Another Dropdown option</label>
                         </div>
+                        @endif
                     </div>
-                    <div class="form-group" id="starRating" style="display: none">
+                    @endforeach
+                @endif
+                @if($data['row']->question_type == 'star_rating')
+                    <div class="form-group" id="starRating">
                         <div class="col-md-3">
                             <label class="control-label">Please Enter Range Of Star 
                             <span class="required" aria-required="true"> * </span>
                             </label>
-                            <input type="text" name="starrating" class="form-control" placeholder="Enter Range Of Star Eg. 1-6 "> 
+                            <input type="hidden" name="staropt[]" value="{{ !empty($data['qnoptions'][0]->id)?$data['qnoptions'][0]->id:'' }}">
+                            <input type="text"  name="starrating" class="form-control" placeholder="Enter Range Of Star Eg. 1-6" value="{{ !empty($data['qnoptions'][0]->question)?$data['qnoptions'][0]->question:'' }}"> 
                         </div>
                     </div>
+                @endif
                 </div>
                 <div class="form-actions">
                     <div class="row">
@@ -170,7 +193,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addOptionRow .btnminus').length+1;
-            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="radio">To Add New Option radio button <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="hidden" name="newradio[]" value="'+count+'">To Add New Option radio button <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtionnew[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
 
         });
         $(document).off('click','#addCheckOption');
@@ -179,7 +202,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addCheckOptionRow .btnminus').length+1;
-            $('.addCheckOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Check Box</label> <div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <input type="checkbox"> To Add New Checkbox <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="check'+count+'" type="text" name="checkboxoption[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addCheckOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Check Box</label> <div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <input type="hidden" name="newcheckbox[]" value="'+count+'"> To Add New Checkbox <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="check'+count+'" type="text" name="checkboxoptionnew[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
 
         });
         $(document).off('click','#addDropdownOption');
@@ -188,7 +211,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addDropdownOptionRow .btnminus').length+1;
-            $('.addDropdownOptionRow').append('<div class="form-group" id="dropDownNew"><div class="col-md-3"> <label>Question Type Dropdown</label><div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <select class="form-control"><option>Select</option> </select> </label></div></div><div class="col-md-6"> <label class="control-label">Please Enter Dropdown Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="dropdownoption[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"></div><div class="col-md-3"><br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addDropdownOptionRow').append('<div class="form-group" id="dropDownNew"><div class="col-md-3"> <label>Question Type Dropdown</label><div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <select class="form-control"><option>Select</option> </select> </label></div></div><div class="col-md-6"> <label class="control-label">Please Enter Dropdown Otption <span class="required" aria-required="true"> * </span> </label> <input id="dropdown'+count+'" type="text" name="dropdownoptionnew[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"></div><div class="col-md-3"><br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
 
         });
         $(document).on('change','.optionType',function(){
@@ -205,19 +228,6 @@
             }else{
                 $('#checkOptionsNew').hide();
             }
-            if(type == 'dropdown')
-            {
-                $('#dropDownNew').show();
-            }else{
-                $('#dropDownNew').hide();
-            }
-            if(type == 'star_rating')
-            {
-                $('#starRating').show();
-            }else{
-                $('#starRating').hide();
-            }
-            
         });
     </script>
     <script src="{{ asset('admin-panel/assets//plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
