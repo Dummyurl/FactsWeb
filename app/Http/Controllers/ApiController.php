@@ -7,6 +7,8 @@ use App\Models\Facts;
 use App\Models\FactCategory;
 use App\Models\PublicPoll;
 use App\Models\Polloption;
+use App\Models\Survey;
+use App\Models\Surveyoption;
 use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
@@ -65,10 +67,27 @@ class ApiController extends Controller
                 'day_poll'=>$value->day_poll,
                 'poll_date'=>$value->poll_date,
                 'question_type'=>$value->question_type,
-                'status'=>$value->status,
+                'active'=>$value->status,
                 'options'=>Polloption::select('id','question','question_id')->where('question_id',$value->id)->get(),
             );
         }
         print(json_encode($polloftheday));
     }
+    public function surveyapi()
+    {
+        $data['publicpoll'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device')->orderBy('id', 'DESC')->take(10)->get();  
+        foreach ($data['publicpoll'] as $key => $value) {
+            $surveyapidata[] = array(
+                'id'=>$value->id,
+                'question'=>$value->question,
+                'public_date'=>$value->day_poll,
+                //'poll_date'=>$value->poll_date,
+                'question_type'=>$value->question_type,
+                'active'=>$value->status,
+                'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$value->id)->get(),
+            );
+        }
+        print(json_encode($surveyapidata));
+    }
 }
+ 
