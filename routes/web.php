@@ -57,10 +57,24 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 
 	Route::get('surveylist',			  ['as'=>'surveylist',				'uses' =>'Admin\SurveyController@index']);
 	Route::get('survey/add',			  ['as'=>'survey.add',				'uses' =>'Admin\SurveyController@add']);
-	Route::post('survey/storesurvey', 	  ['as'=>'survey.storesurvey',	        'uses' =>'Admin\SurveyController@storesurvey']);
-	Route::get('survey/editsurvey/{id}',	  ['as'=>'survey.editsurvey',			'uses' =>'Admin\SurveyController@editsurvey']);
+	Route::post('survey/storesurvey', 	  ['as'=>'survey.storesurvey',	     'uses' =>'Admin\SurveyController@storesurvey']);
+	Route::get('survey/editsurvey/{id}',  ['as'=>'survey.editsurvey',		'uses' =>'Admin\SurveyController@editsurvey']);
 	Route::post('survey/update/{id}',	  ['as'=>'survey.update',			'uses' =>'Admin\SurveyController@update']);
 	Route::get('survey/delete/{id}',	  ['as'=>'survey.delete',			'uses' =>'Admin\SurveyController@delete']);
+
+	Route::get('serviceslist',			  ['as'=>'serviceslist',				'uses' =>'Admin\ServicesController@index']);
+	Route::get('services/add',			  ['as'=>'services.add',				'uses' =>'Admin\ServicesController@add']);
+	Route::post('services/store', 	  	  ['as'=>'services.store',	     		'uses' =>'Admin\ServicesController@store']);
+	Route::get('services/edit/{id}',  	  ['as'=>'services.edit',				'uses' =>'Admin\ServicesController@edit']);
+	Route::post('services/update/{id}',	  ['as'=>'services.update',			    'uses' =>'Admin\ServicesController@update']);
+	Route::get('services/delete/{id}',	  ['as'=>'services.delete',			    'uses' =>'Admin\ServicesController@delete']);
+
+	Route::get('initiatives',			  	  ['as'=>'initiatives',				'uses' =>'Admin\InitiativesController@index']);
+	Route::get('initiatives/add',			  ['as'=>'initiatives.add',				'uses' =>'Admin\InitiativesController@add']);
+	Route::post('initiatives/store', 	  	  ['as'=>'initiatives.store',	     		'uses' =>'Admin\InitiativesController@store']);
+	Route::get('initiatives/edit/{id}',  	  ['as'=>'initiatives.edit',				'uses' =>'Admin\InitiativesController@edit']);
+	Route::post('initiatives/update/{id}',	  ['as'=>'initiatives.update',			    'uses' =>'Admin\InitiativesController@update']);
+	Route::get('initiatives/delete/{id}',	  ['as'=>'initiatives.delete',			    'uses' =>'Admin\InitiativesController@delete']);
 });	
 
 

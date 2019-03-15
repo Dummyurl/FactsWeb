@@ -101,26 +101,65 @@
             <li class="nav-item {!! request()->is('admin/surveylist') || request()->is('admin/survey/add') ?'active open':'' !!}  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-layers"></i>
-                    <span class="title">Srvey Manage</span>
+                    <span class="title">Survey Manage</span>
                     <span class="{!! request()->is('admin/surveylist') || request()->is('admin/survey/add') ?'selected':'' !!} "></span>
                     <span class="arrow {{!! request()->is('admin/surveylist') || request()->is('admin/survey/add') ?'active open':'' !!} "></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item {!! request()->is('admin/survey/add') ?'active open':'' !!} ">
                         <a href="{{ route('admin.survey.add')}}" class="nav-link ">
-                            <span class="title">Add Srvey </span>
+                            <span class="title">Add Survey </span>
                         </a>
                     </li>
                     <li class="nav-item {!! request()->is('admin/surveylist') ?'active open':'' !!}  ">
                         <a href="{{ route('admin.surveylist')}}" class="nav-link ">
-                            <span class="title">Srvey Lists</span>
+                            <span class="title">Survey Lists</span>
                         </a>
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {!! request()->is('admin/serviceslist') || request()->is('admin/services/add') ?'active open':'' !!}  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-layers"></i>
+                    <span class="title">Services Manage</span>
+                    <span class="{!! request()->is('admin/surveylist') || request()->is('admin/services/add') ?'selected':'' !!} "></span>
+                    <span class="arrow {{!! request()->is('admin/surveylist') || request()->is('admin/services/add') ?'active open':'' !!} "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item {!! request()->is('admin/services/add') ?'active open':'' !!} ">
+                        <a href="{{ route('admin.services.add')}}" class="nav-link ">
+                            <span class="title">Add Services </span>
+                        </a>
+                    </li>
+                    <li class="nav-item {!! request()->is('admin/serviceslist') ?'active open':'' !!}  ">
+                        <a href="{{ route('admin.serviceslist')}}" class="nav-link ">
+                            <span class="title">Services Lists</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item {!! request()->is('admin/initiatives') || request()->is('admin/initiatives/add') ?'active open':'' !!}  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-layers"></i>
+                    <span class="title">Initiatives Manage</span>
+                    <span class="{!! request()->is('admin/initiatives') || request()->is('admin/initiatives/add') ?'selected':'' !!} "></span>
+                    <span class="arrow {{!! request()->is('admin/initiatives') || request()->is('admin/initiatives/add') ?'active open':'' !!} "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item {!! request()->is('admin/initiatives/add') ?'active open':'' !!} ">
+                        <a href="{{ route('admin.initiatives.add')}}" class="nav-link ">
+                            <span class="title">Add Initiatives </span>
+                        </a>
+                    </li>
+                    <li class="nav-item {!! request()->is('admin/initiatives') ?'active open':'' !!}  ">
+                        <a href="{{ route('admin.initiatives')}}" class="nav-link ">
+                            <span class="title">Initiatives Lists</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
         </ul>
-        <!-- END SIDEBAR MENU -->
-        <!-- END SIDEBAR MENU -->
     </div>
     <!-- END SIDEBAR -->
 </div>
