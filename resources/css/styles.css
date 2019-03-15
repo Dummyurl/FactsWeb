@@ -52,11 +52,13 @@ button {
   -webkit-transition: all .5s ease;
           transition: all .5s ease;
   border: none;
-  background: #FFD800;
+  background: #e06b6d;
   border-radius: 30px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   box-sizing: border-box;
-  padding: 15px 40px;
+  /* padding: 15px 40px; */
+  padding: 11px 20px;
+  margin-bottom: 14px;
   font-weight: 400;
   font-size: 13px;
   cursor: cursor;

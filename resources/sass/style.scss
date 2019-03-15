@@ -1,0 +1,115 @@
+// @import '../../public/css/line-awesome.min.css';
+@import "./mixin/mixin";
+@import "./variables";
+@import "./heroimage";
+@import "./initiatives";
+@import "./menu";
+@import "./footer";
+@import "./factsOfTheDay";
+@import "./services";
+@import "./testimonial";
+@import"./ticker";
+@import"./publicpoll";
+
+
+
+
+// fonts
+body {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14px;
+}
+
+// overwriting bootstrap
+
+.btn-primary {
+  background-color: $primary;
+  border-color: darken($primary, 5%);
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: darken($primary, 5%);
+    border-color: darken($primary, 7%);
+  }
+}
+
+.la {
+  font-size: rem(18)
+}
+
+.class {
+  font-size: rem(10);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.flex {
+  display: flex;
+}
+
+.ml-a {
+  margin-left: auto;
+}
+
+.section-padding {
+  padding: $section-padding;
+}
+
+.section-padding-x {
+  padding: 0 $section-padding;
+}
+
+.section-padding-y {
+  padding: $section-padding 0;
+}
+
+.img-wpr img {
+  width: 100%;
+  position: relative;
+}
+
+// general implementations
+.none {
+  display: none;
+}
+
+a {
+  color: $primary;
+}
+
+a:hover {
+  color: darken($primary, 8%)
+}
+
+a.no-decoration {
+  text-decoration: none;
+}
+
+.section //header
+
+header {
+  padding: rem(15);
+}
+
+.happy-clients {
+  background: url('/img/assets/HappyClients.png');
+}
+
+.fact-poll {
+  background: #FFFBFB;
+}
+
+.overprimary {
+  opacity: 0.90;
+}
+
+.mt-2 {
+  margin-top: $basevalue*2;
+}
+
+.initiatives {
+  background: #fafafa;
+}

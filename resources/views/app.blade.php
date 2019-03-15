@@ -6,9 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Tasksman</title>
+        <title>Facts Nepal</title>
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/line-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/line-awesome-font-awesome.css') }}" rel="stylesheet">
+        <!-- <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css"> -->
+
     </head>
     <body>
         <div id="app"></div>

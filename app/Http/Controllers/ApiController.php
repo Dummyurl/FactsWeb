@@ -47,7 +47,7 @@ class ApiController extends Controller
     {
         $data['factsdata'] = DB::table('facts as f')
             ->join('factcategories as fc', 'fc.id', '=', 'f.category_id')
-            ->select('f.*', 'fc.*')
+            ->select('f.*', 'fc.title as category_title','fc.slug as category_slug')
             ->get();
         $apidata[]= array(
                 "home"=>$data['factsdata']
