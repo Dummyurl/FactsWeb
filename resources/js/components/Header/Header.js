@@ -1,11 +1,13 @@
 import React from 'react'
+import HeaderBar from '../HeaderBar/HeaderBar'
 // import './header.scss';
 
     import { Link } from 'react-router-dom'
 
     const Header = () => (
       <section className="hero-image">
-      <header className="flex">
+      <HeaderBar />
+      {/* <header className="flex">
         <figure>
           <img src="img/factslogo.png" alt="Facts Nepal" />
         </figure>
@@ -20,7 +22,7 @@ import React from 'react'
             <i className="la la-bars"></i>
           </div>
         </nav>
-      </header>
+      </header> */}
       <div className="container">
         <div className="row">
           <div className="col-md-5">

@@ -76,6 +76,15 @@
     display: flex;
 }
 
+.likecount {
+    padding: 1px 7px;
+    border-radius: 8px;
+  }
+  
+  .likecount:hover {
+    cursor: pointer;
+  }
+
 @media screen and (max-width:768px) {
     .factsod {
         margin-bottom: rem(70);
