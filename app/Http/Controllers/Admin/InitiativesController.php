@@ -15,6 +15,7 @@ class InitiativesController extends Controller
     {   
         $data =[];
         $data['rows'] =Initiative::select('id','title','slug','shortdesc','image','description','order','status','createdby')->get();
+        //dd($data['rows']);
         return view('admin.initiative.index',compact('data'));
     }
     public function add()
@@ -33,10 +34,11 @@ class InitiativesController extends Controller
         if($request->hasFile('image')) {
             $image = $request->file('image');
             $image_name = rand(4952, 9857).'_'.$image->getClientOriginalName();
-            $image->move(public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'services',$image_name);
-            $imagefinalname = url('/').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'services'.DIRECTORY_SEPARATOR.$image_name;
+            $imagefinalname = url('/').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives/'.DIRECTORY_SEPARATOR.$image_name;
+            $image->move(public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives',$image_name);
+            //$imagefinalname = url('/').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives'.DIRECTORY_SEPARATOR.$image_name;
         }
-        $thumbnailpath = public_path('images/services/'.$image_name);
+        $thumbnailpath = public_path('images/initiatives/'.$image_name);
         $img = Image::make($thumbnailpath)->resize(400, 150, function($constraint) {
             $constraint->aspectRatio();
         });
@@ -53,7 +55,6 @@ class InitiativesController extends Controller
                 'createdby'=>$user->id,
                 'description'=>$request->get('description')
             ]);
-        //dd($request->request->all());
         Initiative::create($request->request->all());
         $request->session()->flash('success_message', 'Initiative added Successfully.');
         return redirect()->route('admin.initiatives');
@@ -81,7 +82,7 @@ class InitiativesController extends Controller
             $image = $request->file('image');
             $image_name = rand(4952, 9857).'_'.$image->getClientOriginalName();
             $imagefinalname = url('/').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives/'.DIRECTORY_SEPARATOR.$image_name;
-            $image->move(public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives',$image_name);
+            $image->move(public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives',$imagefinalname);
             if($data['row']->image && file_exists(public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives'.DIRECTORY_SEPARATOR.$data['row']->image)) {
                 unlink(public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'initiatives'.DIRECTORY_SEPARATOR.$data['row']->image);
             }

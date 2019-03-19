@@ -61,6 +61,7 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::get('survey/editsurvey/{id}',  ['as'=>'survey.editsurvey',		'uses' =>'Admin\SurveyController@editsurvey']);
 	Route::post('survey/update/{id}',	  ['as'=>'survey.update',			'uses' =>'Admin\SurveyController@update']);
 	Route::get('survey/delete/{id}',	  ['as'=>'survey.delete',			'uses' =>'Admin\SurveyController@delete']);
+	Route::post('survey/preview',	      ['as'=>'survey.preview',	        'uses' =>'Admin\SurveyController@preview']);
 
 	Route::get('serviceslist',			  ['as'=>'serviceslist',				'uses' =>'Admin\ServicesController@index']);
 	Route::get('services/add',			  ['as'=>'services.add',				'uses' =>'Admin\ServicesController@add']);
@@ -68,6 +69,7 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::get('services/edit/{id}',  	  ['as'=>'services.edit',				'uses' =>'Admin\ServicesController@edit']);
 	Route::post('services/update/{id}',	  ['as'=>'services.update',			    'uses' =>'Admin\ServicesController@update']);
 	Route::get('services/delete/{id}',	  ['as'=>'services.delete',			    'uses' =>'Admin\ServicesController@delete']);
+	
 
 	Route::get('initiatives',			  	  ['as'=>'initiatives',				'uses' =>'Admin\InitiativesController@index']);
 	Route::get('initiatives/add',			  ['as'=>'initiatives.add',				'uses' =>'Admin\InitiativesController@add']);
@@ -78,12 +80,13 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 });	
 
 
-	Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
+
 	Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
 	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
 	Route::get('surveyapi',				['as'=>'surveyapi',				'uses' =>'ApiController@surveyapi']);
-
-	
+	Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@ourinititives']);
+	Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
+	Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 
 
 

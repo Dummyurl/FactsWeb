@@ -8,7 +8,7 @@ use App\Models\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Publicpoll\AddFromValidation;
-
+use View;
 //use App\Http\Requests\Slider\EditCategoryFormValidation;
 
 class SurveyController extends Controller
@@ -197,4 +197,89 @@ class SurveyController extends Controller
 		$request->session()->flash('success_message', 'Public Poll Data Delete Succcessfully');
     	return redirect()->route('admin.surveylist');
     }
+    public function preview(Request $request)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data= [];
+            $data['row']=$request->all();
+            if(!empty($request->request->get('question_type'))) {
+                $template = View::make('admin.survey.preview',compact('data'));
+                $contents = (string) $template; 
+            }else{
+              $contents ="Post Data Not Found";  
+            }
+            print_r(json_encode(array('status'=>'success','template'=>$contents,'message'=>'Survey Preview Successfully')));
+            exit;
+        }else {
+            print_r(json_encode(array('status'=>'error','message'=>'Cannot Perform this Operation')));
+            exit;
+        }
+    }
+    public function storesurvey(AddFromValidation $request)
+    {
+        // print_r(json_encode($request->request->all()));
+        // dd();
+        $user = auth()->user();
+        Survey::insert(array( 
+            'question'=>$request->get('question'),
+            'day_poll'=>$request->get('status'),
+            'poll_date'=>$request->get('poll_date'),
+            'question_type'=>$request->get('question_type'),
+            'status'=>$request->get('status'),
+            'createdby'=>$user->id,
+            'visitor'=>'192.68.1.1',//$this->getIp(), 
+            'device'=>'df:sd:6y:y6:fd'));
+        $insertedid = DB::getPdo()->lastInsertId();
+        if($insertedid)
+        {
+           $questiontype =  $request->get('question_type');
+           $input = $request->all();
+           if($questiontype == "checkbox")
+           {
+                $check = $request->request->get('checkboxoption');
+                //dd($request->all());
+                foreach ($check as $key => $chk) {
+                    Surveyoption::Create(
+                        array(
+                                'question_id' => $insertedid ,
+                                'question' => $input['checkboxoption'][$key],
+                        ));
+                }
+           }
+           if($questiontype == "radio")
+           {
+                $checkbox = $request->request->get('rdiooprtion');
+                foreach ($checkbox as $kr => $rdo) {
+                    Surveyoption::Create(
+                        array(
+                                'question_id' => $insertedid ,
+                                'question' => $input['rdiooprtion'][$kr],
+                        ));
+                }
+           }
+           if($questiontype == "dropdown")
+           {
+                $dropdownopt = $request->request->get('dropdownoption');
+                foreach ($dropdownopt as $km => $drop) {
+                    Surveyoption::Create(
+                        array(
+                                'question_id' => $insertedid ,
+                                'question' => $input['dropdownoption'][$km],
+                        ));
+                }
+            }
+            if($questiontype == "star_rating")
+            {
+                $staropt = $request->request->get('starrating');
+                Surveyoption::Create(
+                    array(
+                            'question_id' => $insertedid,
+                            'question' =>$staropt,
+                    ));
+            }
+        }
+        $request->session()->flash('success_message', 'Survey added Successfully.');
+        return redirect()->route('admin.surveylist');
+    }
 }
+
