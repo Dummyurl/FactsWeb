@@ -77,7 +77,7 @@
                             <label>Question Type Radio</label>
                             <div class="mt-radio-list" data-error-container="#form_2_membership_error">
                                 <label class="mt-radio">
-                                    <input type="radio">To Add New Option radio button 
+                                    <input type="radio">
                                     <span></span> 
                                 </label>
                             </div>
@@ -157,14 +157,16 @@
 
             </form>
             <div id="previewSurvey"></div>
-            <form method="post" id="previewSurveyButton" style="display: none">
-                <div class="row">
-                    @csrf
-                     <div class="col-md-3 col-md-9">
-                        <button type="submit" class="btn green btn-submit typeCheckSurvey">Preview Survey</button>
+            <div id="previewSurveyButton" style="display: none">
+                <form method="post">
+                    <div class="row">
+                        @csrf
+                         <div class="col-md-3 col-md-9">
+                            <button type="submit" class="btn green btn-submit typeCheckSurvey">Preview Survey</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 <!-- <script type="text/javascript">
@@ -180,7 +182,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addOptionRow .btnminus').length+1;
-            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="radio">To Add New Option radio button <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="radio"><span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
 
         });
         $(document).off('click','#addCheckOption');
@@ -205,41 +207,40 @@
             var type = $('#optionType').val();
             if(type == 'radio')
             {
-                
-                $('#previewSurveyButton').show();
                 $('#radioOptionNew').show();
                 $('.typeCheckSurvey').attr('id', type);
                
             }else{
                 $('#radioOptionNew').hide();
-                $('#previewSurveyButton').hide();
             }
             if(type == 'checkbox')
             {
-                $('#previewSurveyButton').show();
                 $('.typeCheckSurvey').attr('id', type);
                 $('#checkOptionsNew').show();
             }else{
                 $('#checkOptionsNew').hide();
-                $('#previewSurveyButton').hide();
             }
             if(type == 'dropdown')
             {
-                $('#previewSurveyButton').show();
                 $('.typeCheckSurvey').attr('id', type);
                 $('#dropDownNew').show();
             }else{
                 $('#dropDownNew').hide();
-                $('#previewSurveyButton').hide();
             }
             if(type == 'star_rating')
             {
-                $('#previewSurveyButton').show();
+                
                 $('.typeCheckSurvey').attr('id', type);
                 $('#starRating').show();
             }else{
-                $('#previewSurveyButton').hide();
+                
                 $('#starRating').hide();
+            }
+            if(type == 'radio' || type == 'star_rating' || type == 'dropdown' || type == 'checkbox')
+            {
+                $('#previewSurveyButton').show();
+            }else{
+               $('#previewSurveyButton').hide(); 
             }
         });
     </script>
