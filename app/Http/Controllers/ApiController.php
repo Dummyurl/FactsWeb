@@ -7,6 +7,8 @@ use App\Models\Facts;
 use App\Models\FactCategory;
 use App\Models\PublicPoll;
 use App\Models\Polloption;
+use App\Models\Survey;
+use App\Models\Surveyoption;
 use Illuminate\Support\Facades\DB;
 use App\Models\SiteProfile;
 
@@ -19,7 +21,7 @@ class ApiController extends Controller
      */
     public function __construct()
     {
-        
+
     }
 
     /**
@@ -56,27 +58,23 @@ class ApiController extends Controller
         //dd($data['factsdata'] );
         print(json_encode($apidata));
     }
-
     public function publicpoll()
     {
-        $data['publicpoll'] =PublicPoll::select('question','day_poll','poll_date','question_type','status','createdby','visitor','device')->orderBy('id', 'DESC')->take(10)->get();  
-        $data['option'] = DB::table('publicpoll as p')
-            ->join('polloption as po', 'po.question_id', '=', 'p.id','LEFT')
-            ->select('p.*', 'po.*')
-            ->get();
+        $data['publicpoll'] =PublicPoll::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device')->orderBy('id', 'DESC')->take(10)->get();  
         foreach ($data['publicpoll'] as $key => $value) {
             $polloftheday[] = array(
+                'id'=>$value->id,
                 'question'=>$value->question,
                 'day_poll'=>$value->day_poll,
                 'poll_date'=>$value->poll_date,
                 'question_type'=>$value->question_type,
-                'status'=>$value->status,
-                'options'=>$data['option']
+                'active'=>$value->status,
+                'options'=>Polloption::select('id','question','question_id')->where('question_id',$value->id)->get(),
             );
         }
-        //dd($data['publicpoll']);
         print(json_encode($polloftheday));
     }
+
     
     public function sitesetting()
     {   
@@ -87,4 +85,22 @@ class ApiController extends Controller
         );
         print(json_encode($sitedata));
     }
+    public function surveyapi()
+    {
+        $data['publicpoll'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device')->orderBy('id', 'DESC')->take(10)->get();  
+        foreach ($data['publicpoll'] as $key => $value) {
+            $surveyapidata[] = array(
+                'id'=>$value->id,
+                'question'=>$value->question,
+                'public_date'=>$value->day_poll,
+                //'poll_date'=>$value->poll_date,
+                'question_type'=>$value->question_type,
+                'active'=>$value->status,
+                'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$value->id)->get(),
+            );
+        }
+        print(json_encode($surveyapidata));
+
+    }
 }
+ 

@@ -4,7 +4,7 @@
         <div class="portlet-title">
             <div class="caption">
                 <i class="icon-settings font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">PUBLIC POLL</span>
+                <span class="caption-subject font-red sbold uppercase">SURVEY</span>
             </div>
         </div>
         <div class="portlet-body">
@@ -22,7 +22,7 @@
             
         </style>
             <!-- BEGIN FORM-->
-            <form action="{{ route('admin.publicpoll.storepublicpoll')}}" method="post" class="form-horizontal">
+            <form action="{{ route('admin.survey.storesurvey')}}" method="post" class="form-horizontal">
             @csrf
                 <div class="form-body">
                     <div class="form-group">

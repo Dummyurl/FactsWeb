@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-            {{ $i = 1 }}
+            @php $i = 1 @endphp
 			@if($data['rows'])  
 				@foreach($data['rows'] as $key => $row)
                 <tr>

@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 	Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
 	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
@@ -54,21 +55,30 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::get('facts/delete/{id}',		    ['as'=>'facts.delete',				'uses' =>'Admin\FactsController@delete']);
 	Route::post('facts/update/{id}',		['as'=>'facts.update',				'uses' =>'Admin\FactsController@update']);
 
+	Route::get('factscategory',				['as'=>'factscategory',					'uses' =>'Admin\FactsController@addcat']);
+	// Route::get('factscategory/add',		['as'=>'facts.add',						'uses' =>'Admin\FactsController@add']);
+	Route::post('facts/storecat',			['as'=>'facts.storecat',				'uses' =>'Admin\FactsController@storecat']);
+	Route::get('facts/catlist',					['as'=>'facts.catlist',		   	 	'uses' =>'Admin\FactsController@catlist']);
+	Route::get('sliderfacts/deletecat/{id}',	['as'=>'facts.deletecat',			'uses' =>'Admin\FactsController@deletecat']);
 
-	Route::get('factscategory',				['as'=>'factscategory',				'uses' =>'Admin\FactsController@addcat']);
-	// Route::get('factscategory/add',		['as'=>'facts.add',					'uses' =>'Admin\FactsController@add']);
-	Route::post('facts/storecat',			['as'=>'facts.storecat',			'uses' =>'Admin\FactsController@storecat']);
-	Route::get('facts/catlist',					['as'=>'facts.catlist',		    'uses' =>'Admin\FactsController@catlist']);
-	Route::get('sliderfacts/deletecat/{id}',	['as'=>'facts.deletecat',		'uses' =>'Admin\FactsController@deletecat']);
+	Route::get('publicpolllist',			  ['as'=>'publicpolllist',				'uses' =>'Admin\PublicPollController@index']);
+	Route::get('publicpoll/add',			  ['as'=>'publicpoll.add',				'uses' =>'Admin\PublicPollController@add']);
+	Route::post('publicpoll/storepublicpoll', ['as'=>'publicpoll.storepublicpoll',	'uses' =>'Admin\PublicPollController@storepublicpoll']);
+	Route::get('publicpoll/editpoll/{id}',	  ['as'=>'publicpoll.editpoll',			'uses' =>'Admin\PublicPollController@editpoll']);
+	Route::post('publicpoll/update/{id}',	  ['as'=>'publicpoll.update',			'uses' =>'Admin\PublicPollController@update']);
+	Route::get('publicpoll/delete/{id}',	  ['as'=>'publicpoll.delete',			'uses' =>'Admin\PublicPollController@delete']);
 
-	Route::get('publicpolllist',			['as'=>'publicpolllist',			'uses' =>'Admin\PublicPollController@index']);
-	Route::get('publicpoll/add',			['as'=>'publicpoll.add',			'uses' =>'Admin\PublicPollController@add']);
-	Route::get('publicpoll/store',			['as'=>'publicpoll.store',			'uses' =>'Admin\PublicPollController@store']);
-
+	Route::get('surveylist',			  ['as'=>'surveylist',				'uses' =>'Admin\SurveyController@index']);
+	Route::get('survey/add',			  ['as'=>'survey.add',				'uses' =>'Admin\SurveyController@add']);
+	Route::post('survey/storesurvey', 	  ['as'=>'survey.storesurvey',	        'uses' =>'Admin\SurveyController@storesurvey']);
+	Route::get('survey/editsurvey/{id}',	  ['as'=>'survey.editsurvey',			'uses' =>'Admin\SurveyController@editsurvey']);
+	Route::post('survey/update/{id}',	  ['as'=>'survey.update',			'uses' =>'Admin\SurveyController@update']);
+	Route::get('survey/delete/{id}',	  ['as'=>'survey.delete',			'uses' =>'Admin\SurveyController@delete']);
 });	
 
 
 	
+
 
 	
 

@@ -28,7 +28,7 @@
             </thead>
             <tbody>
             @if($data['rows'])
-            	 {{ $i = 1 }}
+            	 @php $i = 1 @endphp
 				@foreach($data['rows'] as $key => $row)
                 <tr>
                     <td>{{ $i }}</td>
