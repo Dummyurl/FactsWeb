@@ -42,7 +42,9 @@ class ApiController extends Controller
         //         "home"=>$data['fact']
         //     );
         // print(json_encode($apidata));
-        $cat =  $request->request->get('categories');
+
+        $cat[] =  $request->request->get('categories');
+
         //dd($cat);
         $data['category'] =FactCategory::select('id','title','slug')->get();
         $data['fact'] =Facts::select('id','title','slug','image as image_url','status','shortdesc as short_desc','order','description','like as like_count','category_id')->orderBy('id', 'DESC')->whereIn('category_id', $cat)->take(10)->get();
