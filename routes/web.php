@@ -13,7 +13,7 @@
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 	Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
 	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
-
+	Route::get('siteapi',                ['as'=>'siteapi',                'uses' =>'ApiController@sitesetting']);
 
 Route::get('/{path?}', function () {
 	return view('app');
@@ -29,6 +29,7 @@ Route::get('/{path?}', function () {
 // Route::post('admin/update/{id}',			['as'=>'category.update',		'uses' =>'Admin\CategoryController@update']);
 // Route::get('admin/update', 				['as' =>'admin.siteprofile',    'uses'=>'Admin\SiteProfileController@index']);
 Route::post('factsapilike/store',				['as'=>'factsapilike.store',				'uses' =>'HomeController@apistore']);
+
 
 Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], function (){
 	Route::get('dashboard',   				['as' =>'dashboard',   	    			'uses'=>'Admin\DashboardController@index']);

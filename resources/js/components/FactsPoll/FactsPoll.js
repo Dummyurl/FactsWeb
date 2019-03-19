@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 import AllFacts from '../AllFacts/AllFacts';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
- 
-
+import PollResult from '../PollResult/PollResult';
 
 
 class FactsPoll extends Component {
@@ -12,6 +11,7 @@ class FactsPoll extends Component {
         super();
         this.state= {
             facts: [],
+            publicpoll:[],
             name: '',
             persons: [],
             clicks:1,
@@ -29,14 +29,21 @@ class FactsPoll extends Component {
             facts: response.data
             
           })
-        //   console.log(response.data);
-        //   console.log(facts[0]);
-        // console.log(this.state.facts[0].home[0]);
         const todaysfact= this.state.facts[0].home[0];
         const likecount= this.state.facts[0].home[0].like;
         // console.log(todaysfact);
         // console.log(likecount);
         })
+
+        axios.get(`/publicpoll`).then(response => {
+            this.setState({
+                publicpoll: response.data
+            })
+          // const todaysfact= this.state.siteapidata[0].sitedata[0];
+          // const bodo = siteapi.sitedata[0];
+          // const likecount= boda.siteslogan;
+         
+          })
         
         // console.log(todaysfact);
       }
@@ -125,7 +132,7 @@ class FactsPoll extends Component {
       
   render () {
         const { facts } = this.state
-        const likecounting = facts;
+        const { publicpoll } = this.state;
         // console.log(likecounting);
                 // console.log(todaysfact);
                 // console.log(facts);
@@ -190,50 +197,33 @@ class FactsPoll extends Component {
                             
                             </div>
                             {description}
-                            {/* <div className="factsod__wrapper">
-                                <a className="viewall no-decoration" href="">
-                                    <span> View All</span> <i className=" la la-caret-right"></i>
-                                </a>
-                                <div className="img-wpr">
-                                    <img src="img/assets/fod.jpg" alt="todaysfact" />
-                                </div>
-                                <div className="factsod__detail">
-                                    <h6>
-                                    Health status of Nepal regarding the age and life Health
-                                    status of Nepal regarding the age and life expectancy
-                                    </h6>
-                                    <div className="cholder">
-                                        <div className="factsod__counts">
-                                            <span className="badge education"> EDUCATION</span>
-                                            <span className="time">
-                                            <i className="la la-calendar-o"></i>
-
-                                            <span>1hr ago</span></span>
-                                            <span className="likecount">
-                                            <i className="la la-thumbs-o-up"></i> <span> 240</span></span>
-                                        </div>
-                                        <div className="factsod__facts-share">
-                                            <a href="" className="no-decoration"><i className="la la-facebook"></i></a>
-                                            <a href="" className="no-decoration"><i className="la la-twitter"></i></a>
-                                            <a href="" className="no-decoration"><i className="la la-instagram"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                     <div className="col-md-4">
-                    <div className="pp">
+                    {/* <div className="pp">
                         <div className="pp-header">
                         Public Poll
                         </div>
-                        <div className="pp__wrp text-center">
-                        <h5 className="mb-5">What do you think is the risk of getting cancer after age 40?</h5>
-                        <button className="btn btn-primary btn-block"> Yes </button>
-                        <button className="btn btn-primary btn-block"> No</button>
-                        <button className="btn btn-primary btn-block"> Neutral </button>
-                        </div>
-                    </div>
+                        <form >
+                        <div>
+                                {publicpoll.map((item, index) => (
+                                    <div className="pp__wrp text-center">
+                                        <h5 className="mb-5">{item.question}</h5> 
+                                <ul>
+                                    {item.options.map((company, index) =>
+                               
+                                    // <label className="btn btn-primary btn-block">{company.question}
+                                        <input className="btn btn-primary btn-block" type="button" value={company.question}/>     
+                                    // </label>                                   
+                                        )}
+                                </ul>
+                            </div>
+                            
+                                ))}
+                            </div>
+                        </form>
+                    </div> */}
+                    <PollResult />
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ use App\Models\FactCategory;
 use App\Models\PublicPoll;
 use App\Models\Polloption;
 use Illuminate\Support\Facades\DB;
+use App\Models\SiteProfile;
 
 class ApiController extends Controller
 {
@@ -75,5 +76,15 @@ class ApiController extends Controller
         }
         //dd($data['publicpoll']);
         print(json_encode($polloftheday));
+    }
+    
+    public function sitesetting()
+    {   
+        $data['site'] =SiteProfile::select('created_at','updated_at','sitename','siteslogan','sikiptocontent','addressone','addresstwo','location','mobileno','phoneone','phonetwo','copytext','facebook','twitter','youtube','linkedin','instagram','owner','metatitle','metadescription','logo')->get();
+        $sitedata[] = array(
+            'sitedata'=>$data['site'],
+            'status'=>'Success Message'
+        );
+        print(json_encode($sitedata));
     }
 }
