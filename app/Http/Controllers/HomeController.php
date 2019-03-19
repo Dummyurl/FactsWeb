@@ -26,3 +26,5 @@ class HomeController extends Controller
         return view('home');
     }
 }
+
+// ALTER USER 'factsuser'@'localhost' IDENTIFIED BY 'naxafacts';

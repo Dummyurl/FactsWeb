@@ -22,7 +22,7 @@
             
         </style>
             <!-- BEGIN FORM-->
-            <form action="{{ route('admin.survey.storesurvey')}}" method="post" class="form-horizontal">
+            <form id="surveyForm" action="{{ route('admin.survey.storesurvey')}}" method="post" class="form-horizontal">
             @csrf
                 <div class="form-body">
                     <div class="form-group">
@@ -42,7 +42,7 @@
                             <input name="poll_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->poll_date)?$data['row']->poll_date:'' }}">
                         </div>
                         <div class="col-md-3">
-                            <label class="control-label">Do You Want To Publish This Poll Today ?</label>
+                            <label class="control-label">Do You Want To Publish ?</label>
                             <div class="mt-checkbox-inline mt-radio-list" data-error-container="#form_2_membership_error">
                                 <label class="mt-radio">
                                     <input type="radio" name="status" value="1"> Yes
@@ -156,11 +156,21 @@
                 </div>
 
             </form>
+            <div id="previewSurvey"></div>
+            <form method="post" id="previewSurveyButton" style="display: none">
+                <div class="row">
+                    @csrf
+                     <div class="col-md-3 col-md-9">
+                        <button type="submit" class="btn green btn-submit typeCheckSurvey">Preview Survey</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).off('.datepicker.data-api');
-</script>
+</script> -->
+
 @endsection
 @section('js')
     <script>
@@ -195,30 +205,74 @@
             var type = $('#optionType').val();
             if(type == 'radio')
             {
+                
+                $('#previewSurveyButton').show();
                 $('#radioOptionNew').show();
+                $('.typeCheckSurvey').attr('id', type);
+               
             }else{
                 $('#radioOptionNew').hide();
+                $('#previewSurveyButton').hide();
             }
             if(type == 'checkbox')
             {
+                $('#previewSurveyButton').show();
+                $('.typeCheckSurvey').attr('id', type);
                 $('#checkOptionsNew').show();
             }else{
                 $('#checkOptionsNew').hide();
+                $('#previewSurveyButton').hide();
             }
             if(type == 'dropdown')
             {
+                $('#previewSurveyButton').show();
+                $('.typeCheckSurvey').attr('id', type);
                 $('#dropDownNew').show();
             }else{
                 $('#dropDownNew').hide();
+                $('#previewSurveyButton').hide();
             }
             if(type == 'star_rating')
             {
+                $('#previewSurveyButton').show();
+                $('.typeCheckSurvey').attr('id', type);
                 $('#starRating').show();
             }else{
+                $('#previewSurveyButton').hide();
                 $('#starRating').hide();
             }
-            
         });
     </script>
+    <script type="text/javascript">
+        $(".btn-submit").click(function(e){
+            e.preventDefault();
+            
+            var APP_URL = {!! json_encode(url('/')) !!};
+            var urlpost = APP_URL+'/admin/survey/preview';
+            var optiontype = $(this).attr('id');
+            var token =  $("input[name=_token]").val();
+            var CSRF_TOKEN =  $("input[name=_token]").val();  
+            $.ajax({
+               type:'POST',
+               url:urlpost,
+               dataType: 'html',
+               //data:{optiontype:optiontype,_token:CSRF_TOKEN},
+               data:$('form#surveyForm').serialize(),
+                beforeSend: function(){
+                    $('#previewSurvey').html();
+                },
+                success:function(jsons){
+                    console.log(jsons);
+                    data = jQuery.parseJSON(jsons);  
+                    console.log(data.template); 
+                    if(data.status=='success')
+                    {
+                        $('#previewSurvey').html(data.template);
+                    }
+                }
+            });
+        });
+</script>
     <script src="{{ asset('admin-panel/assets//plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 @endsection
