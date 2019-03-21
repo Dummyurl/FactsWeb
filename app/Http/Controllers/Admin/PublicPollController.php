@@ -36,7 +36,7 @@ class PublicPollController extends Controller
      */
     public function store(AddFromValidation $request)
     {
-    	dd($request->all());
+    	//dd($request->all());
         $thumbnailpath = public_path('images/facts/'.$image_name);
         $img = Image::make($thumbnailpath)->resize(400, 150, function($constraint) {
             $constraint->aspectRatio();

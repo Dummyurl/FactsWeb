@@ -22,7 +22,7 @@
             
         </style>
             <!-- BEGIN FORM-->
-            <form action="{{ route('admin.survey.storesurvey')}}" method="post" class="form-horizontal">
+            <form id="surveyForm" action="{{ route('admin.survey.storesurvey')}}" method="post" class="form-horizontal">
             @csrf
                 <div class="form-body">
                     <div class="form-group">
@@ -42,7 +42,7 @@
                             <input name="poll_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->poll_date)?$data['row']->poll_date:'' }}">
                         </div>
                         <div class="col-md-3">
-                            <label class="control-label">Do You Want To Publish This Poll Today ?</label>
+                            <label class="control-label">Do You Want To Publish ?</label>
                             <div class="mt-checkbox-inline mt-radio-list" data-error-container="#form_2_membership_error">
                                 <label class="mt-radio">
                                     <input type="radio" name="status" value="1"> Yes
@@ -77,7 +77,7 @@
                             <label>Question Type Radio</label>
                             <div class="mt-radio-list" data-error-container="#form_2_membership_error">
                                 <label class="mt-radio">
-                                    <input type="radio">To Add New Option radio button 
+                                    <input type="radio">
                                     <span></span> 
                                 </label>
                             </div>
@@ -156,11 +156,23 @@
                 </div>
 
             </form>
+            <div id="previewSurvey"></div>
+            <div id="previewSurveyButton" style="display: none">
+                <form method="post">
+                    <div class="row">
+                        @csrf
+                         <div class="col-md-3 col-md-9">
+                            <button type="submit" class="btn green btn-submit typeCheckSurvey">Preview Survey</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).off('.datepicker.data-api');
-</script>
+</script> -->
+
 @endsection
 @section('js')
     <script>
@@ -170,7 +182,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addOptionRow .btnminus').length+1;
-            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="radio">To Add New Option radio button <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="radio"><span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
 
         });
         $(document).off('click','#addCheckOption');
@@ -196,29 +208,72 @@
             if(type == 'radio')
             {
                 $('#radioOptionNew').show();
+                $('.typeCheckSurvey').attr('id', type);
+               
             }else{
                 $('#radioOptionNew').hide();
             }
             if(type == 'checkbox')
             {
+                $('.typeCheckSurvey').attr('id', type);
                 $('#checkOptionsNew').show();
             }else{
                 $('#checkOptionsNew').hide();
             }
             if(type == 'dropdown')
             {
+                $('.typeCheckSurvey').attr('id', type);
                 $('#dropDownNew').show();
             }else{
                 $('#dropDownNew').hide();
             }
             if(type == 'star_rating')
             {
+                
+                $('.typeCheckSurvey').attr('id', type);
                 $('#starRating').show();
             }else{
+                
                 $('#starRating').hide();
             }
-            
+            if(type == 'radio' || type == 'star_rating' || type == 'dropdown' || type == 'checkbox')
+            {
+                $('#previewSurveyButton').show();
+            }else{
+               $('#previewSurveyButton').hide(); 
+            }
         });
     </script>
+    <script type="text/javascript">
+        $(".btn-submit").click(function(e){
+            e.preventDefault();
+            
+            var APP_URL = {!! json_encode(url('/')) !!};
+            var urlpost = APP_URL+'/admin/survey/preview';
+            var optiontype = $(this).attr('id');
+            var token =  $("input[name=_token]").val();
+            var CSRF_TOKEN =  $("input[name=_token]").val();  
+            $.ajax({
+               type:'POST',
+               url:urlpost,
+               dataType: 'html',
+               //data:{optiontype:optiontype,_token:CSRF_TOKEN},
+               data:$('form#surveyForm').serialize(),
+                beforeSend: function(){
+                    $('#previewSurvey').html();
+                },
+                success:function(jsons){
+                    console.log(jsons);
+                    data = jQuery.parseJSON(jsons);  
+                    console.log(data.template); 
+                    if(data.status=='success')
+                    {
+                        $('#previewSurvey').html(data.template);
+                    }
+                }
+            });
+        });
+</script>
     <script src="{{ asset('admin-panel/assets//plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 @endsection

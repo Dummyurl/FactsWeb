@@ -36,3 +36,5 @@ class HomeController extends Controller
         dd('Hi Prakash Dai');
     }
 }
+
+// ALTER USER 'factsuser'@'localhost' IDENTIFIED BY 'naxafacts';
