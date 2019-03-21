@@ -29,4 +29,10 @@ class HomeController extends Controller
     {
         dd('Hi Prakash Dai');
     }
+
+
+    public function pollresponse()
+    {
+        dd('Hi Prakash Dai');
+    }
 }

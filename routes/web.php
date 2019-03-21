@@ -15,6 +15,8 @@ Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 	Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
 	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
 	Route::get('siteapi',                ['as'=>'siteapi',                'uses' =>'ApiController@sitesetting']);
+	
+Route::post('pollresponse/responsestore',				['as'=>'response.store',				'uses' =>'HomeController@pollresponse']);
 
 Route::get('/{path?}', function () {
 	return view('app');

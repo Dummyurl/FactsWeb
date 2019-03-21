@@ -6,6 +6,7 @@ import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import PollResult from '../PollResult/PollResult';
 
 
+
 class FactsPoll extends Component {
     constructor(){
         super();
@@ -17,10 +18,15 @@ class FactsPoll extends Component {
             clicks:1,
             likes: 5,
             updated: false,
+            optionbool: true,
+            displayoption:'block',
             disabledButton: false,
             bgColor:'black',
             background: ''
           }
+        //   this.handleChange= this.handleChange.bind(this)
+        //   this.handleSubmit= this.handleSubmit.bind(this)
+        //   this.optionClick= this.optionClick.bind(this)
          
     }
     componentDidMount () {
@@ -54,7 +60,29 @@ class FactsPoll extends Component {
     //           }
     //       })
     //   }
+
+    // onClick(event) {
+    //     optionClick();
+    //     handleSubmit();
+    //  }
     
+
+
+    optionClick = ()=> {
+        if(this.state.optionbool){
+            this.setState((prevState,props)=>{
+                return {
+                    optionbool: false,
+                    displayoption: 'none',
+                };
+                console.log(this.state.optionbool);
+            });
+           
+        }
+        else {
+
+        }
+    }
     updateLikes = () => {
 
         if(!this.state.updated) {
@@ -105,6 +133,42 @@ class FactsPoll extends Component {
         this.setState({ show: !this.state.show });
     }
 
+    handleSubmit (event) {
+        event.preventDefault();
+        // var token= document.getElementById('_token').value;
+        // console.log(token);
+        const optionid= event.target.getAttribute('data-id');
+        const pollid= event.target.getAttribute('data-questionid');
+        console.log(optionid);
+        const user = {
+        //   name: this.state.name,
+          method: 'POST',
+          type:'varun',
+          data:{
+            pollid:pollid,
+            optionid: optionid
+          },
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        };
+    
+        axios.post('http://127.0.0.1:8000/pollresponse/responsestore', user, {
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                }).then(
+                    response => response.data
+                    // console.log(response.data)
+                ).catch(
+                    error => console.log(error)
+                )
+      }
+
+      
     // handleChange (event) {
     //     this.setState({ name: event.target.value });
     // }
@@ -133,9 +197,41 @@ class FactsPoll extends Component {
   render () {
         const { facts } = this.state
         const { publicpoll } = this.state;
-        // console.log(likecounting);
-                // console.log(todaysfact);
-                // console.log(facts);
+        const Question = ({name}) => (
+            publicpoll.map((item, index) => 
+            <form key={index} >
+                  <div>
+                    
+                        <div className="pp__wrp text-center">
+                            <h5 className="mb-5">{item.question}</h5>
+                            
+                            <ul className="options" style={{display:this.state.displayoption}} >
+                            
+                                {item.options.map((company, i) =>
+                                
+                                // <label className="btn btn-primary btn-block">{company.question}
+                                    
+                                    <input key={i} className="btn btn-primary btn-block" data-id={company.id} data-questionid={company.question_id} type="button" value={company.question} onClick={this.optionClick}/>     
+                                    // </label>                                   
+                                    )}
+                                    
+                            </ul>
+                        </div>
+                </div>
+            </form>
+        )
+        );
+        const Answer = () => (
+         publicpoll.map((item, index) =>
+            <div key={index}>              
+            <div className="pp__wrp text-center">
+                <h5 className="mb-5">{item.question}</h5>
+                <PollResult />
+            </div>
+            </div>
+            ));
+
+
         const description = facts.map((rowdata,i)=>
         
             <div key={i}>
@@ -200,30 +296,18 @@ class FactsPoll extends Component {
                         </div>
                     </div>
                     <div className="col-md-4">
-                    {/* <div className="pp">
+                    <div className="pp">
                         <div className="pp-header">
                         Public Poll
                         </div>
-                        <form >
-                        <div>
-                                {publicpoll.map((item, index) => (
-                                    <div className="pp__wrp text-center">
-                                        <h5 className="mb-5">{item.question}</h5> 
-                                <ul>
-                                    {item.options.map((company, index) =>
-                               
-                                    // <label className="btn btn-primary btn-block">{company.question}
-                                        <input className="btn btn-primary btn-block" type="button" value={company.question}/>     
-                                    // </label>                                   
-                                        )}
-                                </ul>
-                            </div>
-                            
-                                ))}
-                            </div>
-                        </form>
-                    </div> */}
+                       
+                        { this.state.optionbool ? <Question /> : <Answer /> }
+                        
+                    </div>
+                    
+                     {/* <div className="pp">
                     <PollResult />
+                    </div> */}
                     </div>
                 </div>
             </div>
