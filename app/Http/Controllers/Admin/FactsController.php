@@ -44,7 +44,7 @@ class FactsController extends Controller
             $imagefinalname = 'http://127.0.0.1:8000'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'facts'.DIRECTORY_SEPARATOR.$image_name;
     	}
         $thumbnailpath = public_path('images/facts/'.$image_name);
-        $img = Image::make($thumbnailpath)->resize(400, 150, function($constraint) {
+        $img = Image::make($thumbnailpath)->resize(940, 594, function($constraint) {
             $constraint->aspectRatio();
         });
         $img->save($thumbnailpath);

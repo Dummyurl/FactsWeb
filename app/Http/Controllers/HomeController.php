@@ -25,6 +25,16 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function apistore()
+    {
+        dd('Hi Prakash Dai');
+    }
+
+
+    public function pollresponse()
+    {
+        dd('Hi Prakash Dai');
+    }
 }
 
 // ALTER USER 'factsuser'@'localhost' IDENTIFIED BY 'naxafacts';

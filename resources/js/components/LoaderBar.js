@@ -26,9 +26,30 @@ import 'react-loading-bar/dist/index.css'
     onHide() {
         this.setState({ show: false })
     }
+    componentWillMount(){
+        console.log('Component WILL MOUNT!')
+       
+        setTimeout(
+                function() {
+                    {this.onHide()}
+                }
+                .bind(this),
+                2000
+                );
+    
+
+    }
     componentDidMount(){
-        {this.onShow()}
-        // {this.onHide()}    
+        console.log('Component DID MOUNT!')
+              setTimeout(
+                function() {
+                    {this.onShow()}
+                }
+                .bind(this),
+                100
+                );
+         
+       
     }
     render(){
        

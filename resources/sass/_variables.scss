@@ -1,20 +1,21 @@
+$baseFontSize: 19;
+$basevalue: rem(15);
 
-// Body
-$body-bg: #f8fafc;
+// margins
 
-// Typography
-$font-family-sans-serif: "Nunito", sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$h1-font-size: 5.653em;
+$h2-font-size: 3.998em;
+$h3-font-size: 2.827em;
+$h4-font-size: 1.999em;
+$h5-font-size: 1.414em;
+$section-padding: rem(100);
+$section-padding-half: rem(50);
+$section-padding-quarter: rem(25);
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$primary: #b43046;
+$white: #fff;
+$light-dark: #6a6a6c;
+$hover: darken($primary, 5%);
+
+$text-primary: #313133;
+$text-opactity: 0.8;

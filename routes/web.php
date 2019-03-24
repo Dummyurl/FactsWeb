@@ -10,18 +10,39 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::get('login', 				['as' =>'login', 	    			'uses'=>'Auth\LoginController@showLoginForm']);
+Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
+	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
+	Route::get('surveyapi',				['as'=>'surveyapi',				'uses' =>'ApiController@surveyapi']);
+	Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@ourinititives']);
+	Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
+	Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 
-Route::get('/', function () {
-    return view('app');
+Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
+
+	
+Route::post('pollresponse/responsestore',				['as'=>'response.store',				'uses' =>'HomeController@pollresponse']);
+
+Route::get('/{path?}', function () {
+	return view('app');
+	// Route::view('/{path?}', 'app');
 });
+// Route::get('/{path?}', function () {
+// 	return view('app');
+// 	// Route::view('/{path?}', 'app');
+// });
+
+// Route::view('/{path?}', 'app');
 
 // Route::post('admin/update/{id}',			['as'=>'category.update',		'uses' =>'Admin\CategoryController@update']);
 // Route::get('admin/update', 				['as' =>'admin.siteprofile',    'uses'=>'Admin\SiteProfileController@index']);
+Route::post('factsapilike/store',				['as'=>'factsapilike.store',				'uses' =>'HomeController@apistore']);
 
 
 Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], function (){
 	Route::get('dashboard',   				['as' =>'dashboard',   	    			'uses'=>'Admin\DashboardController@index']);
 	Route::get('siteprofile', 				['as' =>'siteprofile', 	    			'uses'=>'Admin\SiteProfileController@index']);
+	
 
 	Route::get('siteprofile/edit',	    	['as'=>'siteprofile.edit',				'uses' =>'Admin\SiteProfileController@edit']);
 	Route::post('siteprofile/update',		['as'=>'siteprofile.update',			'uses' =>'Admin\SiteProfileController@update']);
@@ -78,15 +99,6 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::post('initiatives/update/{id}',	  ['as'=>'initiatives.update',			    'uses' =>'Admin\InitiativesController@update']);
 	Route::get('initiatives/delete/{id}',	  ['as'=>'initiatives.delete',			    'uses' =>'Admin\InitiativesController@delete']);
 });	
-
-
-
-	Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
-	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
-	Route::get('surveyapi',				['as'=>'surveyapi',				'uses' =>'ApiController@surveyapi']);
-	Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@ourinititives']);
-	Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
-	Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 
 
 
