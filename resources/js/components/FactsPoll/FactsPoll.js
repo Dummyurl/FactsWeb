@@ -167,32 +167,6 @@ class FactsPoll extends Component {
                     error => console.log(error)
                 )
       }
-
-      
-    // handleChange (event) {
-    //     this.setState({ name: event.target.value });
-    // }
-    
-    //   handleSubmit (event) {
-    //     event.preventDefault();
-    
-    //     const user = {
-    //       name: this.state.name,
-    //       type:'varun'
-    //     };
-    
-    //     axios.post(`/factapi`, { user })
-    //       .then(res => {
-    //         console.log(res);
-    //         console.log(res.data);
-    //       })
-    //     axios.get(`/factapi`)
-    //         .then(res => {
-    //         const persons = res.data;
-    //         this.setState({ persons });
-    //         console.log(persons);
-    //     })
-    //   }
       
   render () {
         const { facts } = this.state

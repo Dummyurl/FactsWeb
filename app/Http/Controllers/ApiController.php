@@ -13,7 +13,7 @@ use App\Models\Surveyoption;
 use App\Models\Initiative;
 use App\Models\SiteProfile;
 use Illuminate\Support\Facades\DB;
-use App\Models\SiteProfile;
+
 
 class ApiController extends Controller
 {
@@ -79,19 +79,30 @@ class ApiController extends Controller
     }
     public function publicpoll()
     {
+
         $data['publicpoll'] =PublicPoll::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device')->orderBy('id', 'DESC')->take(10)->get();  
-        foreach ($data['publicpoll'] as $key => $value) {
-            $polloftheday[] = array(
-                'id'=>$value->id,
-                'question'=>$value->question,
-                'day_poll'=>$value->day_poll,
-                'poll_date'=>$value->poll_date,
-                'question_type'=>$value->question_type,
-                'active'=>$value->status,
-                'options'=>Polloption::select('id','question','question_id')->where('question_id',$value->id)->get(),
+        if(!empty($data['publicpoll'])) {
+            foreach ($data['publicpoll'] as $key => $value) {
+                $polloftheday[] = array(
+                    'id'=>$value->id,
+                    'question'=>$value->question,
+                    'day_poll'=>$value->day_poll,
+                    'poll_date'=>$value->poll_date,
+                    'question_type'=>$value->question_type,
+                    'active'=>$value->status,
+                    'options'=>Polloption::select('id','question','question_id')->where('question_id',$value->id)->get(),
+                );
+            }
+          
+            print(json_encode($polloftheday));
+           
+        }else{
+            $polloftheday = array(
+                'status'=>'No Data Found',
+                'message'=>'No Data Found',
             );
+            print(json_encode($polloftheday));
         }
-        print(json_encode($polloftheday));
     }
 
     
