@@ -40,6 +40,8 @@
         "line-awesome": "^1.0.2",
         "material-auto-rotating-carousel": "^3.0.1",
         "normalize.css": "^8.0.1",
+        "pace": "0.0.4",
+        "pace-js": "^1.0.2",
         "react-animated-slider": "^1.1.4",
         "react-faux-dom": "^4.4.0",
         "react-loading-bar": "0.0.7",

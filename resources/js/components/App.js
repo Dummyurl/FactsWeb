@@ -10,6 +10,8 @@
     // import Slider from './Slider';
     // import Slides from './Slides'
     // import PollData from './Polloftheday';
+    import 'pace-js'
+    import 'pace-js/themes/red/pace-theme-minimal.css'
     import '../../sass/style.scss';
     import AllFacts from './AllFacts/AllFacts';
     // import '../../sass/_variables.scss';
@@ -24,12 +26,14 @@
         }
         render() {
             return (
-              <Router>
-                <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/allfacts" component={AllFacts} />
-              </Switch>
-              </Router>
+              <div className="App Fade">
+                <Router>
+                  <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/allfacts" component={AllFacts} />
+                </Switch>
+                </Router>
+              </div>
               // <div>
               //  <Home />
               // </div>
