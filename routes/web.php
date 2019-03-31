@@ -11,6 +11,10 @@
 |
 */
 // Route::get('login', 				['as' =>'login', 	    			'uses'=>'Auth\LoginController@showLoginForm']);
+Auth::routes();
+
+
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
 	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
 	Route::get('surveyapi',				['as'=>'surveyapi',				'uses' =>'ApiController@surveyapi']);
@@ -18,7 +22,7 @@ Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@public
 	Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
 	Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 
-Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
+Route::get('config',				['as'=>'config',				'uses' =>'ApiController@factapimob']);
 
 	
 Route::post('pollresponse/responsestore',				['as'=>'response.store',				'uses' =>'HomeController@pollresponse']);
@@ -27,12 +31,12 @@ Route::get('/{path?}', function () {
 	return view('app');
 	// Route::view('/{path?}', 'app');
 });
-// Route::get('/{path?}', function () {
-// 	return view('app');
-// 	// Route::view('/{path?}', 'app');
-// });
+Route::get('/{path?}', function () {
+	return view('app');
+	// Route::view('/{path?}', 'app');
+});
 
-// Route::view('/{path?}', 'app');
+Route::view('/{path?}', 'app');
 
 // Route::post('admin/update/{id}',			['as'=>'category.update',		'uses' =>'Admin\CategoryController@update']);
 // Route::get('admin/update', 				['as' =>'admin.siteprofile',    'uses'=>'Admin\SiteProfileController@index']);
@@ -179,8 +183,18 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 
 
 //if we we hsve data then we need to add columnn then  
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 ///  don't change vandor file because vender is replace by composer with every new library added. if we don't use composer update then its right  
+
+
+// Client ID: 1
+// Client secret: TqvgUbsfl36TTVwkmQxqBP7LvuTDTfNxON4GOVFj
+// Password grant client created successfully.
+// Client ID: 2
+// Client secret: wkt3WRrQRLGYaB9azkyIuYYk8Wv06gekEFWlvdCY
+
+
+// apistore
+// api token
+// eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA0NWNiYjlhMTU2ZjU0ZmNiYjM1NjRlOWRmM2U2MTFhNWUyNDVlYjViMTdjNGMwOWIxMmNmMjIwMjVmNTg4YzllZDZkYTNlOWRjOGUwYTZiIn0.eyJhdWQiOiIxIiwianRpIjoiMDQ1Y2JiOWExNTZmNTRmY2JiMzU2NGU5ZGYzZTYxMWE1ZTI0NWViNWIxN2M0YzA5YjEyY2YyMjAyNWY1ODhjOWVkNmRhM2U5ZGM4ZTBhNmIiLCJpYXQiOjE1NTM5NjY0MjMsIm5iZiI6MTU1Mzk2NjQyMywiZXhwIjoxNTg1NTg4ODIzLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.ec4ZUoQlrx4hjtzQAjjBv8xoRj4usoXHUZ9yshio2d85cAyan69ueVhgTE8iMyN2jZnpaFOGu7YjQwnocEpL3uMGEWJMJUbDFk7zfjWErGjbJOG-k7kXenuAqdvf3i8advLTu-eiIyLGz0a4uyMiDtjewJd0HYUnuuWkYxqrjzyWv25uXqACQS4dUwBMnAs1Yx9l5MmU1cgxRl6qdTaHlyj0v4VUTs6WeCk3t-O_I6FzAB3MTFeHZN9GijWdP84at1iWqK9-b79-4YhngBU0OXVTGFqjTbGtwYzBrHJT9DmW2_JRb6h5nZWvLnZr_iV6yiOl-8OEcK9tqoBpAy41Nzzq2xmCKVSU9QIZaLzcLO1CLNozG0p_Du0xh5dfhl-t0qSCp2zxIOAAfe64ac2JtckMkRIY2Gz79JGdYdRAc79CgkoyNyEVzjKwN8pVK6zRcLDDNfmLMPfu-5rx6QX4Gx4KgeP2G3YI_yjwBwZZ0bSxOlSELiaQnjcmMfjzOHHTynT8ZdMn07TT-2OP9Kducwq6dH7VKYK4hdsBvV6aDONKYHx-PJQopDlnbI4Cwzh6ls0ugyqynlWwouS5dlGFr-UrqoHD-RusWlGZDRBU3xRxnS5akGQKRbT58o2wDJiye0UD5_xSaj_ukdkBXS95w_SVjtlHrcQGmHA3q6gMqlw

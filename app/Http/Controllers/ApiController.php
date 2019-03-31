@@ -36,19 +36,29 @@ class ApiController extends Controller
     {
         // $cat[] =  $request->request->get('categories')
         // $data['category'] =FactCategory::select('id','title','slug')->get();
-        // $data['fact'] =Facts::select('id','title','slug','image as image_url','status','shortdesc as short_desc','order','description','like as like_count','category_id')->orderBy('id', 'DESC')->whereIn('category_id',$cat)->take(10)->get();
+    //$data['fact'] =Facts::select('id','title','slug','image as image_url','status','shortdesc as short_desc','order','description','like as like_count','category_id')->orderBy('id', 'DESC')->take(10)->get();
         // $apidata[]= array(
         //         "version" =>"1.1.0",
         //         "category"=>$data['category'],
         //         "home"=>$data['fact']
         //     );
         // print(json_encode($apidata));
+        //dd($data['fact']);
+        if($request->get('categories')) {
+            $cat[] =  $request->request->get('categories');
+        }else{
 
-        $cat[] =  $request->request->get('categories');
-
+            $data['category'] =Facts::distinct('category_id')->select('category_id','id')->get('facts');
+            //dd($data['category']);
+            $cat[]=$data['category'][0]->id;
+        }
         //dd($cat);
-        $data['category'] =FactCategory::select('id','title','slug')->get();
+        $data['category'] =DB::table('factcategories')->whereIn('id', $cat)->get();//FactCategory::select('id','title','slug')->whereIn('id', $cat)->get();
+        // dd(\DB::getQueryLog()); 
+        //dd($data['category']);
         $data['fact'] =Facts::select('id','title','slug','image as image_url','status','shortdesc as short_desc','order','description','like as like_count','category_id')->orderBy('id', 'DESC')->whereIn('category_id', $cat)->take(10)->get();
+        //dd($data['fact']);
+        
         $apidata[]= array(
                 "version" =>"1.1.0",
                 "category"=>$data['category'],

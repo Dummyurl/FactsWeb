@@ -16,7 +16,6 @@
     </head>
     <body>
         <div id="app"></div>
-
         <!-- <script src="http://localhost:8080/js/bundle.js"></script> -->
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
