@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Surveyoption;
+use App\Models\SurveyCompany;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +25,7 @@ class SurveyController extends Controller
 	{
         $data =[];
         $data['category'] =Survey::select('id','question')->get();
+        $data['company'] =SurveyCompany::select('id','title')->get();
         //dd($data['category']);
 		return view('admin.survey.addsurvey',compact('data'));
 	}
@@ -31,7 +33,7 @@ class SurveyController extends Controller
     {
     	$data= [];
     	$data['row'] = Survey::where('id',$id)->first();
-        //$data['qnoptions'] =Surveyoption::select('id','question','question_id')->get();
+        $data['company'] =SurveyCompany::select('id','title')->get();
         $data['qnoptions'] =Surveyoption::select('id','question','question_id')->where('question_id',$id)->get();
         //dd($data['qnoptions']);
         $data['optionstype'] = array(
@@ -56,6 +58,9 @@ class SurveyController extends Controller
             'question_type'=>$request->get('question_type'),
             'status'=>$request->get('status'),
             'createdby'=>$user->id,
+            'survey_id'=>$request->get('survey_id'),
+            'srvey_start_date'=>$request->get('srvey_start_date'),
+            'srvey_end_date'=>$request->get('srvey_end_date'),
             'visitor'=>'192.68.1.1',//$this->getIp(), 
             'device'=>'df:sd:6y:y6:fd'));
         $data['qnoptions'] =Surveyoption::select('id')->where('question_id',$id)->get();
@@ -227,6 +232,9 @@ class SurveyController extends Controller
             'question_type'=>$request->get('question_type'),
             'status'=>$request->get('status'),
             'createdby'=>$user->id,
+            'survey_id'=>$request->get('survey_id'),
+            'srvey_start_date'=>$request->get('srvey_start_date'),
+            'srvey_end_date'=>$request->get('srvey_end_date'),
             'visitor'=>'192.68.1.1',//$this->getIp(), 
             'device'=>'df:sd:6y:y6:fd'));
         $insertedid = DB::getPdo()->lastInsertId();
@@ -280,6 +288,56 @@ class SurveyController extends Controller
         }
         $request->session()->flash('success_message', 'Survey added Successfully.');
         return redirect()->route('admin.surveylist');
+    }
+    public function categoryform(Request $request)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $template = View::make('admin.survey.categoryform',compact('data'));
+            $contents = (string) $template; 
+            print_r(json_encode(array('status'=>'success','template'=>$contents,'message'=>'Survey Preview Successfully')));
+            exit;
+        }else {
+            print_r(json_encode(array('status'=>'error','message'=>'Cannot Perform this Operation')));
+            exit;
+        }
+    }
+    public function categorystore(Request $request)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $template = View::make('admin.survey.categoryform',compact('data'));
+            if($request->hasFile('image')) {
+                $image = $request->file('image');
+                $image_name = rand(4952, 9857).'_'.$image->getClientOriginalName();
+                $image->move(public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'facts',$image_name);
+                $imagefinalname = url('/').DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'facts'.DIRECTORY_SEPARATOR.$image_name;
+            }
+            $request->request->add([
+                    'slug' => str_slug($request->get('title')),
+                    'shortdesc' => $request->get('shortdesc'),
+                    'image' => $imagefinalname,
+                    'description'=>$request->get('description')
+                ]);
+            //dd($request->request->all());
+            $trans = SurveyCompany::create($request->request->all());
+                $request->request->add([
+                    'slug' => str_slug($request->get('title')),
+                    'shortdesc' => $request->get('shortdesc'),
+                    'image' => $imagefinalname,
+                    'description'=>$request->get('description')
+                ]);
+            if($trans) 
+            {
+                print_r(json_encode(array('status'=>'success','message'=>'Company  Created Successfully')));
+                exit;
+            }else{
+                print_r(json_encode(array('status'=>'error','message'=>'Cannot Perform this Operation')));
+                exit;
+            }
+           
+        }else {
+            print_r(json_encode(array('status'=>'error','message'=>'Cannot Perform this Operation')));
+            exit;
+        }
     }
 }
 

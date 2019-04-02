@@ -25,6 +25,30 @@
             @csrf
                 <div class="form-body">
                     <div class="form-group">
+                        @if($data['company'])
+                        <div class="col-sm-3">
+                            <label>Question Type</label>
+                            <select class="form-control optionType" name="survey_id" >
+                                <option selected="selected" value="">---Select Survey For---</option>
+                                @foreach($data['company'] as $key=>$cat)
+                                    <option value="{{ $cat->id }}" @if($data['row']->category_id=== $cat->id) selected='selected' @endif>{{ $cat->title }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('survey_id'))
+                                <span class="help-block error">
+                                    <strong>{{ $errors->first('survey_id') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        @endif
+                        <div class="col-md-3">
+                            <label class="control-label">Survey Start From</label>
+                            <input name="srvey_start_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_start_date)?$data['row']->srvey_start_date:'' }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Survey End Date</label>
+                            <input name="srvey_end_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_end_date)?$data['row']->srvey_end_date:'' }}">
+                        </div>
                         <div class="col-md-3">
 	                        <label class="control-label">Question 
 	                            <span class="required" aria-required="true"> * </span>
@@ -93,7 +117,7 @@
                             @if($key+1 == 1)
                             <div class="col-md-3">
                                 <br><button  class="btn btn-info" id="addOptionsMore" type="button">+</button>
-                                <label class="control-label">Click Plus Option To Add Another option</label>
+                                <label class="control-label"></label>
                             </div>
                             @endif
                         </div>
@@ -104,13 +128,12 @@
                     @foreach($data['qnoptions'] as $key=> $qn)
                     <div class="form-group" id="checkOptionsNew" >
                         <div class="col-md-3">
-                            <label>Question Type Check Box</label>
+                            
                             <div class="mt-checkbox-list">
-                                <label class="mt-checkbox mt-checkbox-outline">
-                                    <input type="checkbox"> To Add New  Checkbox
+                              
                                     <input type="hidden" name="qnid[]" value="{{ !empty($qn->id)?$qn->id:'' }}">
-                                    <span></span>
-                                </label>
+                                
+                               
                             </div>
                         </div>
                          <div class="col-md-6">
@@ -122,7 +145,7 @@
                         @if($key+1 == 1)
                         <div class="col-md-3">
                             <br><button  class="btn btn-info" id="addCheckOption" type="button">+</button>
-                            <label class="control-label">Click Plus Option To Add Another option</label>
+                            <label class="control-label"></label>
                         </div>
                         @endif
                     </div>
@@ -193,7 +216,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addOptionRow .btnminus').length+1;
-            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="hidden" name="newradio[]" value="'+count+'">To Add New Option radio button <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtionnew[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="hidden" name="newradio[]" value="'+count+'">To Add New Option radio button <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtionnew[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label"></label></div></div>');
 
         });
         $(document).off('click','#addCheckOption');
@@ -202,7 +225,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addCheckOptionRow .btnminus').length+1;
-            $('.addCheckOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Check Box</label> <div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <input type="hidden" name="newcheckbox[]" value="'+count+'"> To Add New Checkbox <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="check'+count+'" type="text" name="checkboxoptionnew[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addCheckOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label></label> <div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <input type="hidden" name="newcheckbox[]" value="'+count+'"> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="check'+count+'" type="text" name="checkboxoptionnew[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label"></label></div></div>');
 
         });
         $(document).off('click','#addDropdownOption');
@@ -211,7 +234,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addDropdownOptionRow .btnminus').length+1;
-            $('.addDropdownOptionRow').append('<div class="form-group" id="dropDownNew"><div class="col-md-3"> <label>Question Type Dropdown</label><div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <select class="form-control"><option>Select</option> </select> </label></div></div><div class="col-md-6"> <label class="control-label">Please Enter Dropdown Otption <span class="required" aria-required="true"> * </span> </label> <input id="dropdown'+count+'" type="text" name="dropdownoptionnew[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"></div><div class="col-md-3"><br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addDropdownOptionRow').append('<div class="form-group" id="dropDownNew"><div class="col-md-3"> <label>Question Type Dropdown</label><div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <select class="form-control"><option>Select</option> </select> </label></div></div><div class="col-md-6"> <label class="control-label">Please Enter Dropdown Otption <span class="required" aria-required="true"> * </span> </label> <input id="dropdown'+count+'" type="text" name="dropdownoptionnew[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"></div><div class="col-md-3"><br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label"></label></div></div>');
 
         });
         $(document).on('change','.optionType',function(){
