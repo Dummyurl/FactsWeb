@@ -29,7 +29,6 @@
                         <div class="col-sm-3">
                             <label>Question Type</label>
                             <select class="form-control optionType" name="survey_id" >
-                                <option selected="selected" value="">---Select Survey For---</option>
                                 @foreach($data['company'] as $key=>$cat)
                                     <option value="{{ $cat->id }}" @if($data['row']->category_id=== $cat->id) selected='selected' @endif>{{ $cat->title }}</option>
                                 @endforeach
@@ -92,6 +91,10 @@
                                     <strong>{{ $errors->first('question_type') }}</strong>
                                 </span>
                             @endif
+                        </div>
+                         <div class="col-md-3">
+                            <label class="control-label">Survey Amount</label>
+                            <input name="amount"  class="form-control" type="text" value="{{ !empty($data['row']->amount)?$data['row']->amount:'' }}" placeholder="If Fee Enter Zero">
                         </div>
                     </div>
                     <div class="addOptionRow"></div>

@@ -44,7 +44,7 @@
                             <a href="javascript:void(0)" class="btn btn-info" type="fa fa-refresh"><i class="fa fa-refresh"></i></a>
                             <a href="javascript:void(0)" class="btn btn-info" id="globlModalClick">+</a>
                         </div>
-                         <div class="col-md-3">
+                        <div class="col-md-3">
                             <label class="control-label">Survey Start From</label>
                             <input name="srvey_start_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_start_date)?$data['row']->srvey_start_date:'' }}">
                         </div>
@@ -97,6 +97,12 @@
                                     <strong>{{ $errors->first('question_type') }}</strong>
                                 </span>
                             @endif
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label class="control-label">Survey Amount</label>
+                            <input name="amount"  class="form-control" type="text" value="{{ !empty($data['row']->amount)?$data['row']->amount:'' }}" placeholder="If Fee Enter Zero">
                         </div>
                     </div>
                     <!-- <div class="form-group">
