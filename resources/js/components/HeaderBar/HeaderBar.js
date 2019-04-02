@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 class HeaderBar extends Component {
@@ -19,6 +20,7 @@ class HeaderBar extends Component {
                 <a href="services.html" className=" no-decoration menu__item">Services</a>
                 <a href="work.html" className="no-decoration menu__item ">Works</a>
                 <a href="contact.html" className="no-decoration menu__item"> Contact</a>
+                <Link className="no-decoration menu__item" to="/contact">Contact</Link>
                 <div className="nav__hamburger none">
                     <i className="la la-bars"></i>
                 </div>

@@ -4,6 +4,7 @@ import AllFacts from '../AllFacts/AllFacts';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import PollResult from '../PollResult/PollResult';
+import {FacebookShareCount } from 'react-share';
 
 
 
@@ -25,7 +26,7 @@ class FactsPoll extends Component {
             background: ''
           }
         //   this.handleChange= this.handleChange.bind(this)
-        //   this.handleSubmit= this.handleSubmit.bind(this)
+          this.handleSubmit= this.handleSubmit.bind(this)
         //   this.optionClick= this.optionClick.bind(this)
          
     }
@@ -133,20 +134,17 @@ class FactsPoll extends Component {
         this.setState({ show: !this.state.show });
     }
 
-    handleSubmit (event) {
+      handleSubmit (event) {
+        this.updateLikes()
         event.preventDefault();
-        // var token= document.getElementById('_token').value;
+        // var token= document.getElementById('_tokens').value;
         // console.log(token);
-        const optionid= event.target.getAttribute('data-id');
-        const pollid= event.target.getAttribute('data-questionid');
-        console.log(optionid);
         const user = {
-        //   name: this.state.name,
+          name: this.state.name,
           method: 'POST',
           type:'varun',
           data:{
-            pollid:pollid,
-            optionid: optionid
+              likes:1
           },
           headers: {
             'Accept': 'application/json',
@@ -154,15 +152,26 @@ class FactsPoll extends Component {
           },
         };
     
-        axios.post('http://127.0.0.1:8000/pollresponse/responsestore', user, {
+        // axios.post(`/factapi`, { user })
+        //   .then(res => {
+        //     console.log(res);
+        //     console.log(res.data);
+        //   })
+        // axios.get(`factsapilike/store`)
+        //     .then(res => {
+        //     const persons = res.data;
+        //     this.setState({ persons });
+        //     console.log(persons);
+        // })
+    
+        axios.post('http://127.0.0.1:8000/api/POST_like', user, {
                     headers: { 
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         'X-Requested-With': 'XMLHttpRequest',
                     }
                 }).then(
-                    response => response.data
-                    // console.log(response.data)
+                    response => console.log(response.data)
                 ).catch(
                     error => console.log(error)
                 )
@@ -238,15 +247,16 @@ class FactsPoll extends Component {
                                          /></span>
                                     </span>
                                     {/* <form id="likeform" method="POST"> */}
-                                        <span className="likecount" style={{background:this.state.background}} onClick={this.updateLikes} ref="btn" >
+                                        <span className="likecount" style={{background:this.state.background}} onClick={this.handleSubmit} ref="btn" >
                                         <i style={{color:this.state.bgColor}} className="la la-thumbs-o-up"></i> <span> {this.state.likes}</span></span>
                                         {/* <i className="la la-thumbs-o-up"></i> <span> {rowdata.home[0].like}</span></span> */}
                                     {/* </form> */}
                                 </div>
                                 <div className="factsod__facts-share">
-                                    <a href="" className="no-decoration"><i className="la la-facebook"></i></a>
-                                    <a href="" className="no-decoration"><i className="la la-twitter"></i></a>
-                                    <a href="" className="no-decoration"><i className="la la-instagram"></i></a>
+                                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F139.59.67.104%3A8002%2F&amp;src=sdkpreparse" className="no-decoration"><i className="la la-facebook"></i></a>
+                                    <a target="_blank" href="https://twitter.com/home?status=http%3A//139.59.67.104%3A8002" className="no-decoration"><i className="la la-twitter"></i></a>
+                                    <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A//139.59.67.104%3A8002&title=Facts%20Nepal&summary=&source="><i className="la la-linkedin"></i></a>
+                                    {/* <a href="http://139.59.67.104:8002/" className="no-decoration"><i className="la la-instagram"></i></a> */}
                                 </div>
                             </div>
                         </div>

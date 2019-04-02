@@ -150,6 +150,19 @@ class ApiController extends Controller
             );
         print(json_encode($servicesarr));
     }
+    public function POST_like()
+    {
+        dd('hello');
+    }
+    public function varun(Request $request)
+    {   
+        // dd($request->request->all());
+        // $varun[] =  $request->request->all();
+        $varun[] =  $request->request->get('name');
+        // dd($varun);
+        // $data=
+        print_r(json_encode($varun));
+    }
     
 }
  

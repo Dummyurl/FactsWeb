@@ -5,6 +5,7 @@
     import { BrowserRouter as Router, Route, Link,Switch } from "react-router-dom";
     import 'bootstrap/dist/css/bootstrap.css';
     import Home from './Home';
+    
     // import AllFacts from './AllFacts/AllFacts';
     // import LoaderBar from './LoaderBar';
     // import Slider from './Slider';
@@ -14,6 +15,7 @@
     import 'pace-js/themes/red/pace-theme-minimal.css'
     import '../../sass/style.scss';
     import AllFacts from './AllFacts/AllFacts';
+    import Contact from './Contact/Contact';
     // import '../../sass/_variables.scss';
 
     class App extends Component {
@@ -31,6 +33,7 @@
                   <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/allfacts" component={AllFacts} />
+                  <Route path="/contact" component={Contact} />
                 </Switch>
                 </Router>
               </div>

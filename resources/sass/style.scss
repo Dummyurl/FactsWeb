@@ -11,7 +11,13 @@
 @import"./ticker";
 @import"./publicpoll";
 
+.col-md-8{
+  margin: 0 auto;
+}
 
+.allfacts{
+  margin: 50px auto;
+}
 @keyframes FadeAnim {
   0% {
      opacity: 0;
@@ -21,6 +27,8 @@
   }
   }
 
+
+  
 // fonts
 body {
   font-family: 'Work Sans', sans-serif;
