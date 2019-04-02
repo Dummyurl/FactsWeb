@@ -26,6 +26,34 @@
             @csrf
                 <div class="form-body">
                     <div class="form-group">
+                         <div class="col-sm-3">
+                            <label>Question Type</label>
+                            <select class="form-control optionType" name="survey_id" >
+                                <option selected="selected" value="">---Select Survey For---</option>
+                                @foreach($data['company'] as $key=>$cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->title }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('survey_id'))
+                                <span class="help-block error">
+                                    <strong>{{ $errors->first('survey_id') }}</strong>
+                                </span>
+                            @endif
+                        </div></br>
+                        <div class="col-md-3">
+                            <a href="javascript:void(0)" class="btn btn-info" type="fa fa-refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-info" id="globlModalClick">+</a>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Survey Start From</label>
+                            <input name="srvey_start_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_start_date)?$data['row']->srvey_start_date:'' }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Survey End Date</label>
+                            <input name="srvey_end_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_end_date)?$data['row']->srvey_end_date:'' }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-3">
 	                        <label class="control-label">Question 
 	                            <span class="required" aria-required="true"> * </span>
@@ -71,15 +99,28 @@
                             @endif
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label class="control-label">Survey Amount</label>
+                            <input name="amount"  class="form-control" type="text" value="{{ !empty($data['row']->amount)?$data['row']->amount:'' }}" placeholder="If Fee Enter Zero">
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="col-md-3">
+                            <label class="control-label">Survey Start From</label>
+                            <input name="srvey_start_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_start_date)?$data['row']->srvey_start_date:'' }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Survey End Date</label>
+                            <input name="srvey_end_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_end_date)?$data['row']->srvey_end_date:'' }}">
+                        </div>
+                    </div> -->
                     <div class="addOptionRow"></div>
                     <div class="form-group" id="radioOptionNew" style="display: none">
                         <div class="col-md-3">
-                            <label>Question Type Radio</label>
+                            <label></label>
                             <div class="mt-radio-list" data-error-container="#form_2_membership_error">
-                                <label class="mt-radio">
-                                    <input type="radio">
-                                    <span></span> 
-                                </label>
+                              
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -90,18 +131,14 @@
                         </div>
                         <div class="col-md-3">
                             <br><button  class="btn btn-info" id="addOptionsMore" type="button">+</button>
-                            <label class="control-label">Click Plus Option To Add Another option</label>
+                            <label class="control-label"></label>
                         </div>
                     </div>
                     <div class="addCheckOptionRow"></div>
                     <div class="form-group" id="checkOptionsNew" style="display: none">
                         <div class="col-md-3">
-                            <label>Question Type Check Box</label>
+                            <label></label>
                             <div class="mt-checkbox-list">
-                                <label class="mt-checkbox mt-checkbox-outline">
-                                    <input type="checkbox"> To Add New  Checkbox
-                                    <span></span>
-                                </label>
                             </div>
                         </div>
                          <div class="col-md-6">
@@ -112,20 +149,14 @@
                         </div>
                         <div class="col-md-3">
                             <br><button  class="btn btn-info" id="addCheckOption" type="button">+</button>
-                            <label class="control-label">Click Plus Option To Add Another option</label>
+                            <label class="control-label"></label>
                         </div>
                     </div>
                     <div class="addDropdownOptionRow"></div>
                     <div class="form-group" id="dropDownNew" style="display: none">
                         <div class="col-md-3">
-                            <label>Question Type Dropdown</label>
-                            <div class="mt-checkbox-list">
-                                <label class="mt-checkbox mt-checkbox-outline">
-                                    <select class="form-control">
-                                        <option>Select</option>
-                                    </select>
-                                </label>
-                            </div>
+                            <label></label>
+                            
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Please Enter Dropdown Otption 
@@ -135,7 +166,7 @@
                         </div>
                         <div class="col-md-3">
                             <br><button  class="btn btn-info" id="addDropdownOption" type="button">+</button>
-                            <label class="control-label">Click Plus Option To Add Another Dropdown option</label>
+                            <label class="control-label"></label>
                         </div>
                     </div>
                     <div class="form-group" id="starRating" style="display: none">
@@ -169,10 +200,40 @@
             </div>
         </div>
     </div>
-<!-- <script type="text/javascript">
-    $(document).off('.datepicker.data-api');
-</script> -->
-
+<!-- <div class="modal-scrollable" id="myModal1" style="z-index: 10051;">
+    <div id="full-width" class="modal container fade in" tabindex="-1" aria-hidden="false" style="display: block; margin-top: -153px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">Full Width</h4>
+        </div>
+        <div class="modal-body">
+            <p> This modal will resize itself to the same dimensions as the container class. </p>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin ipsum ac ante fermentum suscipit. In ac augue non purus accumsan lobortis id sed nibh. Nunc egestas hendrerit ipsum, et porttitor
+                augue volutpat non. Aliquam erat volutpat. Vestibulum scelerisque lobortis pulvinar. Aenean hendrerit risus neque, eget tincidunt leo. Vestibulum est tortor, commodo nec cursus nec, vestibulum vel nibh.
+                Morbi elit magna, ornare placerat euismod semper, dignissim vel odio. Phasellus elementum quam eu ipsum euismod pretium. </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">Close</button>
+            <button type="button" class="btn green">Save changes</button>
+        </div>
+    </div>
+</div> -->
+<div id="myModal" class="modal fade" role="dialog" aria-hidden="true" style="display: ; padding-right: 15px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" id="GlobalModalForm">
+          
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('js')
     <script>
@@ -182,7 +243,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addOptionRow .btnminus').length+1;
-            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Radio</label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> <label class="mt-radio"> <input type="radio"><span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label></label> <div class="mt-radio-list" data-error-container="#form_2_membership_error"> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="radio_option'+count+'" type="text" name="rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label"></label></div></div>');
 
         });
         $(document).off('click','#addCheckOption');
@@ -191,7 +252,7 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addCheckOptionRow .btnminus').length+1;
-            $('.addCheckOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label>Question Type Check Box</label> <div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <input type="checkbox"> To Add New Checkbox <span></span> </label> </div></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="check'+count+'" type="text" name="checkboxoption[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addCheckOptionRow').append('<div class="form-group"> <div class="col-md-3"> <label></label></div><div class="col-md-6"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input id="check'+count+'" type="text" name="checkboxoption[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-3"> <br><button class="btn btn-danger btnminus " type="button">x</button> <label class="control-label"></label></div></div>');
 
         });
         $(document).off('click','#addDropdownOption');
@@ -200,9 +261,11 @@
                 $(this).closest('.form-group').remove();
             });
             var count = $('.addDropdownOptionRow .btnminus').length+1;
-            $('.addDropdownOptionRow').append('<div class="form-group" id="dropDownNew"><div class="col-md-3"> <label>Question Type Dropdown</label><div class="mt-checkbox-list"> <label class="mt-checkbox mt-checkbox-outline"> <select class="form-control"><option>Select</option> </select> </label></div></div><div class="col-md-6"> <label class="control-label">Please Enter Dropdown Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="dropdownoption[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"></div><div class="col-md-3"><br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label">Click Plus Option To Add Another option</label></div></div>');
+            $('.addDropdownOptionRow').append('<div class="form-group" id="dropDownNew"><div class="col-md-3"> <label></label><div class="mt-checkbox-list"></div></div><div class="col-md-6"> <label class="control-label">Please Enter Dropdown Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="dropdownoption[]" class="form-control" placeholder="Enter Please Enter Dropdown Otption"></div><div class="col-md-3"><br><button class="btn btn-danger btnminus" type="button">x</button> <label class="control-label"></label></div></div>');
 
         });
+       
+
         $(document).on('change','.optionType',function(){
             var type = $('#optionType').val();
             if(type == 'radio')
@@ -243,11 +306,79 @@
                $('#previewSurveyButton').hide(); 
             }
         });
+        
+        $(document).on('click','.submitCompany', function(){ 
+            event.preventDefault();
+            jQuery.noConflict();
+            var formdata = new FormData($('form#CategoryForm')[0])
+            var APP_URL = {!! json_encode(url('/')) !!};
+            var urlpost = APP_URL+'/admin/survey/categorystore';
+            var token =  $("input[name=_token]").val();
+            var CSRF_TOKEN =  $("input[name=_token]").val(); 
+            var title =  $("input[name=title]").val();
+            if(title.length == 0 || title =='')
+            {
+                $("#titleCompany").focus();
+                return false;
+            }
+            $.ajax({
+                type:'POST',
+                url:urlpost,
+                dataType: 'html',
+                //data:$('form#CategoryForm').serialize(),
+                data:formdata,
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    
+                },
+                success:function(jsons){
+                    console.log(jsons);
+                    data = jQuery.parseJSON(jsons); 
+                    console.log(data.template); 
+                    if(data.status=='success')
+                    {
+                        $('#GlobalModalFormMessage').html(data.message);
+                        setTimeout(function(){
+                            $('#CategoryForm')[0].reset();
+                            $('#myModal').modal('hide');
+                        },2000);
+                    }
+                }
+            });
+        });
+       //  $(document).off('click','#globlModalClick');
+        $(document).on('click','#globlModalClick', function(){ 
+            event.preventDefault();
+            jQuery.noConflict();
+            var APP_URL = {!! json_encode(url('/')) !!};
+            var urlpost = APP_URL+'/admin/survey/category';
+            var token =  $("input[name=_token]").val();
+            var CSRF_TOKEN =  $("input[name=_token]").val(); 
+            $('#myModal').modal('show');
+            $.ajax({
+               type:'POST',
+               url:urlpost,
+               dataType: 'html',
+               data:$('form#surveyForm').serialize(),
+                beforeSend: function(){
+                    $('#GlobalModalForm').html();
+                },
+                success:function(jsons){
+                    console.log(jsons);
+                    data = jQuery.parseJSON(jsons);  
+                    console.log(data.template); 
+                    if(data.status=='success')
+                    {
+                        $('#GlobalModalForm').html(data.template);
+                    }
+                }
+            });
+        });
     </script>
     <script type="text/javascript">
         $(".btn-submit").click(function(e){
             e.preventDefault();
-            
             var APP_URL = {!! json_encode(url('/')) !!};
             var urlpost = APP_URL+'/admin/survey/preview';
             var optiontype = $(this).attr('id');
@@ -273,7 +404,8 @@
                 }
             });
         });
-</script>
+    </script>
     <script src="{{ asset('admin-panel/assets//plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 @endsection

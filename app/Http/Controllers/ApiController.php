@@ -12,6 +12,7 @@ use App\Models\Services;
 use App\Models\Surveyoption;
 use App\Models\Initiative;
 use App\Models\SiteProfile;
+use App\Models\SurveyCompany;
 use Illuminate\Support\Facades\DB;
 
 
@@ -117,19 +118,25 @@ class ApiController extends Controller
     }
     public function surveyapi()
     {
-        $data['publicpoll'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device')->orderBy('id', 'DESC')->take(10)->get();  
+        $data['publicpoll'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->orderBy('id', 'DESC')->take(10)->get();  
+        //dd($data['publicpoll']);
+        $data['company'] =SurveyCompany::select('id','title','image','description','shortdesc')->get();
         foreach ($data['publicpoll'] as $key => $value) {
             $surveyapidata[] = array(
                 'id'=>$value->id,
                 'question'=>$value->question,
                 'public_date'=>$value->day_poll,
-                //'poll_date'=>$value->poll_date,
+                'survey_id'=>$value->survey_id,
                 'question_type'=>$value->question_type,
                 'active'=>$value->status,
                 'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$value->id)->get(),
             );
         }
-        print(json_encode($surveyapidata));
+        $finalapi = array(
+                        "survey_company"=>$data['company'],
+                        "surevy_fro"=>$surveyapidata,
+                        );
+        print(json_encode($finalapi));
 
     }
     public function ourinititives()
