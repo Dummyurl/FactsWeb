@@ -7,6 +7,9 @@
     import Initiatives from './Initiatives/Initiatives'
     import HappyClients from './HappyClients/HappyClients'
     import Footer from './Footer/Footer'
+    // import ScrollReveal from 'scrollreveal'
+    import Fade from 'react-reveal/Fade';
+    
 
 
 
@@ -14,19 +17,22 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.state= {}
+        // ScrollReveal().reveal('.Scrollreveal');
         // pulled_data= true
           
         
     }
     render() {
         return (
-          <div>
+          <div className="Scrollreveal">
+          <Fade top big>
             <Header />
             <FactsPoll />
             <Services />
             <Initiatives />
             <HappyClients />
             <Footer />
+            </Fade>
           </div>
             
         );
