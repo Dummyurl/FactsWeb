@@ -17,6 +17,7 @@ Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@public
 	Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@ourinititives']);
 	Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
 	Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
+	Route::get('pollresultapi',			    ['as'=>'pollresultapi',			    'uses' =>'ApiController@pollresult']);
 
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 

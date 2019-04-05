@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('config','ApiController@factapimob');
 Route::post('POST_like','ApiController@POST_like');
-Route::post('varun', 'ApiController@varun');
+Route::post('publicpollresult', 'ApiController@publicpollresult');

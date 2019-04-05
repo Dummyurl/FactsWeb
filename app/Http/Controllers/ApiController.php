@@ -150,19 +150,53 @@ class ApiController extends Controller
             );
         print(json_encode($servicesarr));
     }
-    public function POST_like()
+    public function POST_like(Request $request)
     {
-        dd('hello');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $request->request->get('name');
+            $data['row'] = Facts::where('id',$id)->first();
+
+           // print_r(json_encode(array('status'=>$data['row'] ,'message'=>'Fact Like Increase Successfully')));
+
+            $nlike = $data['row']->like + 1;
+            //dd($nlike);
+            $request->request->add([
+                'like' => $nlike,
+            ]);
+            $data['row']->update($request->request->all());
+            print_r(json_encode(array('status'=>'success','message'=>'Fact Like Increase Successfully')));
+            exit;
+        }else {
+            print_r(json_encode(array('status'=>'error','message'=>'Cannot Perform this Operation')));
+            exit;
+        }
     }
-    public function varun(Request $request)
+    public function publicpollresult(Request $request)
+    {  
+        //  print("sdasdsad");
+        // for($i=0;$i<4; $i++){
+        //     $varun[]=array(
+        //         'name'=>'Liverpool',
+        //         'uv'=>20
+        //     );
+        // }
+        // print_r(json_encode($varun));
+        
+    }
+    public function pollresult(Request $request)
     {   
-        // dd($request->request->all());
-        // $varun[] =  $request->request->all();
-        $varun[] =  $request->request->get('name');
-        // dd($varun);
-        // $data=
-        print_r(json_encode($varun));
+        // dd("sdasdsad");
+        $club=array(
+            "Liverpool","Manutd","Chelsea","Arsenal"
+        );
+        for($i=0;$i<sizeof($club); $i++){
+            $varun[]=array(
+                'name'=>$club[$i],
+                'uv'=>mt_rand(100,500)
+            );
+        }
+            print_r(json_encode($varun));
+        
     }
-    
 }
  
