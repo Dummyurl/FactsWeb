@@ -159,7 +159,20 @@ class ApiController extends Controller
     }
     public function POST_like()
     {
-        dd('hello');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $request->request->get('post_id');
+            $data['row'] = Facts::where('id',$id)->first();
+            $nlike = $data['row']->like + $request->request->get('post_like');
+            $request->request->add([
+                'like' => $nlike+1,
+            ]);
+            $data['row']->update($request->request->all());
+            print_r(json_encode(array('status'=>'success','message'=>'Fact Like Increase Successfully')));
+            exit;
+        }else {
+            print_r(json_encode(array('status'=>'error','message'=>'Cannot Perform this Operation')));
+            exit;
+        }
     }
     public function varun(Request $request)
     {   
@@ -170,6 +183,14 @@ class ApiController extends Controller
         // $data=
         print_r(json_encode($varun));
     }
-    
+    public function testapi()
+    {
+        
+       $n =array(
+        "nepal"=>0,"nepa"=>9
+       );
+
+        print(json_encode($n));
+    }
 }
  

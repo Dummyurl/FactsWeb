@@ -31,3 +31,4 @@ Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@serv
 Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 
+Route::get('apitest',			    ['as'=>'apitest',			    'uses' =>'ApiController@testapi']);

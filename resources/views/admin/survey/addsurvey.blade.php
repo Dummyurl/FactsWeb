@@ -26,9 +26,9 @@
             @csrf
                 <div class="form-body">
                     <div class="form-group">
-                         <div class="col-sm-3">
+                        <div class="col-sm-3">
                             <label>Question Type</label>
-                            <select class="form-control optionType" name="survey_id" >
+                            <select class="form-control optionType" name="survey_id" id="optionManu">
                                 <option selected="selected" value="">---Select Survey For---</option>
                                 @foreach($data['company'] as $key=>$cat)
                                     <option value="{{ $cat->id }}">{{ $cat->title }}</option>
@@ -40,36 +40,11 @@
                                 </span>
                             @endif
                         </div></br>
-                        <div class="col-md-3">
-                            <a href="javascript:void(0)" class="btn btn-info" type="fa fa-refresh"><i class="fa fa-refresh"></i></a>
+                        <div class="col-md-1">
+                            <a href="javascript:void(0)" class="btn btn-info btnRefreshEmployer" id="btnRefreshEmployer" type="fa fa-refresh"><i class="fa fa-refresh"></i></a>
                             <a href="javascript:void(0)" class="btn btn-info" id="globlModalClick">+</a>
                         </div>
-                        <div class="col-md-3">
-                            <label class="control-label">Survey Start From</label>
-                            <input name="srvey_start_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_start_date)?$data['row']->srvey_start_date:'' }}">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="control-label">Survey End Date</label>
-                            <input name="srvey_end_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_end_date)?$data['row']->srvey_end_date:'' }}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-	                        <label class="control-label">Question 
-	                            <span class="required" aria-required="true"> * </span>
-	                        </label>
-                            <input type="text" name="question" data-required="1" class="form-control" placeholder="Enter Question" value="{{ !empty($data['row']->question)?$data['row']['question']:'' }}"> 
-                            @if($errors->has('question'))
-                                <span class="help-block ">
-                                    <strong class="error">{{ $errors->first('question') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="col-md-3">
-                            <label class="control-label">Public Date</label>
-                            <input name="poll_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->poll_date)?$data['row']->poll_date:'' }}">
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="control-label">Do You Want To Publish ?</label>
                             <div class="mt-checkbox-inline mt-radio-list" data-error-container="#form_2_membership_error">
                                 <label class="mt-radio">
@@ -83,9 +58,34 @@
                             </div>
                             <div id="form_2_membership_error"> </div>
                         </div>
+                        <div class="col-md-2">
+                            <label class="control-label">Survey Start From</label>
+                            <input name="srvey_start_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_start_date)?$data['row']->srvey_start_date:'' }}" placeholder="Enter Survey Start Date">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="control-label">Survey End Date</label>
+                            <input name="srvey_end_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_end_date)?$data['row']->srvey_end_date:'' }}" placeholder="Enter Survey End Date">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="control-label">Publish Date</label>
+                            <input name="poll_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->poll_date)?$data['row']->poll_date:'' }}" placeholder="Enter Publish Date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+	                        <label class="control-label">Question 
+	                            <span class="required" aria-required="true"> * </span>
+	                        </label>
+                            <input type="text" name="question[]" data-required="1" class="form-control" placeholder="Enter Question" value="{{ !empty($data['row']->question)?$data['row']['question']:'' }}"> 
+                            @if($errors->has('question'))
+                                <span class="help-block ">
+                                    <strong class="error">{{ $errors->first('question') }}</strong>
+                                </span>
+                            @endif
+                        </div>
                         <div class="col-sm-3">
                             <label>Question Type</label>
-                            <select class="form-control optionType" id="optionType" name="question_type" >
+                            <select class="form-control optionType" id="optionType" data-curid="a" name="question_type[]" >
                               <option selected="selected" value="">---Select Question Type---</option>
                                 <option value="checkbox">Checkbox</option>
                                 <option value="radio">Radio</option>
@@ -98,23 +98,15 @@
                                 </span>
                             @endif
                         </div>
-                    </div>
-                    <div class="form-group">
+                        <div class="col-md-1">
+                            <br>
+                            <a href="javascript:void(0)" class="btn btn-info" id="AddMoreQuestion">+</a>
+                        </div>
                         <div class="col-md-3">
                             <label class="control-label">Survey Amount</label>
                             <input name="amount"  class="form-control" type="text" value="{{ !empty($data['row']->amount)?$data['row']->amount:'' }}" placeholder="If Fee Enter Zero">
                         </div>
                     </div>
-                    <!-- <div class="form-group">
-                        <div class="col-md-3">
-                            <label class="control-label">Survey Start From</label>
-                            <input name="srvey_start_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_start_date)?$data['row']->srvey_start_date:'' }}">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="control-label">Survey End Date</label>
-                            <input name="srvey_end_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->srvey_end_date)?$data['row']->srvey_end_date:'' }}">
-                        </div>
-                    </div> -->
                     <div class="addOptionRow"></div>
                     <div class="form-group" id="radioOptionNew" style="display: none">
                         <div class="col-md-3">
@@ -156,7 +148,6 @@
                     <div class="form-group" id="dropDownNew" style="display: none">
                         <div class="col-md-3">
                             <label></label>
-                            
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Please Enter Dropdown Otption 
@@ -177,6 +168,7 @@
                             <input type="text" name="starrating" class="form-control" placeholder="Enter Range Of Star Eg. 1-6 "> 
                         </div>
                     </div>
+                    <div class="addMoreQuestionWithOption"></div>
                 </div>
                 <div class="form-actions">
                     <div class="row">
@@ -200,24 +192,6 @@
             </div>
         </div>
     </div>
-<!-- <div class="modal-scrollable" id="myModal1" style="z-index: 10051;">
-    <div id="full-width" class="modal container fade in" tabindex="-1" aria-hidden="false" style="display: block; margin-top: -153px;">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">Full Width</h4>
-        </div>
-        <div class="modal-body">
-            <p> This modal will resize itself to the same dimensions as the container class. </p>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin ipsum ac ante fermentum suscipit. In ac augue non purus accumsan lobortis id sed nibh. Nunc egestas hendrerit ipsum, et porttitor
-                augue volutpat non. Aliquam erat volutpat. Vestibulum scelerisque lobortis pulvinar. Aenean hendrerit risus neque, eget tincidunt leo. Vestibulum est tortor, commodo nec cursus nec, vestibulum vel nibh.
-                Morbi elit magna, ornare placerat euismod semper, dignissim vel odio. Phasellus elementum quam eu ipsum euismod pretium. </p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-outline dark">Close</button>
-            <button type="button" class="btn green">Save changes</button>
-        </div>
-    </div>
-</div> -->
 <div id="myModal" class="modal fade" role="dialog" aria-hidden="true" style="display: ; padding-right: 15px;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -265,12 +239,41 @@
 
         });
        
-
+        $(document).off('click','#AddMoreQuestion');
+        $(document).on('click','#AddMoreQuestion', function(){ 
+            $(".addMoreQuestionWithOption").on('click','.btnminus',function(){
+                $(this).closest('.form-group').remove();
+            });
+            var count = $('.addMoreQuestionWithOption .btnminus').length+1;
+            $('.addMoreQuestionWithOption').append('<div class="form-group newClass'+count+'" id="dropDownNew" ><div class="col-md-3"> <label class="control-label">Question <span class="required" aria-required="true"> * </span> </label> <input type="text" name="question[]" data-required="1" class="form-control" placeholder="Enter Question" value="{{!empty($data['row']->question)?$data['row']['question']:''}}"> @if($errors->has('question')) <span class="help-block "> <strong class="error">{{$errors->first('question')}}</strong> </span> @endif</div><div class="col-sm-3"> <label>Question Type</label> <select class="form-control optionType optionShowClassa'+count+'" data-curid="a'+count+'" id="optionType'+count+'" name="'+count+'question_type[]" > <option selected="selected" value="">---Select Question Type---</option> <option value="checkbox">Checkbox</option> <option value="radio">Radio</option> <option value="star_rating">Star Rating</option> <option value="dropdown">Dropdown</option> </select> @if($errors->has('question_type')) <span class="help-block error"> <strong>{{$errors->first('question_type')}}</strong> </span> @endif</div><div class="col-md-1"> <br><a href="javascript:void(0)" class="btn btn-danger btnminus">x</a></div></div><div class="addMoreQuestionWithOption'+count+'"></div>');
+        });
         $(document).on('change','.optionType',function(){
+            var id = $(this).data('curid');
             var type = $('#optionType').val();
+            var option = $('#optionType'+id).val();
+            //$("#optionType1").insertBefore(this);
+            var $wrapper = $('#radioOptionNew', this);
+            $( ".optionShowClass"+id ).after(  '<div class="form-group" id="radioOptionNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-2"> <br><button class="btn btn-info addOptionsMoreNew" data-nid="'+id+'" id="addOptionsMoreNew" type="button">+</button> <label class="control-label"></label> </div></div>' );
+            
+            $(".addOptionsMoreNew").on('click',function(){
+                var countn = $(".optionShowClassa"+id).length+1;
+                var neid = $(this).data('nid');
+                $(".optionShowClass").on('click','.btnminus',function(){
+                    $(this).closest('.form-group').remove();
+                });
+                console.log(neid);
+                $( ".optionShowClass"+neid ).after(  '<div class="form-group" id="radioOptionNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-2"> <br><button class="btn btn-danger btnminus addOptionsMoreNew" id="addOptionsMoreNew" type="button">x</button> <label class="control-label"></label> </div></div>' );
+            });
             if(type == 'radio')
             {
                 $('#radioOptionNew').show();
+                //console.log('radio');
+                //var $wrapper = $('#radioOptionNew', this);
+               // $( ".optionShowClassa1" ).after( "<p>Test</p>" );
+                //$('.optionShowClassa1').appendTo("ygdfuhygvh");
+               // $( "h2hello" ).insertBefore($(".optionShowClassa1"));
+                //$('#optionTypea'+id, $wrapper).clone(true).appendTo($wrapper).find('select').val('').focus();
+                //console.log($wrapper);
                 $('.typeCheckSurvey').attr('id', type);
                
             }else{
@@ -306,7 +309,6 @@
                $('#previewSurveyButton').hide(); 
             }
         });
-        
         $(document).on('click','.submitCompany', function(){ 
             event.preventDefault();
             jQuery.noConflict();
@@ -347,7 +349,7 @@
                 }
             });
         });
-       //  $(document).off('click','#globlModalClick');
+        //  $(document).off('click','#globlModalClick');
         $(document).on('click','#globlModalClick', function(){ 
             event.preventDefault();
             jQuery.noConflict();
@@ -372,6 +374,48 @@
                     {
                         $('#GlobalModalForm').html(data.template);
                     }
+                }
+            });
+        });
+
+        // $('.multi-field-wrapper').each(function() {
+        //     var $wrapper = $('.multi-fields', this);
+        //     $(".add-field", $(this)).click(function (e) {
+        //         var a =  $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('select').val('').focus();
+        //         //a.attr('id','abcd');
+
+        //     });
+        //     $('.multi-field .remove-field', $wrapper).click(function () {
+        //         if ($('.multi-field', $wrapper).length > 1)
+        //             $(this).parent('.multi-field').remove();
+        //     });
+        // });
+    </script>
+
+    <script type="text/javascript">
+        $(document).off('click','.btnRefreshEmployer');
+        $(document).on('click','.btnRefreshEmployer',function(e){
+            e.preventDefault();
+            var APP_URL = {!! json_encode(url('/')) !!}; 
+            var action = APP_URL+'/admin/survey/survey_list';
+            var token =  $("input[name=_token]").val();
+            var CSRF_TOKEN =  $("input[name=_token]").val();  
+            console.log(CSRF_TOKEN);
+            $.ajax({
+                type: "POST",
+                url: action,
+                dataType: 'json',
+                data:$('form#surveyForm').serialize(),
+                success: function(datas) 
+                {
+                    console.log(datas);
+                    var opt='';
+                        opt='<option value="">---Select Survey For---</option>';
+                        $.each(datas,function(i,k)
+                        {
+                          opt += '<option value='+k.id+'>'+k.title+'</option>';
+                        });
+                    $('#optionManu').html(opt);
                 }
             });
         });
@@ -409,3 +453,5 @@
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 @endsection
+
+
