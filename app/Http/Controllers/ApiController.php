@@ -44,11 +44,15 @@ class ApiController extends Controller
         //         "home"=>$data['fact']
         //     );
         // print(json_encode($apidata));
-
-        $cat[] =  $request->request->get('categories');
-
-        //dd($cat);
-        $data['category'] =FactCategory::select('id','title','slug')->get();
+        if($request->request->get('categories')) {
+            $cat[] =  $request->request->get('categories');
+        }else{
+            $cat[] =FactCategory::select('id','title','slug')->whereIn('id',$cat)->get();
+            dd($cat);
+        }
+        $data['category'] =FactCategory::select('id','title','slug')->whereIn('id',$cat)->get();
+        // DB::getQueryLog();
+        dd($data['category']);
         $data['fact'] =Facts::select('id','title','slug','image as image_url','status','shortdesc as short_desc','order','description','like as like_count','category_id')->orderBy('id', 'DESC')->whereIn('category_id', $cat)->take(10)->get();
         $apidata[]= array(
                 "version" =>"1.1.0",
@@ -57,6 +61,7 @@ class ApiController extends Controller
             );
         print(json_encode($apidata));
     }
+
     public function siteapi()
     {
         $data['site'] =SiteProfile::select('created_at','updated_at','sitename','siteslogan','sikiptocontent','addressone','addresstwo','location','mobileno','phoneone','phonetwo','copytext','facebook','twitter','youtube','linkedin','instagram','owner','metatitle','metadescription','logo')->get();   
@@ -157,18 +162,14 @@ class ApiController extends Controller
             );
         print(json_encode($servicesarr));
     }
-    public function POST_like(Request $request)
+    public function POST_like()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $request->request->get('name');
+            $id = $request->request->get('post_id');
             $data['row'] = Facts::where('id',$id)->first();
-
-           // print_r(json_encode(array('status'=>$data['row'] ,'message'=>'Fact Like Increase Successfully')));
-
-            $nlike = $data['row']->like + 1;
-            //dd($nlike);
+            $nlike = $data['row']->like + $request->request->get('post_like');
             $request->request->add([
-                'like' => $nlike,
+                'like' => $nlike+1,
             ]);
             $data['row']->update($request->request->all());
             print_r(json_encode(array('status'=>'success','message'=>'Fact Like Increase Successfully')));
@@ -178,32 +179,23 @@ class ApiController extends Controller
             exit;
         }
     }
-    public function publicpollresult(Request $request)
-    {  
-        //  print("sdasdsad");
-        // for($i=0;$i<4; $i++){
-        //     $varun[]=array(
-        //         'name'=>'Liverpool',
-        //         'uv'=>20
-        //     );
-        // }
-        // print_r(json_encode($varun));
-        
-    }
-    public function pollresult(Request $request)
+    public function varun(Request $request)
     {   
-        // dd("sdasdsad");
-        $club=array(
-            "Liverpool","Manutd","Chelsea","Arsenal"
-        );
-        for($i=0;$i<sizeof($club); $i++){
-            $varun[]=array(
-                'name'=>$club[$i],
-                'uv'=>mt_rand(100,500)
-            );
-        }
-            print_r(json_encode($varun));
+        // dd($request->request->all());
+        // $varun[] =  $request->request->all();
+        $varun[] =  $request->request->get('name');
+        // dd($varun);
+        // $data=
+        print_r(json_encode($varun));
+    }
+    public function testapi()
+    {
         
+       $n =array(
+        "nepal"=>0,"nepa"=>9
+       );
+       
+        print(json_encode($n));
     }
 }
  
