@@ -20,6 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('config','ApiController@factapimob');
 
 Route::post('POST_like','ApiController@POST_like');
+
+Route::post('publicpollresult', 'ApiController@publicpollresult');
+
 Route::post('varun', 'ApiController@varun');
 
 
@@ -30,4 +33,5 @@ Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@
 Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
 Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
+
 

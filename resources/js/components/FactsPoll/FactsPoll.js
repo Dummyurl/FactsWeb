@@ -12,12 +12,23 @@ class FactsPoll extends Component {
     constructor(){
         super();
         this.state= {
+                data:[
+                  {
+                    name: 'Liverpool', uv: 27
+                  },
+                  {
+                    name: 'Arsenal', uv: 20
+                  },
+                  {
+                    name: 'Chelsea', uv: 30 
+                  },
+                  {
+                    name: 'Man Utd', uv: 40
+                  }
+                ],
             facts: [],
             publicpoll:[],
-            name: '',
-            persons: [],
-            clicks:1,
-            likes: 5,
+            pollresultapi:[],
             updated: false,
             optionbool: true,
             displayoption:'block',
@@ -36,69 +47,194 @@ class FactsPoll extends Component {
             facts: response.data
             
           })
-        const todaysfact= this.state.facts[0].home[0];
-        const likecount= this.state.facts[0].home[0].like;
-        // console.log(todaysfact);
-        // console.log(likecount);
         })
 
         axios.get(`/publicpoll`).then(response => {
             this.setState({
                 publicpoll: response.data
             })
-          // const todaysfact= this.state.siteapidata[0].sitedata[0];
-          // const bodo = siteapi.sitedata[0];
-          // const likecount= boda.siteslogan;
-         
+          })
+
+        axios.get(`/pollresultapi`).then(response => {
+            this.setState({
+                pollresultapi: response.data
+                
+            })
+            
           })
         
-        // console.log(todaysfact);
+        // console.log(pollresultapi);
       }
-    //   likeClick() {
-    //       this.setState(prevState => {
-    //           return {
-                    
-    //           }
-    //       })
-    //   }
-
-    // onClick(event) {
-    //     optionClick();
-    //     handleSubmit();
-    //  }
-    
+   
 
 
-    optionClick = ()=> {
+    pollOptionClick = (event)=> {
+        // console.log(event.currentTarget.getAttribute('data-id'));
+        const optionindex = event.currentTarget.getAttribute('data-id');
+        const optionid= event.currentTarget.getAttribute('data-optionid');
+        const questionid= event.currentTarget.getAttribute('data-questionid');
+        console.log(optionindex);
+        console.log(optionid);
         if(this.state.optionbool){
+            let dataCopy = JSON.parse(JSON.stringify(this.state.data))
+            //make changes to ingredients
+            // console.log(dataCopy);
+            dataCopy[optionindex].uv = this.state.data[optionindex].uv += 1
+            // console.log(dataCopy[3].uv);
+            // dataCopy[0] = this.state.data
+            // this.setState({
+                 
+            //     })  
             this.setState((prevState,props)=>{
                 return {
                     optionbool: false,
+                    data:dataCopy,
                     displayoption: 'none',
                 };
                 console.log(this.state.optionbool);
             });
+
+
+
+
+            const pollresult = {
+                method: 'POST',
+                name:event.currentTarget.id,
+                type:'json',
+                data:{
+                    'poll_id':questionid,
+                    'option_id':optionid
+                },
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+              };
+          
+              axios.post('http://127.0.0.1:8000/api/publicpollresult', pollresult, {
+                          headers: { 
+                              'Content-Type': 'application/json',
+                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                              'X-Requested-With': 'XMLHttpRequest',
+                          }
+                      }).then(
+                          response => console.log(response.data)
+                      ).catch(
+                          error => console.log(error)
+                      )
            
         }
         else {
 
         }
     }
-    updateLikes = () => {
+    // updateLikes = () => {
 
+    //     if(!this.state.updated) {
+    //         let recipesCopy = JSON.parse(JSON.stringify(this.state.facts))
+    //         //make changes to ingredients
+    //         console.log(recipesCopy[0].home[0]);
+    //         recipesCopy[0].home[0].like = this.state.facts[0].home[0].like += 1
+    //         this.setState({
+    //             facts:recipesCopy 
+    //             })  
+    //         // this.setState(prevState => {
+    //         //     const facts = [...prevState.facts];
+    //         //     facts[i] = { ...facts[i], [like]: 9 };
+    //         //     return { team };
+    //         //   });
+            
+    //     //   this.setState((prevState, props) => {
+    //     //     return {
+    //     //         facts: prevState.facts
+    //     //     };
+    //     //   });
+    //       this.setState({
+    //         bgColor: '#a93c46',
+    //         updated: true,
+    //         // padding: 1px 9px;
+    //         background: '#fde2e4'
+    //         // background: '#ddecfb'
+    //       })
+    //     } else {
+    
+    //     //   this.setState((prevState, props) => {
+    //     //     return {
+    //     //       likes: prevState.likes - 1,
+    //     //       updated: false,
+    //     //       bgColor: "black",
+    //     //       background: ""
+    //     //     };
+    //     //   });
+
+    //     }
+    
+    
+    // }
+
+    ToggleClick = () => {
+        this.setState({ show: !this.state.show });
+    }
+
+      handleSubmit (event) {
+        const postindex= event.currentTarget.dataset.id
+        
         if(!this.state.updated) {
-          this.setState((prevState, props) => {
-            return {
-              likes: prevState.likes + 1,
-              updated: true
-            };
-          });
+            let recipesCopy = JSON.parse(JSON.stringify(this.state.facts))
+            //make changes to ingredients
+            console.log(recipesCopy[0].home[0]);
+            recipesCopy[0].home[0].like = this.state.facts[0].home[0].like += 1
+            this.setState({
+                facts:recipesCopy 
+                })  
+            // this.setState(prevState => {
+            //     const facts = [...prevState.facts];
+            //     facts[i] = { ...facts[i], [like]: 9 };
+            //     return { team };
+            //   });
+            
+        //   this.setState((prevState, props) => {
+        //     return {
+        //         facts: prevState.facts
+        //     };
+        //   });
           this.setState({
             bgColor: '#a93c46',
+            updated: true,
             // padding: 1px 9px;
             background: '#fde2e4'
             // background: '#ddecfb'
           })
+
+
+        //   console.log(event.currentTarget.id);
+          event.preventDefault();
+          const user = {
+            method: 'POST',
+            name:event.currentTarget.id,
+            type:'json',
+            data:{
+                'post_id':event.currentTarget.id,
+                'post_like':1
+            },
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+          };
+      
+          axios.post('http://127.0.0.1:8000/api/POST_like', user, {
+                      headers: { 
+                          'Content-Type': 'application/json',
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                          'X-Requested-With': 'XMLHttpRequest',
+                      }
+                  }).then(
+                      response => console.log(response.data)
+                  ).catch(
+                      error => console.log(error)
+                  )
+
         } else {
     
         //   this.setState((prevState, props) => {
@@ -111,70 +247,7 @@ class FactsPoll extends Component {
         //   });
 
         }
-    
-    
-    }
-
-    IncrementItem = () => {
-        this.setState({ clicks: this.state.clicks + 1 });
-        // this.setState({ disabledButton: true });
-        this.setState({
-            bgColor: '#a93c46',
-            // padding: 1px 9px;
-            background: '#fde2e4'
-            // background: '#ddecfb'
-          })
-        this.refs.btn.setAttribute("disabled", "disabled");
-        console.log(this.state.clicks);
-      }
-    DecreaseItem = () => {
-        this.setState({ clicks: this.state.clicks - 1 });
-    }
-    ToggleClick = () => {
-        this.setState({ show: !this.state.show });
-    }
-
-      handleSubmit (event) {
-        this.updateLikes()
-        event.preventDefault();
-        // var token= document.getElementById('_tokens').value;
-        // console.log(token);
-        const user = {
-          name: this.state.name,
-          method: 'POST',
-          type:'varun',
-          data:{
-              likes:1
-          },
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-        };
-    
-        // axios.post(`/factapi`, { user })
-        //   .then(res => {
-        //     console.log(res);
-        //     console.log(res.data);
-        //   })
-        // axios.get(`factsapilike/store`)
-        //     .then(res => {
-        //     const persons = res.data;
-        //     this.setState({ persons });
-        //     console.log(persons);
-        // })
-    
-        axios.post('http://127.0.0.1:8000/api/POST_like', user, {
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        'X-Requested-With': 'XMLHttpRequest',
-                    }
-                }).then(
-                    response => console.log(response.data)
-                ).catch(
-                    error => console.log(error)
-                )
+         
       }
       
   render () {
@@ -194,7 +267,7 @@ class FactsPoll extends Component {
                                 
                                 // <label className="btn btn-primary btn-block">{company.question}
                                     
-                                    <input key={i} className="btn btn-primary btn-block" data-id={company.id} data-questionid={company.question_id} type="button" value={company.question} onClick={this.optionClick}/>     
+                                    <input key={i} className="btn btn-primary btn-block" data-optionid={company.id} data-id={i} /* data-id={company.id} */ data-questionid={company.question_id} type="button" value={company.question} onClick={event => this.pollOptionClick(event)}/>     
                                     // </label>                                   
                                     )}
                                     
@@ -209,7 +282,7 @@ class FactsPoll extends Component {
             <div key={index}>              
             <div className="pp__wrp text-center">
                 <h5 className="mb-5">{item.question}</h5>
-                <PollResult />
+                <PollResult data={this.state.pollresultapi}/>
             </div>
             </div>
             ));
@@ -217,7 +290,7 @@ class FactsPoll extends Component {
 
         const description = facts.map((rowdata,i)=>
         
-            <div key={i}>
+            <form key={i}>
                 {
                     // rowdata.home.map((subRowData,k)=>
                         // <div >
@@ -247,8 +320,8 @@ class FactsPoll extends Component {
                                          /></span>
                                     </span>
                                     {/* <form id="likeform" method="POST"> */}
-                                        <span className="likecount" style={{background:this.state.background}} onClick={this.handleSubmit} ref="btn" >
-                                        <i style={{color:this.state.bgColor}} className="la la-thumbs-o-up"></i> <span> {this.state.likes}</span></span>
+                                        <span id={rowdata.home[0].id} className="likecount" style={{background:this.state.background}} onClick={event => this.handleSubmit(event)} ref="btn" >
+                                        <i style={{color:this.state.bgColor}} className="la la-thumbs-o-up"></i> <span> {rowdata.home[0].like}</span></span>
                                         {/* <i className="la la-thumbs-o-up"></i> <span> {rowdata.home[0].like}</span></span> */}
                                     {/* </form> */}
                                 </div>
@@ -263,7 +336,7 @@ class FactsPoll extends Component {
                     </div> 
                     // )   
                 }
-            </div>  
+            </form>  
         )
     return (
         <section className="section-padding-y fact-poll">

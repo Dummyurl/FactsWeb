@@ -64,47 +64,84 @@ export default class AllFacts extends React.Component {
 }
 
 handleSubmit (event) {
-  this.updateLikes()
-  event.preventDefault();
-  // var token= document.getElementById('_tokens').value;
-  // console.log(token);
-  const user = {
-    name: this.state.name,
-    method: 'POST',
-    type:'varun',
-    data:{
-        likes:1
-    },
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-  };
+  const eventid= event.currentTarget.id;
+  console.log(eventid);
+  const postindex= event.currentTarget.dataset.id
+  const postspan= event.currentTarget;
+  
+  console.log(postspan);
+  // console.log(event.currentTarget.dataset.id);
+  if(!this.state.updated) {
+    postspan.classList.add('liked');
+      let recipesCopy = JSON.parse(JSON.stringify(this.state.facts))
+      //make changes to ingredients
+      // console.log(recipesCopy[0].home[eventid]);
+      console.log(eventid);
+      recipesCopy[0].home[postindex].like = this.state.facts[0].home[postindex].like += 1
+      this.setState({
+          facts:recipesCopy 
+          })  
+      // this.setState(prevState => {
+      //     const facts = [...prevState.facts];
+      //     facts[i] = { ...facts[i], [like]: 9 };
+      //     return { team };
+      //   });
+      
+  //   this.setState((prevState, props) => {
+  //     return {
+  //         facts: prevState.facts
+  //     };
+  //   });
+    // this.setState({
+    //   bgColor: '#a93c46',
+    //   updated: true,
+    //   // padding: 1px 9px;
+    //   background: '#fde2e4'
+    //   // background: '#ddecfb'
+    // })
 
-  // axios.post(`/factapi`, { user })
-  //   .then(res => {
-  //     console.log(res);
-  //     console.log(res.data);
-  //   })
-  // axios.get(`factsapilike/store`)
-  //     .then(res => {
-  //     const persons = res.data;
-  //     this.setState({ persons });
-  //     console.log(persons);
-  // })
 
-  axios.post('http://127.0.0.1:8000/api/POST_like', user, {
-              headers: { 
-                  'Content-Type': 'application/json',
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                  'X-Requested-With': 'XMLHttpRequest',
-              }
-          }).then(
-              response => response.data
-              // console.log(response.data)
-          ).catch(
-              error => console.log(error)
-          )
+    // console.log(event.currentTarget.id);
+    event.preventDefault();
+    const user = {
+      method: 'POST',
+      name:event.currentTarget.id,
+      type:'json',
+      data:{
+          'post_id':event.currentTarget.id,
+          'post_like':1
+      },
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    };
+
+    axios.post('http://127.0.0.1:8000/api/POST_like', user, {
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            }).then(
+                response => console.log(response.data)
+            ).catch(
+                error => console.log(error)
+            )
+
+  } else {
+
+  //   this.setState((prevState, props) => {
+  //     return {
+  //       likes: prevState.likes - 1,
+  //       updated: false,
+  //       bgColor: "black",
+  //       background: ""
+  //     };
+  //   });
+
+  }
+   
 }
 
 
@@ -154,7 +191,7 @@ handleSubmit (event) {
                                          /></span>
                                     </span>
                                     {/* <form id="likeform" method="POST"> */}
-                                        <span className="likecount" style={{background:this.state.background}} onClick={this.handleSubmit} ref="btn" >
+                                        <span data-id={i} id={subrowdata.id} className="likecount" style={{background:this.state.background}} onClick={event => this.handleSubmit(event)} ref="btn" >
                                         <i style={{color:this.state.bgColor}} className="la la-thumbs-o-up"></i> <span> {subrowdata.like}</span></span>
                                         {/* <i className="la la-thumbs-o-up"></i> <span> {rowdata.home[0].like}</span></span> */}
                                     {/* </form> */}
