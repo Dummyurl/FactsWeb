@@ -47,12 +47,8 @@ class ApiController extends Controller
         //dd($request->request->get('categories'));
         if($request->request->get('categories')) {
             $dcat=  $request->request->get('categories');
-            // $cpost=$request->request->get('categories')
-            foreach ($dcat as $key => $cval) {
-               $cat[] = $cval   ;
-               // dd($cval);
-            }
-           // dd($cat);
+            $pcat = preg_replace("][","",$dcat);
+            $cat = explode(",", $pcat);
             $data['category'] =FactCategory::select('id','title','slug')->whereIn('id', $cat)->get();
         }else{
             $data['category'] =FactCategory::select('id','title','slug')->get();
