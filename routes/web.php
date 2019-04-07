@@ -10,7 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('login', 				['as' =>'login', 	    			'uses'=>'Auth\LoginController@showLoginForm']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
 Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
 	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
 	Route::get('surveyapi',				['as'=>'surveyapi',				'uses' =>'ApiController@surveyapi']);
@@ -85,6 +90,10 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::get('survey/delete/{id}',	  ['as'=>'survey.delete',			'uses' =>'Admin\SurveyController@delete']);
 	Route::post('survey/preview',	      ['as'=>'survey.preview',	        'uses' =>'Admin\SurveyController@preview']);
 
+	Route::post('survey/category',	      ['as'=>'survey.category',	        'uses' =>'Admin\SurveyController@categoryform']);
+	Route::post('survey/categorystore', 	  ['as'=>'survey.categorystore',	     'uses' =>'Admin\SurveyController@categorystore']);
+	
+
 	Route::get('serviceslist',			  ['as'=>'serviceslist',				'uses' =>'Admin\ServicesController@index']);
 	Route::get('services/add',			  ['as'=>'services.add',				'uses' =>'Admin\ServicesController@add']);
 	Route::post('services/store', 	  	  ['as'=>'services.store',	     		'uses' =>'Admin\ServicesController@store']);
@@ -100,26 +109,6 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 	Route::post('initiatives/update/{id}',	  ['as'=>'initiatives.update',			    'uses' =>'Admin\InitiativesController@update']);
 	Route::get('initiatives/delete/{id}',	  ['as'=>'initiatives.delete',			    'uses' =>'Admin\InitiativesController@delete']);
 });	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -180,8 +169,5 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 
 
 //if we we hsve data then we need to add columnn then  
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 ///  don't change vandor file because vender is replace by composer with every new library added. if we don't use composer update then its right  
