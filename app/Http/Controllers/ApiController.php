@@ -44,15 +44,24 @@ class ApiController extends Controller
         //         "home"=>$data['fact']
         //     );
         // print(json_encode($apidata));
+        //dd($request->request->get('categories'));
         if($request->request->get('categories')) {
-            $cat[] =  $request->request->get('categories');
+            $dcat=  $request->request->get('categories');
+            // $cpost=$request->request->get('categories')
+            foreach ($dcat as $key => $cval) {
+               $cat[] = $cval   ;
+               // dd($cval);
+            }
+           // dd($cat);
+            $data['category'] =FactCategory::select('id','title','slug')->whereIn('id', $cat)->get();
         }else{
-            $cat[] =FactCategory::select('id','title','slug')->whereIn('id',$cat)->get();
-            dd($cat);
+            $data['category'] =FactCategory::select('id','title','slug')->get();
+            foreach ($data['category'] as $key => $catt) {
+                $cat[]=$catt->id;
+            }
         }
-        $data['category'] =FactCategory::select('id','title','slug')->whereIn('id',$cat)->get();
         // DB::getQueryLog();
-        dd($data['category']);
+       // dd($data['category']);
         $data['fact'] =Facts::select('id','title','slug','image as image_url','status','shortdesc as short_desc','order','description','like as like_count','category_id')->orderBy('id', 'DESC')->whereIn('category_id', $cat)->take(10)->get();
         $apidata[]= array(
                 "version" =>"1.1.0",
