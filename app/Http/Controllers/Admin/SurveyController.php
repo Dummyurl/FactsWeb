@@ -18,10 +18,14 @@ class SurveyController extends Controller
 	public function index()
 	{  
         $data =[];
-        $data['rows'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device')->get();
+        //$data['rows'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device')->get();
+        //dd($data['rows']);
+        //$data['rows'] =SurveyForms::select('id','question','status','createdby','question_id','survey_id','question_type')->get();
+        $data['rows'] =SurveyCompany::select('id','title','slug','shortdesc','image','description')->get();
         //dd($data['rows']);
 		return view('admin.survey.index',compact('data'));
 	}
+
 	public function add()
 	{
         $data =[];
@@ -30,6 +34,7 @@ class SurveyController extends Controller
         //dd($data['category']);
 		return view('admin.survey.addsurvey',compact('data'));
 	}
+
     public function editsurvey(Request $request,$id)
     {
     	$data= [];
@@ -46,6 +51,7 @@ class SurveyController extends Controller
     	}
     	return view('admin.survey.editsurvey',compact('data'));
     }
+
     public function update(Request $request, $id)
     {
     	$data= [];
@@ -192,6 +198,7 @@ class SurveyController extends Controller
     	$request->session()->flash('success_message', 'Public Poll Update Succcessfully');
     	return redirect()->route('admin.surveylist');
     }
+
     public function delete(Request $request, $id)
     {
     	$data= [];
@@ -206,6 +213,7 @@ class SurveyController extends Controller
 		$request->session()->flash('success_message', 'Public Poll Data Delete Succcessfully');
     	return redirect()->route('admin.surveylist');
     }
+
     public function preview(Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -224,9 +232,9 @@ class SurveyController extends Controller
             exit;
         }
     }
+
     public function storesurvey(AddFromValidation $request)
     {
-        //dd($request->request->all());
         $user = auth()->user();
         Survey::insert(array( 
             'question'=>"one",//$request->get('question'),
