@@ -38,7 +38,7 @@ class AuthController extends Controller
     }
     
     public function getUser() {
-        $user = Auth::user('name', 'email','device_id','photo','address','province','ward','lat','long','dob','education','gender','municipality','street');
+        $user = Auth::user('name', 'email','device_id','photo','address','province','ward','lat','long','dob','education','gender','municipality','street','type');
         return response()->json(['success' => $user], $this->successStatus); 
     }
 } 
