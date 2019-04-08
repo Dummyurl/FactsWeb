@@ -35,16 +35,6 @@ class ApiController extends Controller
      */
     public function factapimob(Request $request)
     {
-        // $cat[] =  $request->request->get('categories')
-        // $data['category'] =FactCategory::select('id','title','slug')->get();
-        // $data['fact'] =Facts::select('id','title','slug','image as image_url','status','shortdesc as short_desc','order','description','like as like_count','category_id')->orderBy('id', 'DESC')->whereIn('category_id',$cat)->take(10)->get();
-        // $apidata[]= array(
-        //         "version" =>"1.1.0",
-        //         "category"=>$data['category'],
-        //         "home"=>$data['fact']
-        //     );
-        // print(json_encode($apidata));
-        //dd($request->request->get('categories'));
         if($request->request->get('categories')) {
             $dcat=  $request->request->get('categories');
             $remov = array("[", "]");
