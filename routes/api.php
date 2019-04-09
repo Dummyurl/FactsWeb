@@ -39,5 +39,5 @@ Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@
 Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
 Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@factapimob']);
-
+Route::get('pollresultapi',			    ['as'=>'pollresultapi',			    'uses' =>'ApiController@pollresult']);
 

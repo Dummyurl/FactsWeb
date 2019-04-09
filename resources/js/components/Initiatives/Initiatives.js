@@ -8,7 +8,7 @@ class Initiatives extends Component {
         }
     }
     componentDidMount () {
-        axios.get(`/inititivesapi`).then(response => {
+        axios.get(`api/inititivesapi`).then(response => {
           this.setState({
             initiatives: response.data
           })

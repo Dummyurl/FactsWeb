@@ -20,7 +20,7 @@ export default class AllFacts extends React.Component {
   }
 
   componentDidMount () {
-    axios.get(`/factapi`).then(response => {
+    axios.get(`api/factapi`).then(response => {
       this.setState({
         facts: response.data
         
