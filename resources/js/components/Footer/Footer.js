@@ -9,7 +9,7 @@ class Footer extends Component{
     }
 
     componentDidMount () {
-        axios.get(`/siteapi`).then(response => {
+        axios.get(`api/siteapi`).then(response => {
           this.setState({
             siteapidata: response.data
           })
