@@ -13,6 +13,9 @@ use App\Models\Surveyoption;
 use App\Models\Initiative;
 use App\Models\SiteProfile;
 use App\Models\SurveyCompany;
+use App\Models\RegisterUsers;
+use Validator;
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -223,5 +226,25 @@ class ApiController extends Controller
        
         print(json_encode($n));
     }
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [ 
+                    'name' => 'required ',
+                    'email' => 'required|unique:register_users,email'
+        ]);   
+        if ($validator->fails()) {          
+             return response()->json(['error'=>$validator->errors()], 401);                        
+        }  
+        $input = $request->all();
+        RegisterUsers::create($input);
+        return response()->json(['success'=>"Use Regiser Successfully"], '200'); 
+    }
+    public function getUser()
+    {
+        $user =RegisterUsers::select('email','name','photo_url','district','province','ward','latitude','longitude','birth_year','provider','gender','municipality','street','token')->get();
+        return response()->json(['success' => $user], $this->successStatus); 
+    }
 }
  
+   
+        
