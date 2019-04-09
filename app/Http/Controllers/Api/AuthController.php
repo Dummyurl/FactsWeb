@@ -15,14 +15,13 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [ 
                     'name' => 'required',
                     'email' => 'required|email',
-                    'password' => 'required',  
-                    'c_password' => 'required|same:password', 
           ]);   
         if ($validator->fails()) {          
              return response()->json(['error'=>$validator->errors()], 401);                        }    
         $input = $request->all();
         $request->request->add([
-                'contact_no'=>$request->get('contact_no'),
+                'password'=>'123456',
+                'contact_no'=>"0123456",
                 'device'=>request()->ip(),
                 'visitor'=>request()->ip(),
             ]); 
