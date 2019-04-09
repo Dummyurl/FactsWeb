@@ -2,9 +2,7 @@
 @section('content')
 
         <!-- BEGIN PAGE HEADER-->
-        <!-- BEGIN THEME PANEL -->
         <div class="theme-panel hidden-xs hidden-sm">
-            <!-- <div class="toggler"> </div> -->
             <div class="toggler-close"> </div>
             <div class="theme-options">
                 <div class="theme-option theme-colors clearfix">
@@ -88,7 +86,7 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ route('admin.dashboard')}}">Home</a>
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
@@ -106,8 +104,7 @@
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
     	<!-- dashboard start form here -->
-        <h1 class="page-title"> Admin Dashboard
-            <small>statistics, charts, recent events and reports</small>
+        <h1 class="page-title"> Fact Admin Dashboard
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
@@ -115,40 +112,41 @@
         <!-- yo chyinne ho -->
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                <a class="dashboard-stat dashboard-stat-v2 blue" href="{{ route('admin.facts')}}">
                     <div class="visual">
                         <i class="fa fa-comments"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="1349">0</span>
+
+                            <span data-counter="counterup" data-value="1349"> {{ $data['totafacts'] }}</span>
                         </div>
-                        <div class="desc"> New Feedbacks </div>
+                        <div class="desc">Total Facts </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+                <a class="dashboard-stat dashboard-stat-v2 red" href="{{ route('admin.publicpolllist') }}">
                     <div class="visual">
                         <i class="fa fa-bar-chart-o"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="12,5">0</span>M$ </div>
-                        <div class="desc"> Total Profit </div>
+                            <span data-counter="counterup" data-value="12,5">{{  $data['totapoll']  }}</div>
+                        <div class="desc">Total Publc Poll</div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                <a class="dashboard-stat dashboard-stat-v2 green" href="{{ route('admin.surveylist')}}">
                     <div class="visual">
                         <i class="fa fa-shopping-cart"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="549">0</span>
+                            <span data-counter="counterup" data-value="549">{{$data['totalsurvey'] }}</span>
                         </div>
-                        <div class="desc"> New Orders </div>
+                        <div class="desc"> Ongoing Survey</div>
                     </div>
                 </a>
             </div>
@@ -158,9 +156,9 @@
                         <i class="fa fa-globe"></i>
                     </div>
                     <div class="details">
-                        <div class="number"> +
-                            <span data-counter="counterup" data-value="89"></span>% </div>
-                        <div class="desc"> Brand Popularity </div>
+                        <div class="number"> 
+                            <span data-counter="counterup" data-value="89"></span>{{ $data['totaluser'] }}</div>
+                        <div class="desc"> Total User </div>
                     </div>
                 </a>
             </div>
@@ -358,5 +356,5 @@
                 </div>
             </div>
         </div>
-
+            
 @endsection

@@ -42,20 +42,20 @@ class FactsPoll extends Component {
          
     }
     componentDidMount () {
-        axios.get(`/factapi`).then(response => {
+        axios.get(`api/factapi`).then(response => {
           this.setState({
             facts: response.data
             
           })
         })
 
-        axios.get(`/publicpoll`).then(response => {
+        axios.get(`api/publicpoll`).then(response => {
             this.setState({
                 publicpoll: response.data
             })
           })
 
-        axios.get(`/pollresultapi`).then(response => {
+        axios.get(`api/pollresultapi`).then(response => {
             this.setState({
                 pollresultapi: response.data
                 

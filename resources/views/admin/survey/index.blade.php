@@ -31,10 +31,11 @@
         <table class="table table-striped table-checkable table-bordered table-hover" id="sample_1">
             <thead>
                 <tr>
-                    <th> Serial Number </th>
-                    <th> Question </th>
+                    <th> S N </th>
+                    <th> Company </th>
+                    <th>Short Description </th>
+                    <th> Description</th>
 					<th> Status</th>
-					<th> Quesion Type</th>
                     <th> Action</th>
                 </tr>
             </thead>
@@ -44,7 +45,9 @@
 				@foreach($data['rows'] as $key => $row)
                 <tr>
                     <td>{{ $i }}</td>
-                    <td>{{ $row->question }}</td>
+                    <td>{{ $row->title }}</td>
+                    <td>{{ $row->shortdesc }}</td>
+                    <td>{{ $row->description }}</td>
 	                <td>
 	                	@if($row->status == 0)
 							<span class="btn btn-xs green">Active</span>
@@ -63,10 +66,6 @@
 	                                <a onclick="return confirm('Are you sure to Edit Fact Category?');" href="{{ route('admin.survey.editsurvey',['id' => $row->id]) }}">
 	                                    <i class="icon-docs"></i> Edit </a>
 	                            </li>
-	                           <!--  <li>
-	                                <a onclick="return confirm('Are you sure to Delete Fact?');" href="{{ route('admin.survey.delete',['id' => $row->id]) }}">
-	                                    <i class="icon-tag"></i> Delete </a>
-	                            </li> -->
 	                        </ul>
 	                    </div>
 	                </td>

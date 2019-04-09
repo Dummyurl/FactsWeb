@@ -13,6 +13,9 @@ use App\Models\Surveyoption;
 use App\Models\Initiative;
 use App\Models\SiteProfile;
 use App\Models\SurveyCompany;
+use App\Models\RegisterUsers;
+use Validator;
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -159,14 +162,16 @@ class ApiController extends Controller
             );
         print(json_encode($servicesarr));
     }
-    public function POST_like()
+    public function POST_like(Request $request)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $request->request->get('post_id');
+            $id = $request->request->get('name');
             $data['row'] = Facts::where('id',$id)->first();
-            $nlike = $data['row']->like + $request->request->get('post_like');
+           // print_r(json_encode(array('status'=>$data['row'] ,'message'=>'Fact Like Increase Successfully')));
+            $nlike = $data['row']->like + 1;
+            //dd($nlike);
             $request->request->add([
-                'like' => $nlike+1,
+                'like' => $nlike,
             ]);
             $data['row']->update($request->request->all());
             print_r(json_encode(array('status'=>'success','message'=>'Fact Like Increase Successfully')));
@@ -185,6 +190,33 @@ class ApiController extends Controller
         // $data=
         print_r(json_encode($varun));
     }
+    public function pollresult(Request $request)
+    {   
+        // dd("sdasdsad");
+        $club=array(
+            "Liverpool","Manutd","Chelsea","Arsenal"
+        );
+        for($i=0;$i<sizeof($club); $i++){
+            $varun[]=array(
+                'name'=>$club[$i],
+                'uv'=>mt_rand(100,500)
+            );
+        }
+            print_r(json_encode($varun));
+        
+    }
+    public function publicpollresult(Request $request)
+    {  
+        //  print("sdasdsad");
+        // for($i=0;$i<4; $i++){
+        //     $varun[]=array(
+        //         'name'=>'Liverpool',
+        //         'uv'=>20
+        //     );
+        // }
+        // print_r(json_encode($varun));
+        
+    }
     public function testapi()
     {
         
@@ -194,5 +226,25 @@ class ApiController extends Controller
        
         print(json_encode($n));
     }
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [ 
+                    'name' => 'required ',
+                    'email' => 'required|unique:register_users,email'
+        ]);   
+        if ($validator->fails()) {          
+             return response()->json(['error'=>$validator->errors()], 401);                        
+        }  
+        $input = $request->all();
+        RegisterUsers::create($input);
+        return response()->json(['success'=>"Use Regiser Successfully"], '200'); 
+    }
+    public function getUser()
+    {
+        $user =RegisterUsers::select('email','name','photo_url','district','province','ward','latitude','longitude','birth_year','provider','gender','municipality','street','token')->get();
+        return response()->json(['success' => $user], $this->successStatus); 
+    }
 }
  
+   
+        

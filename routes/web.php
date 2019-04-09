@@ -21,14 +21,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
-	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
-	Route::get('surveyapi',				['as'=>'surveyapi',				'uses' =>'ApiController@surveyapi']);
-	Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@ourinititives']);
-	Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
-	Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
+// Route::get('publicpoll',			['as'=>'publicpoll',			'uses' =>'ApiController@publicpoll']);
+// 	Route::get('factapi',				['as'=>'factapi',				'uses' =>'ApiController@factapi']);
+// 	Route::get('surveyapi',				['as'=>'surveyapi',				'uses' =>'ApiController@surveyapi']);
+// 	Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@ourinititives']);
+// 	Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
+// 	Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 
-Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
+// Route::get('config',				['as'=>'config',				'uses' =>'ApiController@index']);
 
 
 	

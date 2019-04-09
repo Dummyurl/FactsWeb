@@ -15,17 +15,29 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [ 
                     'name' => 'required',
                     'email' => 'required|email',
+<<<<<<< HEAD
+=======
+                    //'password' => 'required',  
+                    //'c_password' => 'required|same:password', 
+>>>>>>> 4627e38d1881a5f6cbe77f2ca8876f0d58e321db
           ]);   
         if ($validator->fails()) {          
              return response()->json(['error'=>$validator->errors()], 401);                        }    
         $input = $request->all();
         $request->request->add([
                 'password'=>'123456',
+<<<<<<< HEAD
                 'contact_no'=>"0123456",
+=======
+                'c_password'=>'123456',
+                'contact_no'=>$request->get('contact_no'),
+>>>>>>> 4627e38d1881a5f6cbe77f2ca8876f0d58e321db
                 'device'=>request()->ip(),
                 'visitor'=>request()->ip(),
+                'education'=>'bbs',
+                'address'=>'test',
             ]); 
-        $input['password'] = bcrypt($input['password']);
+        //$input['password'] = bcrypt($input['password']);
         //dd($request->request->all());
         $user = User::create($request->request->all()); 
         $success['token'] =  $user->createToken('AppName')->accessToken;

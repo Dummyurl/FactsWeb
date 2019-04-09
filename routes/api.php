@@ -41,3 +41,9 @@ Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@site
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@factapimob']);
 
 
+Route::post('registeruser', 'ApiController@register');
+Route::post('getregisteruser', 'ApiController@getUser');
+
+Route::get('pollresultapi',			    ['as'=>'pollresultapi',			    'uses' =>'ApiController@pollresult']);
+
+
