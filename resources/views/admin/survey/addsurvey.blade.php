@@ -317,7 +317,7 @@
         $(document).on('click','.submitCompany', function(){ 
             event.preventDefault();
             jQuery.noConflict();
-            var formdata = new FormData($('form#CategoryForm')[0])
+            var formdata = new FormData($('form#CategoryForm')[0]);
             var APP_URL = {!! json_encode(url('/')) !!};
             var urlpost = APP_URL+'/admin/survey/categorystore';
             var token =  $("input[name=_token]").val();
