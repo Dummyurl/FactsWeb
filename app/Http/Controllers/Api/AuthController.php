@@ -16,9 +16,6 @@ class AuthController extends Controller
                     'name' => 'required',
                     'email' => 'required|email',
 
-                    //'password' => 'required',  
-                    //'c_password' => 'required|same:password', 
-
           ]);   
         if ($validator->fails()) {          
              return response()->json(['error'=>$validator->errors()], 401);                        }    
@@ -27,7 +24,6 @@ class AuthController extends Controller
                 'password'=>'123456',
                 'contact_no'=>"0123456",
                 'c_password'=>'123456',
-                'contact_no'=>'9801234567',
                 'device'=>request()->ip(),
                 'visitor'=>request()->ip(),
                 'education'=>'bbs',
@@ -38,6 +34,7 @@ class AuthController extends Controller
         $user = User::create($request->request->all()); 
         $success['token'] =  $user->createToken('AppName')->accessToken;
         return response()->json(['success'=>$success], $this->successStatus); 
+        exit;
     }
     public function login(){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
