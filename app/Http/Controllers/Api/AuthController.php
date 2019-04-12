@@ -13,21 +13,22 @@ class AuthController extends Controller
     
     public function register(Request $request) {    
         $validator = Validator::make($request->all(), [ 
-                    'name' => 'required',
+                    //'name' => 'required',
                     'email' => 'required|email',
 
           ]);   
-        if ($validator->fails()) {          
+        if($validator->fails()) {         
              return response()->json(['error'=>$validator->errors()], 401);                        }    
         $input = $request->all();
         $request->request->add([
                 'password'=>'123456',
-                'contact_no'=>"0123456",
+                'name'=>'sdfgsd',
+                //'contact_no'=>"0123456",
                 'c_password'=>'123456',
-                'device'=>request()->ip(),
-                'visitor'=>request()->ip(),
-                'education'=>'bbs',
-                'address'=>'test',
+                // 'device'=>request()->ip(),
+                // 'visitor'=>request()->ip(),
+                // 'education'=>'bbs',
+                // 'address'=>'test',
             ]); 
         //$input['password'] = bcrypt($input['password']);
         //dd($request->request->all());
