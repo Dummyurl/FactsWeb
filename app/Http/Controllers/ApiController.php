@@ -14,6 +14,8 @@ use App\Models\Initiative;
 use App\Models\SiteProfile;
 use App\Models\SurveyCompany;
 use App\Models\RegisterUsers;
+use App\Models\SurveyForms;
+
 use Validator;
 
 use Illuminate\Support\Facades\DB;
@@ -126,7 +128,69 @@ class ApiController extends Controller
         $data['publicpoll'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->orderBy('id', 'DESC')->take(10)->get();  
         //dd($data['publicpoll']);
         $data['company'] =SurveyCompany::select('id','title','image','description','shortdesc')->get();
+        $data['surveyform'] =SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->get();
+        //dd($data['surveyform']);
         foreach ($data['publicpoll'] as $key => $value) {
+            $surveyapidata[] = array(
+                'id'=>$value->id,
+                'question'=>$value->question,
+                'public_date'=>$value->day_poll,
+                'survey_company_id'=>$value->survey_id,
+                'question_type'=>$value->question_type,
+                'active'=>$value->status,
+                //'forms'=>SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$value->id)->get(),
+            );
+        }
+
+        // foreach ($data['publicpoll'] as $key => $value) {
+        //     $surveyapidata[] = array(
+        //         'id'=>$value->id,
+        //         'question'=>$value->question,
+        //         'public_date'=>$value->day_poll,
+        //         'survey_id'=>$value->survey_id,
+        //         'question_type'=>$value->question_type,
+        //         'active'=>$value->status,
+        //         'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$value->id)->get(),
+        //     );
+        // }
+        $finalapi = array(
+                        "survey_company"=>$data['company'],
+                        "forms"=>$surveyapidata,
+                        );
+        print(json_encode($finalapi));
+
+    }
+    public function survey_form(Request $request,$id)
+    {
+        $data['surveyforms'] = Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->where('survey_id', $id)->get();
+        //SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$id)->get();
+        //Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->where('id',$id)->first();
+        //$data['publicpoll'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->orderBy('id', 'DESC')->take(10)->get(); 
+        //dd($data['row']);
+        // foreach ($data['surveyforms'] as $key => $value) {
+        //     $surveyapidata[] = array(
+        //         'id'=>$value->id,
+        //         'question'=>$value->question,
+        //         'public_date'=>$value->day_poll,
+        //         'survey_id'=>$value->survey_id,
+        //         'question_type'=>$value->question_type,
+        //         'active'=>$value->status,
+        //         'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$value->id)->get(),
+        //     );
+        // }
+        $finalapi = array(
+                        "survey_question"=>$data['surveyforms'],
+                        //"options"=>Surveyoption::select('id','question','question_id')->where('question_id',$id)->get(),
+                        );
+        print(json_encode($finalapi));
+    }
+    public function survey_quetion(Request $request,$id)
+    {
+        $data['surveyforms'] = SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$id)->get();
+        //Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->where('id',$id)->first();
+        //$data['publicpoll'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->orderBy('id', 'DESC')->take(10)->get(); 
+        //dd($data['row']);
+         foreach ($data['surveyforms'] as $key => $value) {
             $surveyapidata[] = array(
                 'id'=>$value->id,
                 'question'=>$value->question,
@@ -138,11 +202,10 @@ class ApiController extends Controller
             );
         }
         $finalapi = array(
-                        "survey_company"=>$data['company'],
-                        "surevy_fro"=>$surveyapidata,
+                        "survey_question"=>$data['surveyforms'],
+                        "options"=>Surveyoption::select('id','question','question_id')->where('question_id',$id)->get(),
                         );
         print(json_encode($finalapi));
-
     }
     public function ourinititives()
     {

@@ -236,7 +236,7 @@ class SurveyController extends Controller
     public function storesurvey(AddFromValidation $request)
     {
         $user = auth()->user();
-        Survey::insert(array( 
+        Survey::insert(array( //no of forms
             'question'=>"one",//$request->get('question'),
             'day_poll'=>$request->get('status'),
             'poll_date'=>$request->get('poll_date'),
@@ -313,7 +313,6 @@ class SurveyController extends Controller
                 }
             }
         }
-
         $request->session()->flash('success_message', 'Survey added Successfully.');
         return redirect()->route('admin.surveylist');
     }
