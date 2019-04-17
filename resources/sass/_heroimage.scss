@@ -1,6 +1,6 @@
 //hero image
 .hero-image {
-    // padding: rem(15);
+    padding: rem(15);
     background: #f5efef;
   }
 .heroleft__header{margin-top:$basevalue*5;
@@ -28,6 +28,26 @@ position: relative;
     .hero-image{padding-bottom:$basevalue*2}
 
 }
-
-
-
+// #first{animation: firstA 2s infinite;}
+// @keyframes firstA {
+//     from {fill-opacity:0.4;}
+//     to {fill-opacity: 1;}
+//   }
+//   #second{animation: firstA 2s infinite;
+//           animation-delay: 2s}
+//           #third{animation: firstA 2s infinite;
+//             animation-delay: 6s}
+ 
+.rel{position: relative;z-index: 13;max-width: 100%;}
+.backtriangle{    position: absolute;
+    z-index: 13;
+    top: -57px;
+    left: -33px;
+    width: 100px;}
+.searchp{    position: absolute;
+    top: 30px;
+    left: 50%;
+    max-width: 340px;
+    z-index: 200;
+    margin-left: -143px;}
+    .rtpanel{margin:70px 0;}

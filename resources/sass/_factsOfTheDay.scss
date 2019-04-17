@@ -1,17 +1,9 @@
-.likecount.liked{
-    background-color: #fde2e4;
-    i{
-        color:$primary;
-    }
-}
-
-
 .factsod {
     position: relative;
     background: #fff;
     padding: 35px 15px 15px 15px;
 
-    box-shadow: 0px 3px 15px rgba(214, 24, 24, 0.91);
+    box-shadow: 0px 3px 15px rgba(214, 24, 24, 0.16);
 
     &__header {
         background: $primary;
@@ -83,15 +75,6 @@
 .cholder {
     display: flex;
 }
-
-.likecount {
-    padding: 1px 7px;
-    border-radius: 8px;
-  }
-  
-  .likecount:hover {
-    cursor: pointer;
-  }
 
 @media screen and (max-width:768px) {
     .factsod {
