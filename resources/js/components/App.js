@@ -15,7 +15,12 @@
     import 'pace-js/themes/red/pace-theme-minimal.css'
     import '../../sass/style.scss';
     import AllFacts from './AllFacts/AllFacts';
-    import Contact from './Contact/Contact';
+    // import Contact from './Contact/Contact';
+
+    import About from './Sub_Component/About/About';
+    import Service from './Sub_Component/Service/Service';
+    import Works from './Sub_Component/Works/Works';
+    import Contact from './Sub_Component/Contact/Contact';
     // import '../../sass/_variables.scss';
 
     class App extends Component {
@@ -33,6 +38,9 @@
                   <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/allfacts" component={AllFacts} />
+                  <Route path="/about" component={About} />
+                  <Route path="/service" component={Service} />
+                  <Route path="/work" component={Works} />
                   <Route path="/contact" component={Contact} />
                 </Switch>
                 </Router>

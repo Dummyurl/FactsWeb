@@ -6,7 +6,7 @@
     import Services from './Services/Services'
     import Initiatives from './Initiatives/Initiatives'
     import HappyClients from './HappyClients/HappyClients'
-    import Footer from './Footer/Footer'
+    import Footer from './Footer/Footer';
     // import ScrollReveal from 'scrollreveal'
     // import Fade from 'react-reveal/Fade';
     import Fade from 'react-reveal/Fade';
