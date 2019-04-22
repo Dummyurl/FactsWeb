@@ -10,7 +10,8 @@
     .aboutTop__left h3.dark{color:rgba(0,0,0,0.7)}
 .about-tab> div{transition:  all 0.3s linear}
 .about-tab> div:hover{background:#fff;color:#333;cursor: pointer;}
-.aboutTop__right{background: url(../img/story.png);
+.aboutTop__right{
+    background: url('/img/story.png');
     background-size: cover;
     width: 40%;
     min-height: 100%;

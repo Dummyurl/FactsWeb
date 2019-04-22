@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import HeaderBar from '../../HeaderBar/HeaderBar'
+import Footer from '../../Footer/Footer'
 
 class Works extends Component {
     constructor(props) {
@@ -7,7 +9,11 @@ class Works extends Component {
     }
     render() { 
         return (
+            <div>
+            <HeaderBar />
             <h3>Work Page</h3> 
+            <Footer />
+            </div>
             );
     }
 }
