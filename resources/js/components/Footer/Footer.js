@@ -1,4 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import Fade from 'react-reveal/Fade';
+import Bounce from 'react-reveal/Bounce';
 
 class Footer extends Component{
     constructor(props){
@@ -25,6 +27,7 @@ class Footer extends Component{
         // const { s } = siteapidata[0].sitedata[0]
         return(
             <div>
+                 <Fade bottom duration={1000} delay={600} distance={"0px"} >
                 <footer>
                     <section className="footer-top">
                     {siteapidata.map((siteapi,i)=>
@@ -81,6 +84,7 @@ class Footer extends Component{
                     )}
                     </section>
                 </footer>
+                </Fade>
             </div>
 
 

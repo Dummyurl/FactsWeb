@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 import PollResult from '../PollResult/PollResult';
 import {FacebookShareCount } from 'react-share';
-
+import Fade from 'react-reveal/Fade';
+import Bounce from 'react-reveal/Bounce';
 
 
 class FactsPoll extends Component {
@@ -281,8 +282,10 @@ class FactsPoll extends Component {
          publicpoll.map((item, index) =>
             <div key={index}>              
             <div className="pp__wrp text-center">
+            <Fade bottom duration={1000} delay={500} distance={"40px"} >
                 <h5 className="mb-5">{item.question}</h5>
                 <PollResult data={this.state.pollresultapi}/>
+            </Fade>
             </div>
             </div>
             ));
@@ -343,16 +346,19 @@ class FactsPoll extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 relative">
-                        <div className="factsod">
-                            <div className="factsod__header">
-                            {/* <Link className="viewall no-decoration" to="/allfacts"><span>View All</span><i className=" la la-caret-right"></i></Link> */}
-                            Facts of the day
-                            
+                        <Fade bottom duration={1400} delay={1000} distance={"50px"}>
+                            <div className="factsod">
+                                <div className="factsod__header">
+                                {/* <Link className="viewall no-decoration" to="/allfacts"><span>View All</span><i className=" la la-caret-right"></i></Link> */}
+                                Facts Of The Day
+                                
+                                </div>
+                                {description}
                             </div>
-                            {description}
-                        </div>
+                        </Fade>   
                     </div>
                     <div className="col-md-4">
+                    <Fade bottom duration={1400} delay={1000} distance={"50px"} >
                     <div className="pp">
                         <div className="pp-header">
                         Public Poll
@@ -365,6 +371,7 @@ class FactsPoll extends Component {
                      {/* <div className="pp">
                     <PollResult />
                     </div> */}
+                    </Fade>
                     </div>
                 </div>
             </div>

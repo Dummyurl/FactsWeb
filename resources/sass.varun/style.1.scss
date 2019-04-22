@@ -1,0 +1,160 @@
+@import "./mixin/mixin";
+@import "./_variables";
+@import "./heroimage";
+@import "./initiatives";
+@import "./menu";
+@import "./footer";
+@import "./factsOfTheDay";
+@import "./services";
+@import "./testimonial";
+@import"./ticker";
+@import"./publicpoll";
+@import"./aboutus";
+@import "./leadership";
+@import "./abouttop";
+
+
+
+// fonts
+body {
+  font-family: 'Work Sans', sans-serif !important;
+  font-size: 14px;
+}
+
+// overwriting bootstrap
+
+.btn-primary {
+  background-color: $primary;
+  border-color: darken($primary, 5%);
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: darken($primary, 5%);
+    border-color: darken($primary, 7%);
+  }
+}
+
+.la {
+  font-size: rem(18)
+}
+
+.class {
+  font-size: rem(10);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.flex {
+  display: flex;
+}
+
+.ml-a {
+  margin-left: auto;
+}
+
+.section-padding {
+  padding: $section-padding;
+}
+
+.section-padding-x {
+  padding: 0 $section-padding;
+}
+
+.section-padding-y {
+  padding: $section-padding 0;
+}
+
+.img-wpr img {
+  width: 100%;
+  position: relative;
+}
+
+// general implementations
+.none {
+  display: none;
+}
+
+a {
+  color: $primary;
+}
+
+a:hover {
+  color: darken($primary, 8%)
+}
+
+a.no-decoration {
+  text-decoration: none;
+}
+
+.section //header
+
+header {
+  padding: rem(15);
+}
+
+.happy-clients {
+    background: url(../img/HappyClients.png);
+}
+
+.fact-poll {
+  background: #FFFBFB;
+}
+
+.overprimary {
+  opacity: 0.90;
+}
+
+.mt-2 {
+  margin-top: $basevalue*2;
+}
+
+.initiatives {
+  background: #fafafa;
+}
+.overlay{  position: absolute;
+  top:0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;}
+.darkoverlay{
+  background: linear-gradient(rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.66) 100%);
+
+  }
+  .light-overlay{
+    background: linear-gradient( rgba(90,24,35,0.5) 0%,rgba(180,40,70,0.69)  100%);
+  
+    }
+  
+
+
+  // helper class
+  .relative{position: relative;}
+  .absolute{position:absolute;}
+  .mt-2f{margin-top:rem(30)}
+  .primary-color{color:$primary}
+  .centered{display: flex; align-items: center;justify-content: center;}
+ 
+  .columnf{flex-direction: column}
+  .section-padding{padding:100px 0;}
+  .siventy-center{width:70%; margin:auto;}
+  header.flex {display: flex;
+  align-items: center;
+  padding: 0 30px;
+  background: #f5efef;
+height:80px;}
+.bggrey{background:#fafafa;}
+.inner-container{margin-bottom:rem(100)}
+
+
+
+
+//responsive
+
+@media screen and (max-width:768px){
+  .container-fluid.custom-container{max-width:100%}
+
+}

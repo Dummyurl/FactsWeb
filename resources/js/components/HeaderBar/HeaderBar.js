@@ -14,12 +14,11 @@ class HeaderBar extends Component {
                 <img src="img/factslogo.png" alt="Facts Nepal" />
                 </figure>
                 <nav className="menu flex ml-a">
-                <a href="homepage.html" className=" no-decoration menu__item menu__item--active">
-                    Homepage</a>
-                <a href="about.html" className=" no-decoration menu__item ">About</a>
-                <a href="services.html" className=" no-decoration menu__item">Services</a>
-                <a href="work.html" className="no-decoration menu__item ">Works</a>
-                <a href="contact.html" className="no-decoration menu__item"> Contact</a>
+                <Link to="/" className=" no-decoration menu__item menu__item--active">
+                    Homepage</Link>
+                <Link className="no-decoration menu__item" to="/about">About</Link>
+                <Link className="no-decoration menu__item" to="/service">Services</Link>
+                <Link className="no-decoration menu__item" to="/work">Works</Link>
                 <Link className="no-decoration menu__item" to="/contact">Contact</Link>
                 <div className="nav__hamburger none">
                     <i className="la la-bars"></i>
