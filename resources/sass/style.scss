@@ -1,6 +1,6 @@
-// @import '../../public/css/line-awesome.min.css';
 @import "./mixin/mixin";
 @import "./variables";
+
 @import "./heroimage";
 @import "./initiatives";
 @import "./menu";
@@ -10,33 +10,16 @@
 @import "./testimonial";
 @import"./ticker";
 @import"./publicpoll";
+@import"./aboutus";
+@import "./leadership";
+@import "./abouttop";
+@import"./servicespage";
+@import "./contactus";
 
 
-// .likecount.liked{
-//   background-color: #fde2e4,
-// }
-
-.col-md-8{
-  margin: 0 auto;
-}
-
-.allfacts{
-  margin: 50px auto;
-}
-@keyframes FadeAnim {
-  0% {
-     opacity: 0;
-  }
-  100% {
-     opacity: 1;
-  }
-  }
-
-
-  
 // fonts
 body {
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Work Sans', sans-serif !important;
   font-size: 14px;
 }
 
@@ -49,8 +32,10 @@ body {
   &:hover,
   &:active,
   &:focus {
-    background-color: darken($primary, 5%);
+    background-color: darken($primary, 8%)!important;
     border-color: darken($primary, 7%);
+    outline:none;
+    box-shadow: none!important;
   }
 }
 
@@ -115,7 +100,7 @@ header {
 }
 
 .happy-clients {
-  background: url('/img/assets/HappyClients.png');
+    background: url('/img/assets/HappyClients.png');
 }
 
 .fact-poll {
@@ -133,4 +118,52 @@ header {
 .initiatives {
   background: #fafafa;
 }
+.overlay{  position: absolute;
+  top:0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;}
+.darkoverlay{
+  background: linear-gradient(rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.66) 100%);
 
+  }
+  .light-overlay{
+    background: linear-gradient( rgba(90,24,35,0.5) 0%,rgba(180,40,70,0.69)  100%);
+  
+    }
+  
+
+
+  // helper class
+  .block{display:block}
+  .relative{position: relative;}
+  .absolute{position:absolute;}
+  .mt-2f{margin-top:rem(30)}
+  .primary-color{color:$primary}
+  .centered{display: flex; align-items: center;justify-content: center;}
+  .white{color:#fff;}
+ 
+  .columnf{flex-direction: column}
+  .section-padding{padding:100px 0;}
+  .siventy-center{width:70%; margin:auto;}
+  header.flex {display: flex;
+  align-items: center;
+  padding: 0 30px;
+  background: #f5efef;
+height:80px;}
+.bggrey{background:#fafafa;}
+.inner-container{margin-bottom:rem(100)}
+.overtext{opacity: 0.8;}
+.mt30{margin-top:rem(30)}
+
+
+
+
+//responsive
+
+@media screen and (max-width:768px){
+  .container-fluid.custom-container{max-width:100%}
+  .section-padding{padding:25px 0;}
+
+}

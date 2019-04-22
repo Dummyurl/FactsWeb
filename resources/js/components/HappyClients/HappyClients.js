@@ -1,4 +1,6 @@
 import React,{ Component } from 'react';
+import Fade from 'react-reveal/Fade';
+import Bounce from 'react-reveal/Bounce';
 
 class HappyClient extends Component {
     constructor(props){
@@ -26,6 +28,7 @@ class HappyClient extends Component {
                         <div className="row testomonial-wrapper">
                             <div className="col-lg-6 col-md-12">
                             <div className="testimonials">
+                            <Fade bottom duration={1000} delay={500} distance={"30px"} >
                                 <div className="testimonials__inner">
                                 <div className="testimonials__image img-wrp">
                                     <img src="img/assets/e2.jpg" alt="user" />
@@ -39,9 +42,11 @@ class HappyClient extends Component {
                                 </div>
 
                                 </div>
+                                </Fade>
                             </div>
                             </div>
                             <div className="col-lg-6 col-md-12">
+                            <Fade bottom duration={1000} delay={800} distance={"30px"} >
                             <div className="testimonials">
                                 <div className="testimonials__inner">
                                 <div className="testimonials__image img-wrp">
@@ -56,8 +61,10 @@ class HappyClient extends Component {
                                 </div>
                                 </div>
                             </div>
+                            </Fade>
                             </div>
                             <div className="col-lg-6 col-md-12">
+                            <Fade bottom duration={1000} delay={1000} distance={"30px"} >
                             <div className="testimonials">
                                 <div className="testimonials__inner">
                                 <div className="testimonials__image img-wrp">
@@ -72,8 +79,10 @@ class HappyClient extends Component {
                                 </div>
                                 </div>
                             </div>
+                            </Fade>
                             </div>
                             <div className="col-lg-6 col-md-12">
+                            <Fade bottom duration={1000} delay={1200} distance={"30px"} >
                             <div className="testimonials">
                                 <div className="testimonials__inner">
                                 <div className="testimonials__image img-wrp">
@@ -88,12 +97,14 @@ class HappyClient extends Component {
                                 </div>
                                 </div>
                             </div>
+                            </Fade>
                             </div>
                         </div>
                         </div>
                     </div>
                     </div>
                     <div className="container">
+                    <Fade bottom duration={1200} delay={700} distance={"50px"} >
                     <div className="other-testimonials flex ">
                         <div className="other-testimonials__item img-wrp">
                         <img src="img/assets/ekantipur.png" alt="" />
@@ -117,6 +128,7 @@ class HappyClient extends Component {
                         <img src="img/assets/cocacola.png" alt="" />
                         </div>
                     </div>
+                    </Fade>
                 </div>
              </section>
         )

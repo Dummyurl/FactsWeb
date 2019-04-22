@@ -1,5 +1,7 @@
 // import axios from 'axios'
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Fade from 'react-reveal/Fade';
+import Bounce from 'react-reveal/Bounce';
 // import './services.scss';
 class NewProject extends Component {
   constructor (props) {
@@ -29,6 +31,7 @@ class NewProject extends Component {
             <div className="col-md-9">
               <div className="row">
                 <div className="col-md-4">
+                <Fade bottom duration={1000} delay={400} distance={"50px"} >
                   <div className="service-item text-center section-padding-y">
                     <div className="service-item__iconholder imp-wpr ">
                       <img src="img/assets/report.png" alt=" reasearch" />
@@ -40,8 +43,10 @@ class NewProject extends Component {
                     <a className="service-item__link no-decoration text-white overprimary" href="#"> <span> Read More</span> <i
                         className="la la-arrow-right"></i> </a>
                   </div>
+                  </Fade>
                 </div>
                 <div className="col-md-4">
+                <Fade bottom duration={1000} delay={700} distance={"50px"} >
                   <div className="service-item text-center section-padding-y">
                     <div className="service-item__iconholder imp-wpr ">
                       <img src="img/assets/strategy.png" alt=" reasearch" />
@@ -53,8 +58,10 @@ class NewProject extends Component {
                     <a className="service-item__link no-decoration text-white overprimary" href="#"> <span> Read More</span> <i
                         className="la la-arrow-right"></i> </a>
                   </div>
+                  </Fade>
                 </div>
                 <div className="col-md-4">
+                <Fade bottom duration={1000} delay={700} distance={"50px"} >
                   <div className="service-item text-center section-padding-y">
                     <div className="service-item__iconholder imp-wpr ">
                       <img src="img/assets/report.png" alt=" reasearch" />
@@ -66,6 +73,7 @@ class NewProject extends Component {
                     <a className="service-item__link no-decoration text-white overprimary" href="#"> <span> Read More</span> <i
                         className="la la-arrow-right"></i> </a>
                   </div>
+                  </Fade>
                 </div>
               </div>
             </div>

@@ -1,4 +1,6 @@
 import React,{ Component } from 'react';
+import Fade from 'react-reveal/Fade';
+import Bounce from 'react-reveal/Bounce';
 
 class Initiatives extends Component {
     constructor(props){
@@ -21,8 +23,6 @@ class Initiatives extends Component {
         const { initiatives } = this.state
         return(
             <section className="section-padding-y initiatives">
-                
-                    
                 <div className="container">
                     <div className="row">
                         <div className="col-md-3">
@@ -39,6 +39,7 @@ class Initiatives extends Component {
                     {initiatives.map((item,i)=>
                         item.ourinititives.map((company, j) =>
                                 <div className=" col-md-6 col-lg-4">
+                                <Fade bottom duration={1000} delay={500} distance={"50px"} >
                                     <div className="ii">
                                         <h6 className="mb-3">
                                         {/* Contest */}
@@ -52,6 +53,7 @@ class Initiatives extends Component {
                                         </p>
                                         <a href="#" className="no-decoration"> <span>Read More</span> <span><i className="la la-arrow-right"></i></span></a>
                                     </div>
+                                    </Fade>
                                 </div>
                         ))}
                             </div> 
