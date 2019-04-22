@@ -12,12 +12,12 @@
 */
 
 Auth::routes();
-
+Auth::routes(['verify' => true]);
 Route::get('/{path?}', function () {
 	return view('app');
 	// Route::view('/{path?}', 'app');
 });
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 
@@ -115,7 +115,8 @@ Route::group(['prefix' => 'admin/', 'as' => 'admin.', 'middleware' => 'auth'], f
 });	
 
 
-
+Route::get('/',						['as'=>'home',			    'uses' =>'HomeController@index']);
+Route::get('home',					['as'=>'home',			    'uses'=>'Admin\DashboardController@index']);
 //git ignore vendor /.idea  .env public/storage
 // /node_modules
 // /public/storage

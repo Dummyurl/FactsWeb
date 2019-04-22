@@ -157,7 +157,7 @@ class ApiController extends Controller
                         "survey_company"=>$data['company'],
                         "forms"=>$surveyapidata,
                         );
-        print(json_encode($finalapi));
+        echo json_encode($finalapi);
 
     }
     public function survey_form(Request $request,$id)
@@ -172,19 +172,19 @@ class ApiController extends Controller
             $surveyapidata[] = array(
                 'id'=>$value->id,
                 'question'=>$value->question,
-                'public_date'=>$value->day_poll,
+               // 'public_date'=>$value->day_poll,
                 'survey_id'=>$value->survey_id,
-                'question_type'=>$value->question_type,
-                'active'=>$value->status,
+                'question_type'=>"radio",
+                //'active'=>$value->status,
                 'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$value->id)->get(),
             );
         }
         //dd($surveyapidata);
-        // $finalapi = array(
-        //                 //"survey_forms"=>$data['surveyforms'],
-        //                 "survey_question"=>$surveyapidata,
-        //                 );
-        print(json_encode($surveyapidata));
+        $finalapi = array(
+                        //"survey_forms"=>$data['surveyforms'],
+                        'survey_question'=>$surveyapidata,
+                        );
+        print(json_encode($finalapi));
     }
     public function survey_quetion(Request $request,$id)
     {
@@ -309,6 +309,14 @@ class ApiController extends Controller
     //     $user =RegisterUsers::select('email','name','photo_url','district','province','ward','latitude','longitude','birth_year','provider','gender','municipality','street','token')->get();
     //     return response()->json(['success' => $user], $this->successStatus); 
     // }
+//     public function testapi()
+//     {
+       
+//     }
+//      $message = array(
+//                         'success'=>"true",
+//                         'token'=>$success,
+//                         );
 }
  
    
