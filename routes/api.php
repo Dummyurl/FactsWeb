@@ -39,7 +39,7 @@ Route::get('inititivesapi',			['as'=>'inititivesapi',			'uses' =>'ApiController@
 Route::get('servicesapi',			['as'=>'servicesapi',			'uses' =>'ApiController@service']);
 Route::get('siteapi',			    ['as'=>'siteapi',			    'uses' =>'ApiController@siteapi']);
 Route::get('config',				['as'=>'config',				'uses' =>'ApiController@factapimob']);
-Route::get('surveyapi/form/{id} ',	['as'=>'surveyapi.form',				'uses' =>'ApiController@survey_form']);
+Route::get('surveyapi/form/{id}/{formid} ',	['as'=>'surveyapi.form',				'uses' =>'ApiController@survey_form']);
 Route::get('surveyapi/question/{id}',	['as'=>'surveyapi.question',				'uses' =>'ApiController@survey_quetion']);
 
 Route::post('registeruser', 'ApiController@register');

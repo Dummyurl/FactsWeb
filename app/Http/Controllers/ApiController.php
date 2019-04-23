@@ -160,14 +160,16 @@ class ApiController extends Controller
         echo json_encode($finalapi);
 
     }
-    public function survey_form(Request $request,$id)
+    public function survey_form(Request $request,$id, $formid)
     {
         //$data['surveyforms'] = Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->where('survey_id', $id)->get();
         //$data['qnlists'] = SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$qnid)->get();
         //dd($data['qnlists']);
-       $data['surveyforms'] = SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('id',$id)->get();
+
+        $data['surveyforms'] = SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$id)->where('id',$formid)->get();
         //$data['surveyforms'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->orderBy('id', 'DESC')->take(10)->get();  
-        ///dd($data['surveyforms']);
+        //dd($data['surveyforms']);
+
         foreach ($data['surveyforms'] as $key => $value) {
             $surveyapidata[] = array(
                 'id'=>$value->id,
