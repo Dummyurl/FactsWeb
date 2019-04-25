@@ -26,7 +26,7 @@ class Footer extends Component{
         const { siteapidata } = this.state
         // const { s } = siteapidata[0].sitedata[0]
         return(
-            <div>
+            <div ref={this.props.refs}>
                  <Fade bottom duration={1000} delay={600} distance={"0px"} >
                 <footer>
                     <section className="footer-top">

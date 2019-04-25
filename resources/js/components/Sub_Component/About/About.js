@@ -9,8 +9,90 @@ import Footer from '../../Footer/Footer'
 class About extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            active_classname : "",
+            active: false,
+            about_status: true,
+            mission_status: false,
+            board_status: false,
+            contact_status: false
+         }
+
+
+        this.about = React.createRef();
+        this.mission = React.createRef();
+        this.board = React.createRef();
+        this.contact = React.createRef();
     }
+
+    toggleClass=() => {
+        // const currentState = this.state.active;
+        // this.setState({ active: !currentState });
+
+        this.setState(prevState => ({
+            about_status: !prevState.about_status,
+            mission_status: false
+          }));
+        this.scroll(this.about)
+    };
+    toggleBoard=() => {
+        // const currentState = this.state.active;
+        // this.setState({ active: !currentState });
+
+        this.setState(prevState => ({
+            mission_status: false,
+            about_status: false,
+            contact_status: false,
+            board_status: !prevState.board_status
+          }));
+          this.scroll(this.board)
+
+    };
+
+    toggleMission=() => {
+        // const currentState = this.state.active;
+        // this.setState({ active: !currentState });
+
+        this.setState(prevState => ({
+            mission_status: !prevState.mission_status,
+            about_status: false,
+            contact_status: false,
+            board_status:false
+          }));
+        this.scroll(this.mission)
+    };
+    
+    toggleContact=() => {
+        // const currentState = this.state.active;
+        // this.setState({ active: !currentState });
+
+        this.setState(prevState => ({
+            mission_status: false,
+            about_status: false,
+            board_status: false,
+            contact_status: !prevState.contact_status
+          }));
+        this.scroll(this.contact)
+    };
+
+    onClickClassName=(e) =>{
+        const _classname= e.target.className;
+        console.log(_classname);
+        if(e.target.classList.contains('active')){
+            // this.setState({ active_classname: ""  });
+            e.target.className == ''
+        }
+        else{
+            // this.setState({ active_classname: "active"  });
+            e.target.className == 'active'
+        }
+    }
+    
+
+    scroll=(ref) => {
+        ref.current.scrollIntoView({ behavior: 'smooth' })
+    }
+
     render() { 
         return (
             <div>
@@ -19,11 +101,12 @@ class About extends Component {
             <section className="aboutTop ">
                 <div className="">
                     <div className="aboutTop__wrapper">
+                    
                         <div className="aboutTop__left d-flex justify-content-center flex-column">
+                        <Fade bottom duration={1000} distance={"100px"}>
                             <h3>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et</h3>
-                            <h3 className="dark">Lorem ipsum dolor sit amet,
-consetetur </h3>
-
+                            <h3 className="dark">Lorem ipsum dolor sit amet,consetetur </h3>
+                        </Fade>
                         </div>
                         <div className="aboutTop__right">
 
@@ -31,17 +114,49 @@ consetetur </h3>
 
 
                     </div>
-                    <div className="row no-gutters about-tab">
-                        <div className="col-md-3 text-center active centered"> About Us </div>
-                        <div className="col-md-3 text-center centered"> Our Mission </div>
-                        <div className="col-md-3 text-center centered"> Our Board  </div>
-                        <div className="col-md-3 text-center centered"> Contact Us</div>
+                    <div className="row no-gutters about-tab" ref={this.first}>
+                    
+                        {/* <div className={"col-md-3 text-center centered "+ this.state.active_classname} onClick={this.onClickClassName} >
+                            <div onClick={e => this.scroll(this.about)}>
+                                <Fade left duration={1200} distance={"180px"} > 
+                                About Us 
+                                </Fade>
+                            </div>
+                        </div> */}
+                        <div className="col-md-3 text-center active centered " style={this.state.about_status ? {background: "#fff",color: "#333"} : {background: "#b43046",color: "#fcf8f9"} }
+                onClick={this.toggleClass}  >
+                            {/* <div onClick={e => this.scroll(this.about)}> */}
+                                <Fade left duration={1200} distance={"180px"} > 
+                                About Us 
+                                </Fade>
+                            {/* </div> */}
+                        </div>
+
+                        {/* <div className={"col-md-3 text-center centered "+ this.state.active_classname} onClick={this.onClickClassName}>
+                            <div onClick={e => this.scroll(this.board)}><Fade left duration={1200} distance={"180px"}> Our Board  </Fade>
+                            </div>
+                        </div> */}
+                        <div className="col-md-3 text-center centered" style={this.state.board_status ? {background: "#fff",color: "#333"} : {background: "#b43046",color: "#fcf8f9"} }
+                onClick={this.toggleBoard} >
+                            <div onClick={e => this.scroll(this.board)}><Fade left duration={1200} distance={"180px"}> Our Board  </Fade>
+                            </div>
+                        </div>
+
+                        <div className="col-md-3 text-center centered" style={this.state.mission_status ? {background: "#fff",color: "#333"} : {background: "#b43046",color: "#fcf8f9"} }
+                onClick={this.toggleMission}>
+                        <Fade left duration={1200} distance={"180px"}> Our Mission </Fade>
+                        </div>
+                        
+                        <div className="col-md-3 text-center centered" style={this.state.contact_status ? {background: "#fff",color: "#333"} : {background: "#b43046",color: "#fcf8f9"} }
+                onClick={this.toggleContact}>
+                        <Fade left duration={1200} distance={"180px"}> Contact </Fade>
+                        </div>
 
                     </div>
                 </div>
             </section>
 
-            <section className="aboutus section-padding bggrey">
+            <section className="aboutus section-padding bggrey" ref={this.about}>
                 <div className="container-fluid custom-container">
                     <div className="inner-contanier">
                         <h3 className="text-center">About Us</h3>
@@ -112,7 +227,7 @@ consetetur </h3>
                     </div>
                 </div>
             </section>
-            <section className="leadership  section-padding">
+            <section className="leadership  section-padding" ref={this.board}> 
                 <div className="container-fluid custom-container">
                     <div className="inner-contanier">
                         <div className="inner-contanier">
@@ -165,7 +280,7 @@ consetetur </h3>
 
 
             </section>
-            <section className="mission  section-padding bggrey">
+            <section className="mission  section-padding bggrey" ref={this.mission}>
                 <div className="container-fluid custom-container">
                     <div className="inner-container">
                         <h3 className="text-center primary-color">Our Mission</h3>
@@ -218,7 +333,7 @@ consetetur </h3>
             </section>
 
         </div>);
-            <Footer />
+            <Footer refs={this.contact} />
             </div>
             );
     }
