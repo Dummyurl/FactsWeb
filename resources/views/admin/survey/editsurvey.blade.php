@@ -63,6 +63,10 @@
                             <label class="control-label">Public Date</label>
                             <input name="poll_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->poll_date)?$data['row']->poll_date:'' }}">
                         </div>
+                        <div class="col-md-12">
+                            <label>Survey About</label>
+                            <textarea name="survey_about" class="form-control" rows="4" placeholder="Enter Survey About">{{ !empty($data['row']->survey_about)?$data['row']['survey_about']:'' }}</textarea>
+                        </div>
                         <div class="col-md-3">
                             <label class="control-label">Do You Want To Publish This Poll Today ?</label>
                             <div class="mt-checkbox-inline mt-radio-list" data-error-container="#form_2_membership_error">

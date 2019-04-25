@@ -70,8 +70,17 @@
                             <label class="control-label">Publish Date</label>
                             <input name="poll_date" data-provide="datepicker" class="form-control date-picker" type="text" value="{{ !empty($data['row']->poll_date)?$data['row']->poll_date:'' }}" placeholder="Enter Publish Date">
                         </div>
+                        <div class="col-md-9">
+                            <label>Survey About</label>
+                            <textarea name="survey_about" class="form-control" rows="4" placeholder="Enter Survey About"></textarea>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Survey Amount</label>
+                            <input name="amount"  class="form-control" type="text" value="{{ !empty($data['row']->amount)?$data['row']->amount:'' }}" placeholder="If Fee Enter Zero">
+                        </div>
                     </div>
-                    <style type="text/css">body {
+                    <style type="text/css">
+                      body {
                           color: #6a6c6f;
                           background-color: #f1f3f6;
                           margin-top: 30px;
@@ -158,7 +167,7 @@
                           content: "Collapse All";
                         }
                     </style>
-                    <div class="container">
+                   <!--  <div class="container">
                       <div class="accordion-option">
                         <h3 class="title">Lorem Ipsum</h3>
                         <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
@@ -214,7 +223,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <div class="col-md-3">
 	                        <label class="control-label">Question 
@@ -245,10 +254,6 @@
                         <div class="col-md-1">
                             <br>
                             <a href="javascript:void(0)" class="btn btn-info" id="AddMoreQuestion">+</a>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="control-label">Survey Amount</label>
-                            <input name="amount"  class="form-control" type="text" value="{{ !empty($data['row']->amount)?$data['row']->amount:'' }}" placeholder="If Fee Enter Zero">
                         </div>
                     </div>
                     <div class="addOptionRow"></div>

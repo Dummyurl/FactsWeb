@@ -63,6 +63,7 @@ class SurveyController extends Controller
             'day_poll'=>$request->get('status'),
             'poll_date'=>$request->get('poll_date'),
             'question_type'=>$request->get('question_type'),
+            'survey_about'=>$request->get('survey_about'),
             'status'=>$request->get('status'),
             'amount'=>$request->get('amount'),
             'createdby'=>$user->id,
@@ -232,9 +233,8 @@ class SurveyController extends Controller
             exit;
         }
     }
-
     public function storesurvey(AddFromValidation $request)
-    {
+    {   //dd($request->all());
         $user = auth()->user();
         Survey::insert(array( //no of forms
             'question'=>"one",//$request->get('question'),
@@ -243,6 +243,7 @@ class SurveyController extends Controller
             'question_type'=>"zero",//$request->get('question_type'),
             'status'=>$request->get('status'),
             'createdby'=>$user->id,
+            'survey_about'=>$request->get('survey_about'),
             'amount'=>$request->get('amount'),
             'survey_id'=>$request->get('survey_id'),
             'srvey_start_date'=>$request->get('srvey_start_date'),
@@ -263,15 +264,22 @@ class SurveyController extends Controller
                         "question_id"=>$request->get('survey_id'),
                         "survey_id"=>$insertedid,
                         "question_type"=>$request->get('$kdk+1.'.'question_type'),
-                     //'question' =>
-                    //dd($d);
                     ));
                 $questionid = DB::getPdo()->lastInsertId();
-                $questiontype =  $request->get('question_type');
+                if($kdk+1 == '1') {
+                    $questiontype =  $request->get('question_type');
+                }else{
+                    $questiontype =  $request->get('$kdk+1.'.'question_type');
+                }
                 if($questiontype == "checkbox")
                 {
-                    $check = $request->request->get('checkboxoption');
-                    //dd($request->all());
+                    if($kdk+1 === '1') {
+                        $check = $request->request->get('checkboxoption');
+                    }else{
+                        $check = $request->request->get('a'.'$kdk+1.'.'checkboxoption');
+                        //$questiontype =  $request->get('$kdk+1.'.'question_type');
+                    }
+
                     foreach ($check as $key => $chk) {
                         Surveyoption::Create(
                             array(
@@ -279,17 +287,40 @@ class SurveyController extends Controller
                                     'question' => $input['checkboxoption'][$key],
                             ));
                     }
-               }
-               if($questiontype == "radio")
-               {
-                    $checkbox = $request->request->get('rdiooprtion');
-                    foreach ($checkbox as $kr => $rdo) {
-                        Surveyoption::Create(
-                            array(
-                                    'question_id' => $questionid ,
-                                    'question' => $input['rdiooprtion'][$kr],
-                            ));
+                }
+                if($questiontype[$kdk] == "radio")
+                {   
+                    //dd($request->get("a'.$n.'rdiooprtion"));
+                    //dd($request->get('a1rdiooprtion'));
+                    $n = $kdk+1;
+                    $ch = "a".$n."rdiooprtion";
+                    if($kdk+1 === '1') {
+                        $checkbox = $request->get('rdiooprtion');
+                        //var_dump("test");
+                        //dd($checkbox);
+                    }else{
+                        $checkbox = $request->get($ch);
+                        //var_dump("test");
+                        //dd($checkbox);
+                        //$questiontype =  $request->get('$kdk+1.'.'question_type');
                     }
+                    //dd($checkbox);
+                    if($checkbox):
+                        foreach ($checkbox as $kr => $rdo) {
+                            // $d[] =
+                            //     array(
+                            //             'question_id' => $questionid ,
+                            //             'question' => $input[$ch][$kr],
+                            //     ); 
+                            //     dd($d); 
+                            Surveyoption::Create(
+                                array(
+                                        'question_id' => $questionid ,
+                                        'question' => $input[$ch][$kr],
+                                ));                    
+                        }
+                    endif;
+                //dd($checkbox);  
                }
                if($questiontype == "dropdown")
                {
