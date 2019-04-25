@@ -166,21 +166,32 @@ class ApiController extends Controller
         //$data['qnlists'] = SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$qnid)->get();
         //dd($data['qnlists']);
 
-        $data['surveyforms'] = SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$id)->where('id',$formid)->get();
-        //$data['surveyforms'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->orderBy('id', 'DESC')->take(10)->get();  
-        //dd($data['surveyforms']);
+        //$data['surveyforms'] = SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('survey_id',$id)->where('id',$formid)->get();
 
+        // $data['surveyforms'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')
+        // ->leftjoin('surveyforms as sf', 'sf.id', '=','survey.Province')
+        // ->where('survey_id',$id)->orderBy('id', 'DESC')->take(10)->get();  
+
+
+        $data['surveyforms'] = SurveyForms::select('survey_forms.id','survey_forms.question_id','survey_forms.survey_id','survey_forms.question_type','survey_forms.question','survey_forms.status','survey_forms.createdby','sv.id as formid','sv.question as qn','sv.day_poll','sv.poll_date','sv.question_type','sv.status','sv.createdby','sv.visitor','sv.device','sv.survey_id')
+        ->leftjoin('survey as sv', 'sv.id', '=','survey_forms.survey_id')
+        ->where('survey_forms.question_id',$formid)->where('survey_forms.survey_id',$id)->get();
+        //dd(\DB::getQueryLog()); 
+        
+        //dd($data['qnlists']);
+        //$data['surveyforms'] =Survey::select('id','question','day_poll','poll_date','question_type','status','createdby','visitor','device','survey_id')->where('survey_id',$id)->orderBy('id', 'DESC')->take(10)->get();  
         foreach ($data['surveyforms'] as $key => $value) {
             $surveyapidata[] = array(
                 'id'=>$value->id,
                 'question'=>$value->question,
-               // 'public_date'=>$value->day_poll,
+                'survey_about'=>$value->survey_about,
                 'survey_id'=>$value->survey_id,
                 'question_type'=>"radio",
-                //'active'=>$value->status,
-                'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$value->id)->get(),
+                //'forms'=>SurveyForms::select('id','question_id','survey_id','question_type','question','status','createdby')->where('question_id',$formid)->get(),
+                'options'=>Surveyoption::select('id','question','question_id')->where('question_id',$formid)->get(),
             );
         }
+
         //dd($surveyapidata);
         $finalapi = array(
                         //"survey_forms"=>$data['surveyforms'],
