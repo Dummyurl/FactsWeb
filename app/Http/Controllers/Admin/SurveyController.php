@@ -53,7 +53,7 @@ class SurveyController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
+    {   dd($reques->request->all());
     	$data= [];
     	$data['row'] = Survey::where('id',$id)->first();
         //dd($data['row']);
@@ -255,7 +255,7 @@ class SurveyController extends Controller
         {
             $question =  $request->get('question');
             $input = $request->all();
-            //dd($question);
+            //dd($request->request->all());
             foreach ($question as $kdk => $q) {
                 SurveyForms::Create( array(
                         "question"=>$input['question'][$kdk],
@@ -269,8 +269,13 @@ class SurveyController extends Controller
                 if($kdk+1 == '1') {
                     $questiontype =  $request->get('question_type');
                 }else{
-                    $questiontype =  $request->get('$kdk+1.'.'question_type');
+                    $n = $kdk;
+                    $newqn = $n."question_type";
+                    //dd($newqn);
+                    $questiontype =  $request->get($newqn);
+                    //dd($questiontype);
                 }
+                //dd($questiontype);
                 if($questiontype == "checkbox")
                 {
                     if($kdk+1 === '1') {
@@ -288,37 +293,41 @@ class SurveyController extends Controller
                             ));
                     }
                 }
-                if($questiontype[$kdk] == "radio")
+                if($questiontype == "radio")
                 {   
                     //dd($request->get("a'.$n.'rdiooprtion"));
                     //dd($request->get('a1rdiooprtion'));
-                    $n = $kdk+1;
-                    $ch = "a".$n."rdiooprtion";
-                    if($kdk+1 === '1') {
+                    if($kdk+1 == '1') {
                         $checkbox = $request->get('rdiooprtion');
-                        //var_dump("test");
-                        //dd($checkbox);
+                        //echo "first";dd($checkbox);
                     }else{
+                        //dd($ch);
+                        $n = $kdk;
+                        $ch = "a".$n."rdiooprtion";
                         $checkbox = $request->get($ch);
-                        //var_dump("test");
-                        //dd($checkbox);
-                        //$questiontype =  $request->get('$kdk+1.'.'question_type');
+                        //dd($ch);
                     }
                     //dd($checkbox);
+                    if($kdk+1 == '1') {
+                        $chm = "rdiooprtion";
+                    }else{
+                        $m = $kdk;
+                        $chm = "a".$m."rdiooprtion";
+                    }
                     if($checkbox):
                         foreach ($checkbox as $kr => $rdo) {
                             // $d[] =
                             //     array(
                             //             'question_id' => $questionid ,
-                            //             'question' => $input[$ch][$kr],
+                            //             'question' => $input[$chm][$kr],
                             //     ); 
-                            //     dd($d); 
                             Surveyoption::Create(
                                 array(
                                         'question_id' => $questionid ,
-                                        'question' => $input[$ch][$kr],
+                                        'question' => $input[$chm][$kr],
                                 ));                    
                         }
+                        //dd($d); 
                     endif;
                 //dd($checkbox);  
                }

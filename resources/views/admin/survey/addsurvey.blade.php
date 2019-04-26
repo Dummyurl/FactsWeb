@@ -238,7 +238,7 @@
                         </div>
                         <div class="col-sm-3">
                             <label>Question Type</label>
-                            <select class="form-control optionType" data-mid="1" id="optionType" data-curid="a" name="question_type[]" >
+                            <select class="form-control optionType optionShowClassa1" data-mid="1" id="optionType1" data-curid="a" name="question_type" >
                               <option selected="selected" value="">---Select Question Type---</option>
                                 <option value="checkbox">Checkbox</option>
                                 <option value="radio">Radio</option>
@@ -393,8 +393,9 @@
             $(".addMoreQuestionWithOption").on('click','.btnminus',function(){
                 $(this).closest('.form-group').remove();
             });
-            var count = $('.addMoreQuestionWithOption .btnminus').length+1;
-            $('.addMoreQuestionWithOption').append('<div class="form-group newClass'+count+'" id="dropDownNew" ><div class="col-md-3"> <label class="control-label">Question <span class="required" aria-required="true"> * </span> </label> <input type="text" name="question[]" data-required="1" class="form-control" placeholder="Enter Question" value="{{!empty($data['row']->question)?$data['row']['question']:''}}"> @if($errors->has('question')) <span class="help-block "> <strong class="error">{{$errors->first('question')}}</strong> </span> @endif</div><div class="col-sm-3"> <label>Question Type</label> <select class="form-control optionType optionShowClassa'+count+'" data-mid="'+count+'" data-curid="a'+count+'" id="optionType'+count+'" name="'+count+'question_type[]" > <option selected="selected" value="">---Select Question Type---</option> <option value="checkbox">Checkbox</option> <option value="radio">Radio</option> <option value="star_rating">Star Rating</option> <option value="dropdown">Dropdown</option> </select> @if($errors->has('question_type')) <span class="help-block error"> <strong>{{$errors->first('question_type')}}</strong> </span> @endif</div><div class="col-md-1"> <br><a href="javascript:void(0)" class="btn btn-danger btnminus">x</a></div></div><div class="addMoreQuestionWithOption'+count+'"></div>');
+            var count = $('.addMoreQuestionWithOption .btnminus').length+2;
+            //console.log(count);
+            $('.addMoreQuestionWithOption').append('<div class="form-group newClass'+count+'" id="dropDownNew" ><div class="col-md-3"> <label class="control-label">Question <span class="required" aria-required="true"> * </span> </label> <input type="text" name="question[]" data-required="1" class="form-control" placeholder="Enter Question" value="{{!empty($data['row']->question)?$data['row']['question']:''}}"> @if($errors->has('question')) <span class="help-block "> <strong class="error">{{$errors->first('question')}}</strong> </span> @endif</div><div class="col-sm-3"> <label>Question Type</label> <select class="form-control optionType optionShowClassa'+count+'" data-mid="'+count+'" data-curid="a'+count+'" id="optionType'+count+'" name="'+count+'question_type" > <option selected="selected" value="">---Select Question Type---</option> <option value="checkbox">Checkbox</option> <option value="radio">Radio</option> <option value="star_rating">Star Rating</option> <option value="dropdown">Dropdown</option> </select> @if($errors->has('question_type')) <span class="help-block error"> <strong>{{$errors->first('question_type')}}</strong> </span> @endif</div><div class="col-md-1"> <br><a href="javascript:void(0)" class="btn btn-danger btnminus">x</a></div></div><div class="addMoreQuestionWithOption'+count+'"></div>');
         });
         $(document).on('change','.optionType',function(){
             var id = $(this).data('curid');
@@ -402,7 +403,7 @@
             var type = $('#optionType'+newaddedid).val();
             var option = $('#optionType'+id).val();
             var $wrapper = $('#radioOptionNew', this);
-            //console.log(newaddedid);
+            //console.log(type);
             // $( ".optionShowClass"+id ).after(  '<div class="form-group" id="radioOptionNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-2"> <br><button class="btn btn-info addOptionsMoreNew" data-nid="'+id+'" id="addOptionsMoreNew" type="button">+</button> <label class="control-label"></label> </div></div>' );
             
             // $(".addOptionsMoreNew").on('click',function(){
@@ -418,15 +419,14 @@
             { 
                 $('#radioOptionNew').show();
                 $( ".optionShowClass"+id ).after(  '<div class="form-group" id="radioOptionNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-2"> <br><button class="btn btn-info addOptionsMoreNew" data-nid="'+id+'" id="addOptionsMoreNew" type="button">+</button> <label class="control-label"></label> </div></div>' );
-                
                 $(".addOptionsMoreNew").on('click',function(){
                     var countn = $(".optionShowClassa"+id).length+1;
                     var neid = $(this).data('nid');
                     $(".optionShowClass").on('click','.btnminus',function(){
                         $(this).closest('.form-group').remove();
                     });
-                    console.log(neid);
-                    $( ".optionShowClass"+neid ).after(  '<div class="form-group" id="radioOptionNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-2"> <br><button class="btn btn-danger btnminus addOptionsMoreNew" id="addOptionsMoreNew" type="button">x</button> <label class="control-label"></label> </div></div>' );
+                    //console.log(neid);
+                    $( ".optionShowClass"+neid ).after( '<div class="form-group" id="radioOptionNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'rdiooprtion[]" class="form-control" placeholder="Enter Please Enter Otption "> </div><div class="col-md-2"> <br><button class="btn btn-danger btnminus addOptionsMoreNew" id="addOptionsMoreNew" type="button">x</button> <label class="control-label"></label> </div></div>' );
                 });
                 $('.typeCheckSurvey').attr('id', type);
                
@@ -435,8 +435,18 @@
             }
             if(type == 'checkbox')
             {
-                $('.typeCheckSurvey').attr('id', type);
                 $('#checkOptionsNew').show();
+                $( ".optionShowClass"+id ).after('<div class="form-group" id="checkOptionsNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'checkboxoption[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-2"> <br><button class="btn btn-info addCheckOptionMoreNew" id="addCheckOptionMoreNew" type="button" data-nid="'+id+'">+</button> <label class="control-label"></label> </div></div>');
+                $(".addCheckOptionMoreNew").on('click',function(){
+                    var countn = $(".optionShowClassa"+id).length+1;
+                    var neid = $(this).data('nid');
+                    $(".optionShowClass").on('click','.btnminus',function(){
+                        $(this).closest('.form-group').remove();
+                    });
+                    console.log(neid);
+                    $( ".optionShowClass"+neid ).after('<div class="form-group" id="checkOptionsNew"> <div class="col-md-10"> <label class="control-label">Please Enter Otption <span class="required" aria-required="true"> * </span> </label> <input type="text" name="'+id+'checkboxoption[]" class="form-control" placeholder="Enter Please Enter Otption"> </div><div class="col-md-2"> <br><button class="btn btn-danger btnminus addCheckOptionMoreNew" id="addCheckOption" type="button">x</button> <label class="control-label"></label> </div></div>' );
+                });
+                $('.typeCheckSurvey').attr('id', type);
             }else{
                 $('#checkOptionsNew').hide();
             }
@@ -531,19 +541,6 @@
                 }
             });
         });
-
-        // $('.multi-field-wrapper').each(function() {
-        //     var $wrapper = $('.multi-fields', this);
-        //     $(".add-field", $(this)).click(function (e) {
-        //         var a =  $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('select').val('').focus();
-        //         //a.attr('id','abcd');
-
-        //     });
-        //     $('.multi-field .remove-field', $wrapper).click(function () {
-        //         if ($('.multi-field', $wrapper).length > 1)
-        //             $(this).parent('.multi-field').remove();
-        //     });
-        // });
     </script>
 
     <script type="text/javascript">
